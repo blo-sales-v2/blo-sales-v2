@@ -5,6 +5,7 @@ import com.blo.sales.v2.utils.BloSalesV2Utils;
 import static com.blo.sales.v2.utils.BloSalesV2Utils.validateRule;
 import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -12,9 +13,11 @@ import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.function.Consumer;
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -24,6 +27,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -117,15 +121,17 @@ public final class GUICommons {
 
     }
     
-    public static <T> void addKeyEventOnTable(JTable table, int keyReleased, Consumer<T> action) {
-        table.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == keyReleased) {
-                    actionHandler(table, action);
-                }
-            }
-        });
+    public static <T> void addKeyEventOnTable(JTable table, int keyCode, Consumer<T> action) {
+        table.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+         .put(KeyStroke.getKeyStroke(keyCode, 0), action);
+        
+        table.getActionMap().put(action, new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Aquí la fila seleccionada SIGUE siendo la correcta
+            actionHandler(table, action);
+        }
+    });
     }
     
     /**

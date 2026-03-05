@@ -80,6 +80,8 @@ public final class BloSalesV2Utils {
     
     public static final String ERROR_IN_DIGITS = "No se pueden emplear m\u00e1s de 3 digitos en decimales";
     
+    public static final String PRODUCT_IS_BY_KG = "No se puede agregar porque el producto es por kg";
+    
     public static final long DEBTORS_PAYMENTS = 1;
     
     /** codigos de error */

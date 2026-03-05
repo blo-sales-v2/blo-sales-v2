@@ -74,10 +74,16 @@ public class Sales extends javax.swing.JPanel {
                 final var indexSelected = tblProductsSales.getSelectedRow();
                 if (indexSelected != -1) {
                     final var filaModelo = tblProductsSales.convertRowIndexToModel(indexSelected);
-                    final var price = model.getValueAt(filaModelo, 4).toString();
-                    totalSale = totalSale.subtract(new BigDecimal(price));
-                    model.removeRow(indexSelected);
-                    GUICommons.setTextToField(lblTotal, "Total: $" + totalSale);
+                    var quantityOnSale = new BigDecimal(model.getValueAt(filaModelo, 2).toString());
+                    quantityOnSale = quantityOnSale.subtract(BigDecimal.ONE);
+                    final var price = new BigDecimal(model.getValueAt(filaModelo, 4).toString());
+                    totalSale = totalSale.subtract(price);
+                    if (quantityOnSale.compareTo(BigDecimal.ZERO) == 0) {
+                        model.removeRow(indexSelected);
+                    } else {
+                        model.setValueAt(quantityOnSale, filaModelo, 2);
+                    }
+                    GUICommons.setTextToField(lblTotal, String.format("Total: %s$", totalSale));
                     if (totalSale.compareTo(BigDecimal.ZERO) == 0) {
                         disableButtons();
                     }
@@ -91,23 +97,35 @@ public class Sales extends javax.swing.JPanel {
                     final var idProduct = Long.parseLong(model.getValueAt(filaModelo, 0).toString());
                     final var productFound = products.stream().filter(p -> p.getIdProduct() == idProduct).findFirst().orElse(null);
                     try {
-                        BloSalesV2Utils.validateRule(productFound == null, "000", "producto no encontrado");
+                        BloSalesV2Utils.validateRule(
+                                productFound == null,
+                                BloSalesV2Utils.CODE_PRODUCT_NOT_FOUND,
+                                BloSalesV2Utils.PRODUCT_NOT_FOUND
+                        );
                         // se valida que no sea por kg
-                        if (!productFound.isKg()) {
-                            // se reduce el total seleccioado
-                            totalSale = totalSale.subtract(productFound.getPrice());
-                            var quantitySale = new BigDecimal(model.getValueAt(filaModelo, 2).toString());
-                            // se suma uno a la actual cantidad
-                            quantitySale = quantitySale.add(BigDecimal.ONE);
-                            // se actualizan precios
-                            var newTotal = productFound.getPrice().multiply(quantitySale);
-                            totalSale = totalSale.add(newTotal);
-                            GUICommons.setTextToField(lblTotal, String.format("Total: %s$", totalSale));
-                            
-                            model.setValueAt(quantitySale, filaModelo, 2);
+                        if (productFound.isKg()) {
+                            CommonAlerts.showMessageDialog(BloSalesV2Utils.PRODUCT_IS_BY_KG);
+                            return;
                         }
+                        // validar que existan productos suficientes
+                        var quantitySale = new BigDecimal(model.getValueAt(filaModelo, 2).toString());
+                        // se suma uno a la actual cantidad de producto
+                        quantitySale = quantitySale.add(BigDecimal.ONE);
+                        BloSalesV2Utils.validateRule(
+                                quantitySale.compareTo(productFound.getQuantity()) > 0,
+                                BloSalesV2Utils.CODE_PRODUCT_INSUFFICIENT,
+                                BloSalesV2Utils.PRODUCT_INSUFFICIENT
+                        );
+                        totalSale = totalSale.add(productFound.getPrice());
+                        GUICommons.setTextToField(lblTotal, String.format("Total: %s$", totalSale));
+                        // cantidad comprada col
+                        model.setValueAt(quantitySale, filaModelo, 2);
+                        //total
+                        final var totalProduct = productFound.getPrice().multiply(quantitySale);
+                        model.setValueAt(totalProduct, filaModelo, 4);
                     } catch (BloSalesV2Exception ex) {
-                        Logger.getLogger(Sales.class.getName()).log(Level.SEVERE, null, ex);
+                        logger.error(ex.getMessage());
+                        CommonAlerts.openError(ex.getMessage());
                     }
                 }
             });
