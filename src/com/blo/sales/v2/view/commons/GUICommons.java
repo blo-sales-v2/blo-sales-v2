@@ -5,6 +5,7 @@ import com.blo.sales.v2.utils.BloSalesV2Utils;
 import static com.blo.sales.v2.utils.BloSalesV2Utils.validateRule;
 import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -101,18 +102,30 @@ public final class GUICommons {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 2) {
-                    final var fila = table.getSelectedRow();
+                    actionHandler(table, action);
+                    /*final var fila = table.getSelectedRow();
                     if (fila != -1) {
-                        // ¡Importante! Convertir el índice por si la tabla está filtrada
+                        // Convertir el índice por si la tabla está filtrada
                         final var filaModelo = table.convertRowIndexToModel(fila);
                         // Recuperar el ID (suponiendo que está en la columna 0)
                         T id = (T) table.getModel().getValueAt(filaModelo, 0);
                         action.accept(id);
-                    }
+                    }*/
                 }
             }
         });
 
+    }
+    
+    public static <T> void addKeyEventOnTable(JTable table, int keyReleased, Consumer<T> action) {
+        table.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == keyReleased) {
+                    actionHandler(table, action);
+                }
+            }
+        });
     }
     
     /**
@@ -356,6 +369,23 @@ public final class GUICommons {
             sorter.setRowFilter(RowFilter.regexFilter(regex + filter));
         } else {
             tbl.setRowSorter(null);
+        }
+    }
+    
+    /**
+     * Gestor de eventos cuando se realiza la accion que se disparar por doble clic / key
+     * @param <T>
+     * @param table
+     * @param action 
+     */
+    private static <T> void actionHandler(JTable table, Consumer<T> action) {
+        final var fila = table.getSelectedRow();
+        if (fila != -1) {
+            // Convertir el índice por si la tabla está filtrada
+            final var filaModelo = table.convertRowIndexToModel(fila);
+            // Recuperar el ID (suponiendo que está en la columna 0)
+            T id = (T) table.getModel().getValueAt(filaModelo, 0);
+            action.accept(id);
         }
     }
 }

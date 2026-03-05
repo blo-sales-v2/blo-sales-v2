@@ -83,6 +83,34 @@ public class Sales extends javax.swing.JPanel {
                     }
                 }
             });
+            GUICommons.addKeyEventOnTable(tblProductsSales, GUICommons.ENTER_KEY, id -> {
+                final var model = (DefaultTableModel) tblProductsSales.getModel();
+                final var indexSelected = tblProductsSales.getSelectedRow();
+                if (indexSelected != -1) {
+                    final var filaModelo = tblProductsSales.convertRowIndexToModel(indexSelected);
+                    final var idProduct = Long.parseLong(model.getValueAt(filaModelo, 0).toString());
+                    final var productFound = products.stream().filter(p -> p.getIdProduct() == idProduct).findFirst().orElse(null);
+                    try {
+                        BloSalesV2Utils.validateRule(productFound == null, "000", "producto no encontrado");
+                        // se valida que no sea por kg
+                        if (!productFound.isKg()) {
+                            // se reduce el total seleccioado
+                            totalSale = totalSale.subtract(productFound.getPrice());
+                            var quantitySale = new BigDecimal(model.getValueAt(filaModelo, 2).toString());
+                            // se suma uno a la actual cantidad
+                            quantitySale = quantitySale.add(BigDecimal.ONE);
+                            // se actualizan precios
+                            var newTotal = productFound.getPrice().multiply(quantitySale);
+                            totalSale = totalSale.add(newTotal);
+                            GUICommons.setTextToField(lblTotal, String.format("Total: %s$", totalSale));
+                            
+                            model.setValueAt(quantitySale, filaModelo, 2);
+                        }
+                    } catch (BloSalesV2Exception ex) {
+                        Logger.getLogger(Sales.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
         } catch (BloSalesV2Exception ex) {
             logger.error(ex.getMessage());
             CommonAlerts.openError(ex.getMessage());
