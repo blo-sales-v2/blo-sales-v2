@@ -217,6 +217,10 @@ public final class GUICommons {
     public static void setTextToField(JList field) {
         field.setListData(new String[0]);
     }
+    
+    public static void setTextToCheckbox(JCheckBox field, String txt) {
+        field.setText(txt);
+    }
 
     /**
      * Recupera el valor de una password
