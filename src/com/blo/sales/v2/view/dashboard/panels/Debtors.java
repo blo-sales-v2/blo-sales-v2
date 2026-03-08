@@ -250,13 +250,7 @@ public final class Debtors extends javax.swing.JPanel implements ITranslate {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
-            final var dbt = GUICommons.getTextFromField(lblDebt, true);
-            final var amount = new BigDecimal(dbt.substring(dbt.lastIndexOf("$") + 1));
-            var payment = GUICommons.getNumberFromJText(nmbPay, GUICommons.DIGITS_OF_CURRENCY);
-            if (payment.compareTo(amount) >= 0) {
-                // se realiza el pago completo
-                payment = debtorSelected.getDebt();
-            }
+            final var payment = GUICommons.getNumberFromJText(nmbPay, GUICommons.DIGITS_OF_CURRENCY);
             debtors.addPayment(payment, userData.getIdUser(), debtorSelected.getIdDebtor());
             loadDataAndTitles(retrieveDebtorsDetails());
             debtorSelected = null;
@@ -289,10 +283,6 @@ public final class Debtors extends javax.swing.JPanel implements ITranslate {
                 debtors.addPayment(debtorSelected.getDebt(), userData.getIdUser(), debtorSelected.getIdDebtor());
                 loadDataAndTitles(retrieveDebtorsDetails());
                 debtorSelected = null;
-                GUICommons.setTextToField(txtName, BloSalesV2Utils.EMPTY_STRING);
-                GUICommons.setTextToField(nmbPay, BloSalesV2Utils.EMPTY_STRING);
-                GUICommons.setTextToField(areaPayments, BloSalesV2Utils.EMPTY_STRING);
-                GUICommons.setTextToField(lstProducts);
                 disabledButtons();
             }
         } catch (BloSalesV2Exception ex) {
@@ -304,6 +294,10 @@ public final class Debtors extends javax.swing.JPanel implements ITranslate {
     private void disabledButtons() {
         GUICommons.disabledButton(btnSave);
         GUICommons.disabledButton(btnPayall);
+        GUICommons.setTextToField(txtName, BloSalesV2Utils.EMPTY_STRING);
+        GUICommons.setTextToField(nmbPay, BloSalesV2Utils.EMPTY_STRING);
+        GUICommons.setTextToField(areaPayments, BloSalesV2Utils.EMPTY_STRING);
+        GUICommons.setTextToField(lstProducts);
     }
     
     private void enabledButtons() {
