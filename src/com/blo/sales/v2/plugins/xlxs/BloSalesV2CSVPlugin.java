@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-public final class BloSalesV2XLXSPlugin {
+public final class BloSalesV2CSVPlugin {
     
     private static final String CSV_SEPARATOR = ";";
     
@@ -20,9 +20,9 @@ public final class BloSalesV2XLXSPlugin {
     
     private static final String CSV_FORMAT_TEXT = "=\"%s\"";
     
-    private BloSalesV2XLXSPlugin() { }
+    private BloSalesV2CSVPlugin() { }
     
-    public static void exportFile(String[] headers, BloSalesV2Rows rows) {
+    public static void exportFile(String[] headers, BloSalesV2CSVCols rows) {
         final var chooser = new JFileChooser();
         chooser.setDialogTitle("Guardar Hoja de Match");
         
@@ -42,9 +42,9 @@ public final class BloSalesV2XLXSPlugin {
                 // Encabezados
                 bw.write(headersFromArray(headers));
                 bw.newLine();
-                if (rows.getRows() != null && !rows.getRows().isEmpty()) {
+                if (rows.getCols()!= null && !rows.getCols().isEmpty()) {
                     StringBuilder strBuild = null;
-                    for (final var e: rows.getRows()) {
+                    for (final var e: rows.getCols()) {
                         strBuild = new StringBuilder();
                         strBuild.append(createRow(e));
                         strBuild.append(CSV_SEPARATOR);

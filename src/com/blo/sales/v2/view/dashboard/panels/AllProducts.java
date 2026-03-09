@@ -10,8 +10,8 @@ import com.blo.sales.v2.controller.impl.ProductsControllerImpl;
 import com.blo.sales.v2.controller.impl.StockPricesHistoryControllerImpl;
 import com.blo.sales.v2.controller.pojos.enums.ReasonsIntEnum;
 import com.blo.sales.v2.controller.pojos.enums.TypesIntEnum;
-import com.blo.sales.v2.plugins.xlxs.BloSalesV2Rows;
-import com.blo.sales.v2.plugins.xlxs.BloSalesV2XLXSPlugin;
+import com.blo.sales.v2.plugins.xlxs.BloSalesV2CSVCols;
+import com.blo.sales.v2.plugins.xlxs.BloSalesV2CSVPlugin;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
@@ -404,7 +404,7 @@ public final class AllProducts extends AbstractDashboardBase {
     private void btnDownloadStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadStockActionPerformed
         // recuperar todos los registro de la tabla
         DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
-        final var bloSalesRow = new BloSalesV2Rows();
+        final var bloSalesRow = new BloSalesV2CSVCols();
         final var r = new ArrayList<Object[]>();
         for (var i = 0; i < tblProducts.getRowCount(); i++) {
             final Object[] row = {
@@ -421,10 +421,10 @@ public final class AllProducts extends AbstractDashboardBase {
             };
             r.add(row);
         }
-        bloSalesRow.setRows(r);
+        bloSalesRow.setCols(r);
         final String[] headers = 
                 {"ID", "Codigo de barras", "Producto", "Precio", "Costo de venta", "¿Por kg?", "Categoria",  "Cantidad en existencia", "Observaciones"};
-        BloSalesV2XLXSPlugin.exportFile(headers, bloSalesRow);
+        BloSalesV2CSVPlugin.exportFile(headers, bloSalesRow);
     }//GEN-LAST:event_btnDownloadStockActionPerformed
 
     /** ajustar filtro de categorias */
