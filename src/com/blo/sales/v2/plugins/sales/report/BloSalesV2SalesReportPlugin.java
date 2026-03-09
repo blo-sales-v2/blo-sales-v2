@@ -59,6 +59,7 @@ public final class BloSalesV2SalesReportPlugin {
                 r.setTotalOnSale(item.getTotalOnSale());
                 r.setPrice(item.getPrice());
                 r.setCostOfSale(item.getCostOfSale());
+                r.setByKg(item.isKg());
                 // precio total del producto en la venta
                 //final var productTotalPrice = item.getProductTotalOnSale();
                 //priceSum = productTotalPrice.add(priceSum);
@@ -81,7 +82,7 @@ public final class BloSalesV2SalesReportPlugin {
             rowsData.add(rowData);
         }
                
-        final String[] headers = {"ID Venta", "Producto", "Cantidad en venta", "Precio", "Total", "Costo de venta", "Ganancia"};
+        final String[] headers = {"ID Venta", "Producto", "¿Por kg?", "Cantidad en venta", "Precio", "Total", "Costo de venta", "Ganancia"};
         BloSalesV2CSVPlugin.exportFile(headers, createStringFromArray(rowsData));
     }
     
@@ -94,6 +95,7 @@ public final class BloSalesV2SalesReportPlugin {
                 final Object[] col = {
                     idSale,
                     prd.getProduct(),
+                    prd.isByKg(),
                     prd.getQuantityOnSale(),
                     prd.getPrice(),
                     prd.getTotalOnSale(),

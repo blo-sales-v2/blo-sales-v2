@@ -417,13 +417,14 @@ public final class AllProducts extends AbstractDashboardBase {
                 String.valueOf(model.getValueAt(i, 7)),
                 String.valueOf(model.getValueAt(i, 3)),
                 BloSalesV2Utils.EMPTY_STRING,
+                BloSalesV2Utils.EMPTY_STRING,
                 BloSalesV2Utils.EMPTY_STRING
             };
             r.add(row);
         }
         bloSalesRow.setCols(r);
         final String[] headers = 
-                {"ID", "Codigo de barras", "Producto", "Precio", "Costo de venta", "¿Por kg?", "Categoria",  "Cantidad en existencia", "Observaciones"};
+                {"ID", "Codigo de barras", "Producto", "Precio", "Costo de venta", "¿Por kg?", "Categoria",  "Cantidad en existencia", "¿Completo?", "Observaciones"};
         BloSalesV2CSVPlugin.exportFile(headers, bloSalesRow);
     }//GEN-LAST:event_btnDownloadStockActionPerformed
 
