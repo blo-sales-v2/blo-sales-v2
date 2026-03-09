@@ -127,7 +127,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblFastRest" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="nmbCalcPay" min="-2" max="-2" attributes="0"/>
                           <Component id="lblResult" min="-2" max="-2" attributes="0"/>
                       </Group>

@@ -10,8 +10,10 @@ import com.blo.sales.v2.controller.impl.ProductsControllerImpl;
 import com.blo.sales.v2.controller.impl.StockPricesHistoryControllerImpl;
 import com.blo.sales.v2.controller.pojos.enums.ReasonsIntEnum;
 import com.blo.sales.v2.controller.pojos.enums.TypesIntEnum;
+import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
+import com.blo.sales.v2.view.commons.AbstractDashboardBase;
 import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
@@ -30,11 +32,9 @@ import com.blo.sales.v2.view.pojos.enums.ReasonsEnum;
 import com.blo.sales.v2.view.pojos.enums.RolesEnum;
 import com.blo.sales.v2.view.pojos.enums.TypesEnum;
 import java.math.BigDecimal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
-public class AllProducts extends javax.swing.JPanel {
+public final class AllProducts extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(AllProducts.class.getName());
 
@@ -65,6 +65,7 @@ public class AllProducts extends javax.swing.JPanel {
     public AllProducts(PojoLoggedInUser userData) {
         this.userData = userData;
         initComponents();
+        loadTargets();
         lblIdProduct.setVisible(false);
 
         loadTitlesAndData();
@@ -95,6 +96,7 @@ public class AllProducts extends javax.swing.JPanel {
         lblPrice = new javax.swing.JLabel();
         btnGetEvolution = new javax.swing.JButton();
         btnMovements = new javax.swing.JButton();
+        btnDownloadStock = new javax.swing.JButton();
 
         tblProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -121,14 +123,14 @@ public class AllProducts extends javax.swing.JPanel {
             }
         });
 
-        btnSave.setText("Guardar cambios");
+        btnSave.setText("guardar_cambios");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
             }
         });
 
-        btnCancel.setText("Cancelar");
+        btnCancel.setText("cancelar");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -137,24 +139,24 @@ public class AllProducts extends javax.swing.JPanel {
 
         lstReason.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vendidos", "Perdido", "Reabastecimiento" }));
 
-        lblProducto.setText("Producto");
+        lblProducto.setText("producto");
 
-        lblQuantity.setText("Cantidad en existencia");
+        lblQuantity.setText("cantidad_en_existencia");
 
-        lblCostOfSale.setText("Costo de venta");
+        lblCostOfSale.setText("costo_de_venta");
 
-        lblBarCode.setText("Código de barras");
+        lblBarCode.setText("codigo_de_barras");
 
-        lblPrice.setText("Precio");
+        lblPrice.setText("precio");
 
-        btnGetEvolution.setText("Evolucion de costos");
+        btnGetEvolution.setText("evolucion_de_costos");
         btnGetEvolution.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGetEvolutionActionPerformed(evt);
             }
         });
 
-        btnMovements.setText("Movimientos");
+        btnMovements.setText("movimientos");
         btnMovements.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMovementsActionPerformed(evt);
@@ -202,7 +204,7 @@ public class AllProducts extends javax.swing.JPanel {
                                     .addComponent(lblPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nmbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(txtBarCode))))
-                .addContainerGap(474, Short.MAX_VALUE))
+                .addContainerGap(467, Short.MAX_VALUE))
         );
         pnlManageProductLayout.setVerticalGroup(
             pnlManageProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,6 +244,8 @@ public class AllProducts extends javax.swing.JPanel {
                 .addGap(32, 32, 32))
         );
 
+        btnDownloadStock.setText("descargar_inventario_completo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -252,7 +256,8 @@ public class AllProducts extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtSearcher, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDownloadStock))
                     .addComponent(pnlManageProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -260,7 +265,9 @@ public class AllProducts extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSearcher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSearcher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDownloadStock))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -372,11 +379,11 @@ public class AllProducts extends javax.swing.JPanel {
             final var idProduct = Long.parseLong(GUICommons.getTextFromField(lblIdProduct, true));
             final var history = historyController.getHistoryFromProduct(idProduct);
             if (history != null && history.getHistory() != null && !history.getHistory().isEmpty()) {
-                final var historyDialog = new HistoryDialog(this, String.format("Historial de movimientos %s", idProduct), movementsMapper.toOuter(history));
+                final var historyDialog = new HistoryDialog(this, String.format(getTranslateBy(KeysEnum.STOCK_DLG_HSITORY_MOVEMENTS.getKey()), idProduct), movementsMapper.toOuter(history));
                 historyDialog.setVisible(true);
                 return;
             }
-            CommonAlerts.openError(String.format("No hay movimientos %s", idProduct));
+            CommonAlerts.openError(String.format(getTranslateBy(KeysEnum.STOCK_DLG_NOT_MOVEMENTS.getKey()), idProduct));
         } catch (BloSalesV2Exception e) {
             logger.error(e.getMessage());
             CommonAlerts.openError(e.getMessage());
@@ -419,10 +426,10 @@ public class AllProducts extends javax.swing.JPanel {
                     currentQuantity = productSelected.getQuantity();
                     GUICommons.setTextToField(txtName, productSelected.getProduct());
                     GUICommons.setTextToField(txtBarCode, productSelected.getBarCode());
-                    GUICommons.setTextToField(nmbCostOfSale, productSelected.getCostOfSale() + "");
-                    GUICommons.setTextToField(nmbPrice, productSelected.getPrice() + "");
-                    GUICommons.setTextToField(nmbQuantity, productSelected.getQuantity() + "");
-                    GUICommons.setTextToField(lblIdProduct, productSelected.getIdProduct() + "");
+                    GUICommons.setTextToField(nmbCostOfSale, productSelected.getCostOfSale());
+                    GUICommons.setTextToField(nmbPrice, productSelected.getPrice());
+                    GUICommons.setTextToField(nmbQuantity, productSelected.getQuantity());
+                    GUICommons.setTextToField(lblIdProduct, productSelected.getIdProduct());
                 }
             });
         } catch (final BloSalesV2Exception e) {
@@ -448,6 +455,7 @@ public class AllProducts extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnDownloadStock;
     private javax.swing.JButton btnGetEvolution;
     private javax.swing.JButton btnMovements;
     private javax.swing.JButton btnSave;
@@ -468,4 +476,18 @@ public class AllProducts extends javax.swing.JPanel {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtSearcher;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void loadTargets() {
+        GUICommons.setTextToButton(btnDownloadStock, getTranslateBy(KeysEnum.STOCK_BTN_DOWNLOAD_STOCK.getKey()));
+        GUICommons.setTextToField(lblProducto, getTranslateBy(KeysEnum.STOCK_LBL_PRODUCT.getKey()));
+        GUICommons.setTextToField(lblCostOfSale, getTranslateBy(KeysEnum.STOCK_LBL_COST_OF_SALE.getKey()));
+        GUICommons.setTextToField(lblPrice, getTranslateBy(KeysEnum.STOCK_LBL_PRICE.getKey()));
+        GUICommons.setTextToField(lblQuantity, getTranslateBy(KeysEnum.STOCK_LBL_QUANTITY.getKey()));
+        GUICommons.setTextToField(lblBarCode, getTranslateBy(KeysEnum.STOCK_LBL_BAR_CODE.getKey()));
+        GUICommons.setTextToButton(btnGetEvolution, getTranslateBy(KeysEnum.STOCK_BTN_COSTS_EVOLUTION.getKey()));
+        GUICommons.setTextToButton(btnCancel, getTranslateBy(KeysEnum.COMMON_BTN_CANCEL.getKey()));
+        GUICommons.setTextToButton(btnMovements, getTranslateBy(KeysEnum.STOCK_BTN_MOVEMENTS.getKey()));
+        GUICommons.setTextToButton(btnSave, getTranslateBy(KeysEnum.COMMON_BTN_SAVE_CHANGES.getKey()));
+    }
 }

@@ -207,7 +207,7 @@ public final class Sales extends AbstractDashboardBase {
                 .addContainerGap()
                 .addComponent(lblFastRest)
                 .addGap(18, 18, 18)
-                .addGroup(pnlCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(nmbCalcPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblResult))
                 .addContainerGap(35, Short.MAX_VALUE))

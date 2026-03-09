@@ -17,6 +17,7 @@ public final class Console extends AbstractDashboardBase {
 
     public Console() {
         initComponents();
+        loadTargets();
         txtArea.setBackground(Color.BLACK);
         txtArea.setForeground(Color.WHITE);
         txtArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -35,7 +36,7 @@ public final class Console extends AbstractDashboardBase {
         txtArea.setRows(5);
         scrllConsole.setViewportView(txtArea);
 
-        btnDownloadLogs.setText("descargar logs");
+        btnDownloadLogs.setText("descargar_logs");
         btnDownloadLogs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDownloadLogsActionPerformed(evt);
