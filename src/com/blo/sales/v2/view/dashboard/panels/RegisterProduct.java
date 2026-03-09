@@ -4,10 +4,10 @@ import com.blo.sales.v2.controller.ICategoriesController;
 import com.blo.sales.v2.controller.IProductsController;
 import com.blo.sales.v2.controller.impl.CategoriesControllerImpl;
 import com.blo.sales.v2.controller.impl.ProductsControllerImpl;
-import com.blo.sales.v2.translate.ITranslate;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
+import com.blo.sales.v2.view.commons.AbstractDashboardBase;
 import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
@@ -19,7 +19,7 @@ import com.blo.sales.v2.view.utils.handler.ManagementProductStoreHandler;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 
-public final class RegisterProduct extends javax.swing.JPanel implements ITranslate {
+public final class RegisterProduct extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(RegisterProduct.class.getName());
     
@@ -281,12 +281,12 @@ public final class RegisterProduct extends javax.swing.JPanel implements ITransl
 
     @Override
     public void loadTargets() {
-        GUICommons.setTextToField(lblBarCode, translate.get(KeysEnum.REGISTER_PRODUCT_LBL_BAR_CODE.getKey()));
-        GUICommons.setTextToField(lblProductName, translate.get(KeysEnum.REGISTER_PRODUCT_LBL_NAME.getKey()));
-        GUICommons.setTextToField(lblQuantity, translate.get(KeysEnum.REGISTER_PRODUCT_LBL_QUANTITY.getKey()));
-        GUICommons.setTextToField(lblPrice, translate.get(KeysEnum.REGISTER_PRODUCT_LBL_PRICE.getKey()));
-        GUICommons.setTextToField(lblSaleCost, translate.get(KeysEnum.REGISTER_PRODUCT_LBL_COST_OF_SALE.getKey()));
-        GUICommons.setTextToButton(btnSave, translate.get(KeysEnum.COMMON_BTN_SAVE.getKey()));
-        GUICommons.setTextToCheckbox(chkbxItsKg, translate.get(KeysEnum.REGISTER_PRODUCT_BY_KG.getKey()));
+        GUICommons.setTextToField(lblBarCode, getTranslateBy(KeysEnum.REGISTER_PRODUCT_LBL_BAR_CODE.getKey()));
+        GUICommons.setTextToField(lblProductName, getTranslateBy(KeysEnum.REGISTER_PRODUCT_LBL_NAME.getKey()));
+        GUICommons.setTextToField(lblQuantity, getTranslateBy(KeysEnum.REGISTER_PRODUCT_LBL_QUANTITY.getKey()));
+        GUICommons.setTextToField(lblPrice, getTranslateBy(KeysEnum.REGISTER_PRODUCT_LBL_PRICE.getKey()));
+        GUICommons.setTextToField(lblSaleCost, getTranslateBy(KeysEnum.REGISTER_PRODUCT_LBL_COST_OF_SALE.getKey()));
+        GUICommons.setTextToButton(btnSave, getTranslateBy(KeysEnum.COMMON_BTN_SAVE.getKey()));
+        GUICommons.setTextToCheckbox(chkbxItsKg, getTranslateBy(KeysEnum.REGISTER_PRODUCT_BY_KG.getKey()));
     }
 }

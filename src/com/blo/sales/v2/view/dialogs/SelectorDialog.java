@@ -1,7 +1,7 @@
 package com.blo.sales.v2.view.dialogs;
 
-import com.blo.sales.v2.translate.ITranslate;
 import com.blo.sales.v2.translate.KeysEnum;
+import com.blo.sales.v2.view.commons.AbstractDialogBase;
 import com.blo.sales.v2.view.commons.GUICommons;
 import java.awt.Component;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 import javax.swing.DefaultListModel;
 import javax.swing.SwingUtilities;
 
-public final class SelectorDialog<T> extends javax.swing.JDialog implements ITranslate {
+public final class SelectorDialog<T> extends AbstractDialogBase {
     
     private List<T> items;
     
@@ -110,6 +110,6 @@ public final class SelectorDialog<T> extends javax.swing.JDialog implements ITra
 
     @Override
     public void loadTargets() {
-        GUICommons.setTextToField(lblFilter, translate.get(KeysEnum.DLG_SELECTOR.getKey()));
+        GUICommons.setTextToField(lblFilter, getTranslateBy(KeysEnum.DLG_SELECTOR.getKey()));
     }
 }

@@ -3,9 +3,9 @@ package com.blo.sales.v2.view.dashboard.panels;
 import com.blo.sales.v2.controller.ISalesController;
 import com.blo.sales.v2.controller.impl.SalesControllerImpl;
 import com.blo.sales.v2.controller.pojos.enums.SalesStatusIntEnum;
-import com.blo.sales.v2.translate.ITranslate;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
+import com.blo.sales.v2.view.commons.AbstractDashboardBase;
 import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
-public final class SalesToday extends javax.swing.JPanel implements ITranslate {
+public final class SalesToday extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(SalesToday.class.getName());
     
@@ -31,7 +31,7 @@ public final class SalesToday extends javax.swing.JPanel implements ITranslate {
         initComponents();
         loadData();
         GUICommons.addDoubleClickOnTable(tblSummary, id -> {
-            final var deletedAccept = CommonAlerts.showConfirmDialog(translate.get(KeysEnum.SALES_TD_DLG_CANCEL_SALE.getKey()));
+            final var deletedAccept = CommonAlerts.showConfirmDialog(getTranslateBy(KeysEnum.SALES_TD_DLG_CANCEL_SALE.getKey()));
             if (deletedAccept) {
                 final var rowSelected = tblSummary.getSelectedRow();
                 if (rowSelected != -1) {
@@ -39,7 +39,7 @@ public final class SalesToday extends javax.swing.JPanel implements ITranslate {
                         final var model = tblSummary.getModel();
                         final var idSale = Long.parseLong(model.getValueAt(rowSelected, 0).toString());
                         final var idProduct = Long.parseLong(model.getValueAt(rowSelected, 1).toString());
-                        final var message = CommonAlerts.showMessageDialog(translate.get(KeysEnum.SALES_TD_DLG_REASON_CANCEL.getKey()));
+                        final var message = CommonAlerts.showMessageDialog(getTranslateBy(KeysEnum.SALES_TD_DLG_REASON_CANCEL.getKey()));
                         salesController.deleteSaleProduct(userData.getIdUser(), idSale, idProduct, message);
                         loadData();
                     } catch (BloSalesV2Exception ex) {
@@ -54,7 +54,7 @@ public final class SalesToday extends javax.swing.JPanel implements ITranslate {
         try {
             final var salesToday = mapper.toOuter(salesController.retrieveSalesByStatus(SalesStatusIntEnum.CLOSE));
             final var total = getTotal(salesToday);
-            GUICommons.setTextToField(lblTotal, String.format(translate.get(KeysEnum.COMMON_TOTAL.getKey()), total));
+            GUICommons.setTextToField(lblTotal, String.format(getTranslateBy(KeysEnum.COMMON_TOTAL.getKey()), total));
         } catch (BloSalesV2Exception ex) {
             logger.error(ex.getMessage());
             CommonAlerts.openError(ex.getMessage());

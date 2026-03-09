@@ -1,9 +1,9 @@
 package com.blo.sales.v2.view.dialogs;
 
-import com.blo.sales.v2.translate.ITranslate;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
+import com.blo.sales.v2.view.commons.AbstractDialogBase;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
 import com.blo.sales.v2.view.pojos.PojoDebtor;
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-public final class DebtorsDialog<T> extends javax.swing.JDialog implements ITranslate {
+public final class DebtorsDialog<T> extends AbstractDialogBase {
     
     private List<T> items;
     
@@ -44,7 +44,7 @@ public final class DebtorsDialog<T> extends javax.swing.JDialog implements ITran
         initComponents();
         loadTargets();
         loadTitlesAndData();
-        GUICommons.setTextToField(lblAmount, String.format(translate.get(KeysEnum.COMMON_CURRENCY_SYMBOL_BEFORE.getKey()), this.totalSale));
+        GUICommons.setTextToField(lblAmount, String.format(getTranslateBy(KeysEnum.COMMON_CURRENCY_SYMBOL_BEFORE.getKey()), this.totalSale));
         GUICommons.disabledButton(btnRegister);
         GUICommons.disabledButton(btnSaveRegister);
         GUICommons.setTextToField(txtPartialPay, BigDecimal.ZERO + "");
@@ -56,8 +56,8 @@ public final class DebtorsDialog<T> extends javax.swing.JDialog implements ITran
                         findFirst().
                         orElse(null);
             if (debtor != null) {
-                GUICommons.setTextToField(lblAmount, String.format(translate.get(KeysEnum.COMMON_CURRENCY_SYMBOL_BEFORE.getKey()), debtor.getDebt().add(totalSale)));
-                GUICommons.setTextToField(lblPartialPay, String.format(translate.get(KeysEnum.DLG_DEBTORS_LBL_GIVE_CASH.getKey()), debtor.getName()));
+                GUICommons.setTextToField(lblAmount, String.format(getTranslateBy(KeysEnum.COMMON_CURRENCY_SYMBOL_BEFORE.getKey()), debtor.getDebt().add(totalSale)));
+                GUICommons.setTextToField(lblPartialPay, String.format(getTranslateBy(KeysEnum.DLG_DEBTORS_LBL_GIVE_CASH.getKey()), debtor.getName()));
                 GUICommons.enabledButton(btnSaveRegister);
                 this.totalSale = this.totalSale.add(debtor.getDebt());
             }
@@ -272,11 +272,11 @@ public final class DebtorsDialog<T> extends javax.swing.JDialog implements ITran
         try {
            final var partialPayTmp = GUICommons.getTextFromField(txtPartialPay, false);
             if (GUICommons.isEmptyFieldByKeyEvt(evt, partialPayTmp.isBlank())) {
-                GUICommons.setTextToField(lblAmount, String.format(translate.get(KeysEnum.COMMON_CURRENCY_SYMBOL_BEFORE.getKey()), totalSale));
+                GUICommons.setTextToField(lblAmount, String.format(getTranslateBy(KeysEnum.COMMON_CURRENCY_SYMBOL_BEFORE.getKey()), totalSale));
             }
 
             if (!partialPayTmp.isBlank() && BloSalesV2Utils.validateTextWithPattern(BloSalesV2Utils.CURRENCY_REGEX, partialPayTmp)) {
-                GUICommons.setTextToField(lblAmount, String.format(translate.get(KeysEnum.COMMON_CURRENCY_SYMBOL_BEFORE.getKey()), (totalSale.subtract(new BigDecimal(partialPayTmp)))));
+                GUICommons.setTextToField(lblAmount, String.format(getTranslateBy(KeysEnum.COMMON_CURRENCY_SYMBOL_BEFORE.getKey()), (totalSale.subtract(new BigDecimal(partialPayTmp)))));
             }
         } catch (BloSalesV2Exception ex) {
             Logger.getLogger(DebtorsDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -313,9 +313,9 @@ public final class DebtorsDialog<T> extends javax.swing.JDialog implements ITran
 
     @Override
     public void loadTargets() {
-        GUICommons.setTextToButton(btnRegister, translate.get(KeysEnum.DLG_DEBTORS_BTN_REGISTER.getKey()));
-        GUICommons.setTextToButton(btnSaveRegister, translate.get(KeysEnum.COMMON_BTN_SAVE.getKey()));
-        GUICommons.setTextToField(lblPartialPay, translate.get(KeysEnum.DLG_DEBTORS_LBL_GIVE.getKey()));
+        GUICommons.setTextToButton(btnRegister, getTranslateBy(KeysEnum.DLG_DEBTORS_BTN_REGISTER.getKey()));
+        GUICommons.setTextToButton(btnSaveRegister, getTranslateBy(KeysEnum.COMMON_BTN_SAVE.getKey()));
+        GUICommons.setTextToField(lblPartialPay, getTranslateBy(KeysEnum.DLG_DEBTORS_LBL_GIVE.getKey()));
     }
 
 }

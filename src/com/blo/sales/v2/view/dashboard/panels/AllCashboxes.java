@@ -2,9 +2,9 @@ package com.blo.sales.v2.view.dashboard.panels;
 
 import com.blo.sales.v2.controller.ICashboxController;
 import com.blo.sales.v2.controller.impl.CashboxControllerImpl;
-import com.blo.sales.v2.translate.ITranslate;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
+import com.blo.sales.v2.view.commons.AbstractDashboardBase;
 import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
-public final class AllCashboxes extends javax.swing.JPanel implements ITranslate {
+public final class AllCashboxes extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(AllCashboxes.class.getName());
     
@@ -37,10 +37,22 @@ public final class AllCashboxes extends javax.swing.JPanel implements ITranslate
                     
                     final var modeloListaActivos = new DefaultListModel<String>();
                     final var modeloListaPaivos = new DefaultListModel<String>();
-                    getActivesFilters(cashboxFound, ActivesCostsEnum.ACTIVO).
+                    final var elemntBaseStr = "%s$:%s ";
+                    getActivesFilters(cashboxFound, ActivesCostsEnum.ACTIVO).forEach(i -> 
+                            modeloListaActivos.addElement(
+                                String.format(elemntBaseStr, i.getConcept(), i.getAmount())
+                            )
+                    );
+                    getActivesFilters(cashboxFound, ActivesCostsEnum.PASIVO).forEach(i -> 
+                            modeloListaActivos.addElement(
+                                String.format(elemntBaseStr, i.getConcept(), i.getAmount())
+                            )
+                    );
+                    /*getActivesFilters(cashboxFound, ActivesCostsEnum.ACTIVO).
                             forEach(i -> modeloListaActivos.addElement(i.getConcept() + "$: " + i.getConceptAmount()));
                     getActivesFilters(cashboxFound, ActivesCostsEnum.PASIVO).
                             forEach(i -> modeloListaPaivos.addElement(i.getConcept() + "$: " + i.getConceptAmount()));
+*/
                     lstActives.setModel(modeloListaActivos);
                     lstCosts.setModel(modeloListaPaivos);
                 });
@@ -164,7 +176,7 @@ public final class AllCashboxes extends javax.swing.JPanel implements ITranslate
 
     @Override
     public void loadTargets() {
-        GUICommons.setTextToField(lblActives, translate.get(KeysEnum.CASHBOXES_LBL_ACTIVES.getKey()));
-        GUICommons.setTextToField(lblCosts, translate.get(KeysEnum.CASHBOXES_LBL_COSTS.getKey()));
+        GUICommons.setTextToField(lblActives, getTranslateBy(KeysEnum.CASHBOXES_LBL_ACTIVES.getKey()));
+        GUICommons.setTextToField(lblCosts, getTranslateBy(KeysEnum.CASHBOXES_LBL_COSTS.getKey()));
     }
 }

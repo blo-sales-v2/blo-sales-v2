@@ -4,9 +4,9 @@ import com.blo.sales.v2.controller.ICashboxController;
 import com.blo.sales.v2.controller.IUserController;
 import com.blo.sales.v2.controller.impl.CashboxControllerImpl;
 import com.blo.sales.v2.controller.impl.UserControllerImpl;
-import com.blo.sales.v2.translate.ITranslate;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
+import com.blo.sales.v2.view.commons.AbstractDashboardBase;
 import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
@@ -24,7 +24,7 @@ import com.blo.sales.v2.view.pojos.enums.TypeNoteEnum;
 import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
-public class CashboxOpen extends javax.swing.JPanel implements ITranslate {
+public final class CashboxOpen extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(CashboxOpen.class.getName());
     
@@ -120,7 +120,7 @@ public class CashboxOpen extends javax.swing.JPanel implements ITranslate {
         if (openCashbox == null) {
             return;
         }
-        final var resp = CommonAlerts.showConfirmDialog(translate.get(KeysEnum.CASHBOX_DLG_IMPORT_FROM_NOTES.getKey()));
+        final var resp = CommonAlerts.showConfirmDialog(getTranslateBy(KeysEnum.CASHBOX_DLG_IMPORT_FROM_NOTES.getKey()));
         WrapperPojoNotes pasives = null;
         WrapperPojoNotes actives = null;
         if (resp) {
@@ -130,7 +130,7 @@ public class CashboxOpen extends javax.swing.JPanel implements ITranslate {
         
         final var cashboxDialog = new CashboxDialog<>(
             this,
-            translate.get(KeysEnum.CASHBOX_DLG_CLOSING_CASHBOX.getKey()),
+            getTranslateBy(KeysEnum.CASHBOX_DLG_CLOSING_CASHBOX.getKey()),
             openCashbox,
             actives,
             pasives,
@@ -179,6 +179,6 @@ public class CashboxOpen extends javax.swing.JPanel implements ITranslate {
 
     @Override
     public void loadTargets() {
-        GUICommons.setTextToButton(btnCloseNow, translate.get(KeysEnum.CASHBOX_BTN_CLOSE_NOW.getKey()));
+        GUICommons.setTextToButton(btnCloseNow, getTranslateBy(KeysEnum.CASHBOX_BTN_CLOSE_NOW.getKey()));
     }
 }

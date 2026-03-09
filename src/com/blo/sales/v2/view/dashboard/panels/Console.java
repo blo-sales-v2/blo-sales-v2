@@ -2,16 +2,16 @@ package com.blo.sales.v2.view.dashboard.panels;
 
 import com.blo.sales.v2.plugins.writter.BloSalesV2WritterFile;
 import com.blo.sales.v2.plugins.writter.enums.ExtensionEnum;
-import com.blo.sales.v2.translate.ITranslate;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
+import com.blo.sales.v2.view.commons.AbstractDashboardBase;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 
-public final class Console extends javax.swing.JPanel implements ITranslate {
+public final class Console extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(Console.class.getName());
 
@@ -85,6 +85,6 @@ public final class Console extends javax.swing.JPanel implements ITranslate {
 
     @Override
     public void loadTargets() {
-        GUICommons.setTextToButton(btnDownloadLogs, translate.get(KeysEnum.CONSOLE_BTN_DOWNLOAD_LOGS.getKey()));
+        GUICommons.setTextToButton(btnDownloadLogs, getTranslateBy(KeysEnum.CONSOLE_BTN_DOWNLOAD_LOGS.getKey()));
     }
 }

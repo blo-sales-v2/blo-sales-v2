@@ -7,11 +7,11 @@ import com.blo.sales.v2.controller.impl.DebtorsControllerImpl;
 import com.blo.sales.v2.controller.impl.ProductsControllerImpl;
 import com.blo.sales.v2.controller.impl.SalesControllerImpl;
 import com.blo.sales.v2.controller.pojos.PojoIntSaleProductData;
-import com.blo.sales.v2.translate.ITranslate;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.utils.BloSalesV2UtilsEnum;
+import com.blo.sales.v2.view.commons.AbstractDashboardBase;
 import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
@@ -34,7 +34,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
-public final class Sales extends javax.swing.JPanel implements ITranslate {
+public final class Sales extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(Sales.class.getName());
     
@@ -90,7 +90,7 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
                         model.setValueAt(quantityOnSale, filaModelo, 2);
                         model.setValueAt(totalOnSale, filaModelo, 4);
                     }
-                    GUICommons.setTextToField(lblTotal, String.format(translate.get(KeysEnum.COMMON_TOTAL.getKey()), totalSale));
+                    GUICommons.setTextToField(lblTotal, String.format(getTranslateBy(KeysEnum.COMMON_TOTAL.getKey()), totalSale));
                     if (totalSale.compareTo(BigDecimal.ZERO) == 0) {
                         disableButtons();
                     }
@@ -124,7 +124,7 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
                                 BloSalesV2Utils.PRODUCT_INSUFFICIENT
                         );
                         totalSale = totalSale.add(productFound.getPrice());
-                        GUICommons.setTextToField(lblTotal, String.format(translate.get(KeysEnum.COMMON_TOTAL.getKey()), totalSale));
+                        GUICommons.setTextToField(lblTotal, String.format(getTranslateBy(KeysEnum.COMMON_TOTAL.getKey()), totalSale));
                         // cantidad comprada col
                         model.setValueAt(quantitySale, filaModelo, 2);
                         //total
@@ -194,10 +194,10 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
             .addGroup(pnlCalculatorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFastRest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFastRest, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addGroup(pnlCalculatorLayout.createSequentialGroup()
                         .addComponent(nmbCalcPay, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblResult)))
                 .addContainerGap())
         );
@@ -206,11 +206,11 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCalculatorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblFastRest)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(pnlCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblResult)
-                    .addComponent(nmbCalcPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(nmbCalcPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblResult))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlPayLayout = new javax.swing.GroupLayout(pnlPay);
@@ -346,7 +346,7 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
                /** abre un cuadro de dialogo */
                final var dialog = new SelectorDialog<>(
                     this,
-                    translate.get(KeysEnum.SALES_DLG_MANUAL_SEARCH.getKey()),
+                    getTranslateBy(KeysEnum.SALES_DLG_MANUAL_SEARCH.getKey()),
                     productsString,
                     item -> {
                         filterProduct(item, false);
@@ -362,7 +362,7 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
         try {
             salesController.registerSale(totalSale, getProductData(), this.userData.getIdUser());
             disableButtons();
-            GUICommons.setTextToField(lblTotal, String.format(translate.get(KeysEnum.COMMON_TOTAL.getKey()), "0"));
+            GUICommons.setTextToField(lblTotal, String.format(getTranslateBy(KeysEnum.COMMON_TOTAL.getKey()), "0"));
             totalSale = BigDecimal.ZERO;
             resetFields();
         } catch (BloSalesV2Exception ex) {
@@ -377,7 +377,7 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
             final var debtorsCoopy = wrapperDebtorsMapper.toOuter(debtorsController.getAllDebtors());
             final var debtorsDialog = new DebtorsDialog<>(
                 this,
-                translate.get(KeysEnum.SALES_DLG_DEBTORS.getKey()),
+                getTranslateBy(KeysEnum.SALES_DLG_DEBTORS.getKey()),
                 debtors.getDebtors(),
                 totalSale,
                 item -> {
@@ -481,8 +481,8 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
             };
             model.addRow(productInfoData);
             GUICommons.setTextToField(txtSearch, BloSalesV2Utils.EMPTY_STRING);
-            GUICommons.setTextToField(lblTotal, String.format(translate.get(KeysEnum.COMMON_TOTAL.getKey()), totalSale));
-            GUICommons.setTextToField(nmbQuantity, "1");
+            GUICommons.setTextToField(lblTotal, String.format(getTranslateBy(KeysEnum.COMMON_TOTAL.getKey()), totalSale));
+            GUICommons.setTextToField(nmbQuantity, BigDecimal.ONE);
             productFound = null;
             GUICommons.enabledButton(btnComplete);
             GUICommons.enabledButton(btnDebtors);
@@ -546,7 +546,7 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
             final var model = (DefaultTableModel) tblProductsSales.getModel();
             model.setRowCount(0);
             tblProductsSales.repaint();
-            GUICommons.setTextToField(lblTotal, String.format(translate.get(KeysEnum.COMMON_TOTAL.getKey()), "0"));
+            GUICommons.setTextToField(lblTotal, String.format(getTranslateBy(KeysEnum.COMMON_TOTAL.getKey()), "0"));
             retrieveProducts();
         } catch (BloSalesV2Exception ex) {
             Logger.getLogger(Sales.class.getName()).log(Level.SEVERE, null, ex);
@@ -578,12 +578,12 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
 
     @Override
     public void loadTargets() {
-        GUICommons.setTextToField(lblQuantity, translate.get(KeysEnum.SALES_LBL_QUANTITY.getKey()));
-        GUICommons.setTextToField(lblBarCode, translate.get(KeysEnum.SALES_LBL_BAR_CODE.getKey()));
-        GUICommons.setTextToButton(btnComplete, translate.get(KeysEnum.SALES_BTN_COMPLETE.getKey()));
-        GUICommons.setTextToButton(btnDebtors, translate.get(KeysEnum.SALES_BTN_NO_COMPLETE.getKey()));
-        GUICommons.setTextToField(lblTotal, String.format(translate.get(KeysEnum.COMMON_TOTAL.getKey()), "0"));
-        GUICommons.setTextToField(lblResult, BloSalesV2Utils.EMPTY_STRING);
-        GUICommons.setTextToField(lblFastRest, translate.get(KeysEnum.SALES_LBL_FAST_REST.getKey()));
+        GUICommons.setTextToField(lblQuantity, getTranslateBy(KeysEnum.SALES_LBL_QUANTITY.getKey()));
+        GUICommons.setTextToField(lblBarCode, getTranslateBy(KeysEnum.SALES_LBL_BAR_CODE.getKey()));
+        GUICommons.setTextToButton(btnComplete, getTranslateBy(KeysEnum.SALES_BTN_COMPLETE.getKey()));
+        GUICommons.setTextToButton(btnDebtors, getTranslateBy(KeysEnum.SALES_BTN_NO_COMPLETE.getKey()));
+        GUICommons.setTextToField(lblTotal, String.format(getTranslateBy(KeysEnum.COMMON_TOTAL.getKey()), BigDecimal.ZERO));
+        GUICommons.setTextToField(lblResult, BigDecimal.ZERO);
+        GUICommons.setTextToField(lblFastRest, getTranslateBy(KeysEnum.SALES_LBL_FAST_REST.getKey()));
     }
 }

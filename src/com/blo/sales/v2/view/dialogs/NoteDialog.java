@@ -1,9 +1,9 @@
 package com.blo.sales.v2.view.dialogs;
 
-import com.blo.sales.v2.translate.ITranslate;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
+import com.blo.sales.v2.view.commons.AbstractDialogBase;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.pojos.PojoNote;
 import com.blo.sales.v2.view.pojos.enums.TypeNoteEnum;
@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingUtilities;
 
-public final class NoteDialog<T> extends javax.swing.JDialog implements ITranslate {
+public final class NoteDialog<T> extends AbstractDialogBase {
     
     private static final String[] types_note = {"ACTIVO", "PASIVO", "OTRO"};
     
@@ -159,7 +159,7 @@ public final class NoteDialog<T> extends javax.swing.JDialog implements ITransla
 
     @Override
     public void loadTargets() {
-        GUICommons.setTextToButton(btnDeleteNote, translate.get(KeysEnum.DLG_NOTE_BTN_DELETE.getKey()));
-        GUICommons.setTextToButton(btnSaveChanges, translate.get(KeysEnum.COMMON_BTN_SAVE_CHANGES.getKey()));
+        GUICommons.setTextToButton(btnDeleteNote, getTranslateBy(KeysEnum.DLG_NOTE_BTN_DELETE.getKey()));
+        GUICommons.setTextToButton(btnSaveChanges, getTranslateBy(KeysEnum.COMMON_BTN_SAVE_CHANGES.getKey()));
     }
 }

@@ -197,8 +197,8 @@ public final class GUICommons {
      * @param field
      * @param txt 
      */
-    public static void setTextToField(JLabel field, String txt) {
-        field.setText(txt);
+    public static void setTextToField(JLabel field, Object txt) {
+        field.setText(String.valueOf(txt));
     }
     
     /**
@@ -206,12 +206,12 @@ public final class GUICommons {
      * @param field
      * @param txt 
      */
-    public static void setTextToField(JTextField field, String txt) {
-        field.setText(txt);
+    public static void setTextToField(JTextField field, Object txt) {
+        field.setText(String.valueOf(txt));
     }
     
-    public static void setTextToField(JTextArea field, String txt) {
-        field.setText(txt);
+    public static void setTextToField(JTextArea field, Object txt) {
+        field.setText(String.valueOf(txt));
     }
     
     public static void setTextToField(JList field) {
@@ -219,7 +219,7 @@ public final class GUICommons {
     }
     
     public static void setTextToCheckbox(JCheckBox field, String txt) {
-        field.setText(txt);
+        field.setText(String.valueOf(txt));
     }
 
     /**
@@ -303,8 +303,8 @@ public final class GUICommons {
         btn.setEnabled(true);
     }
     
-    public static void setTextToButton(JButton btn, String text) {
-        btn.setText(text);
+    public static void setTextToButton(JButton btn, Object text) {
+        btn.setText(String.valueOf(text));
     }
     
     /**

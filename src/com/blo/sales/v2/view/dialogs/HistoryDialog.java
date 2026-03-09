@@ -1,14 +1,14 @@
 package com.blo.sales.v2.view.dialogs;
 
-import com.blo.sales.v2.translate.ITranslate;
 import com.blo.sales.v2.translate.KeysEnum;
+import com.blo.sales.v2.view.commons.AbstractDialogBase;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.pojos.WrapperPojoMovementsDetail;
 import java.awt.Component;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-public final class HistoryDialog extends javax.swing.JDialog implements ITranslate {
+public final class HistoryDialog extends AbstractDialogBase {
     
     private static final String[] titles = {"ID Movimiento", "Tipo de movimiento", "Razón de movimiento", "Producto", "Cantidad", "Timestamp", "Usuario"};
 
@@ -108,6 +108,6 @@ public final class HistoryDialog extends javax.swing.JDialog implements ITransla
 
     @Override
     public void loadTargets() {
-        GUICommons.setTextToButton(btnClose, translate.get(KeysEnum.COMMON_BTN_CLOSE.getKey()));
+        GUICommons.setTextToButton(btnClose, getTranslateBy(KeysEnum.COMMON_BTN_CLOSE.getKey()));
     }
 }

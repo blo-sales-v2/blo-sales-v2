@@ -14,9 +14,9 @@ import com.blo.sales.v2.view.mappers.UserMapper;
 import com.blo.sales.v2.view.pojos.enums.RolesEnum;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.blo.sales.v2.translate.ITranslate;
+import com.blo.sales.v2.view.commons.AbstractFrameBase;
 
-public class LoginFrm extends javax.swing.JFrame implements ITranslate {
+public final class LoginFrm extends AbstractFrameBase {
     
     private static final UserMapper userMapper = UserMapper.getInstance();
     
@@ -190,8 +190,8 @@ public class LoginFrm extends javax.swing.JFrame implements ITranslate {
     @Override
     public void loadTargets() {
         GUICommons.setTextToField(lblVersion, BloSalesV2Utils.VERSION);
-        GUICommons.setTextToButton(btnLogin, translate.get(KeysEnum.LOGIN_BTN_LOGN.getKey()));
-        GUICommons.setTextToField(lblPassword, translate.get(KeysEnum.LOGIN_LBL_PASSWROD.getKey()));
-        GUICommons.setTextToField(lblUsername, translate.get(KeysEnum.LOGIN_LBL_PASSWROD.getKey()));
+        GUICommons.setTextToButton(btnLogin, getTranslateBy(KeysEnum.LOGIN_BTN_LOGN.getKey()));
+        GUICommons.setTextToField(lblPassword, getTranslateBy(KeysEnum.LOGIN_LBL_PASSWROD.getKey()));
+        GUICommons.setTextToField(lblUsername, getTranslateBy(KeysEnum.LOGIN_LBL_PASSWROD.getKey()));
     }
 }

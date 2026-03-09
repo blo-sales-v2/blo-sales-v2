@@ -3,10 +3,10 @@ package com.blo.sales.v2.view.dashboard.panels;
 import com.blo.sales.v2.controller.IUserController;
 import com.blo.sales.v2.controller.impl.UserControllerImpl;
 import com.blo.sales.v2.controller.pojos.WrapperPojoIntNotes;
-import com.blo.sales.v2.translate.ITranslate;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
+import com.blo.sales.v2.view.commons.AbstractDashboardBase;
 import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
@@ -19,7 +19,7 @@ import com.blo.sales.v2.view.pojos.enums.TypeNoteEnum;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
-public final class Notes extends javax.swing.JPanel implements ITranslate {
+public final class Notes extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(Notes.class.getName());
     
@@ -40,6 +40,7 @@ public final class Notes extends javax.swing.JPanel implements ITranslate {
     public Notes(PojoLoggedInUser userData) {
         this.userData = userData;
         initComponents();
+        loadTargets();
         GUICommons.disabledButton(btnSaveNow);
         GUICommons.loadTitleOnTable(tblNotes, titles, false);
         loadTypesNotes();
@@ -56,7 +57,7 @@ public final class Notes extends javax.swing.JPanel implements ITranslate {
         }
         final var dialog = new NoteDialog<>(
             this,
-            "Eitando nota",
+            getTranslateBy(KeysEnum.NOTES_DLG_EDITING_NOTE.getKey()),
             noteMapper.toOuter(noteSelected),
             (PojoNote data) -> {
                 try {
@@ -261,7 +262,7 @@ public final class Notes extends javax.swing.JPanel implements ITranslate {
 
     @Override
     public void loadTargets() {
-        GUICommons.setTextToField(areaInstrc, translate.get(KeysEnum.NOTES_LBL_INSTRUCTIONS.getKey()));
-        GUICommons.setTextToButton(btnSaveNow, translate.get(KeysEnum.NOTES_BTN_SAVE_NOTE.getKey()));
+        GUICommons.setTextToField(areaInstrc, getTranslateBy(KeysEnum.NOTES_LBL_INSTRUCTIONS.getKey()));
+        GUICommons.setTextToButton(btnSaveNow, getTranslateBy(KeysEnum.NOTES_BTN_SAVE_NOTE.getKey()));
     }
 }
