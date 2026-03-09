@@ -253,7 +253,6 @@ public final class Debtors extends javax.swing.JPanel implements ITranslate {
             final var payment = GUICommons.getNumberFromJText(nmbPay, GUICommons.DIGITS_OF_CURRENCY);
             debtors.addPayment(payment, userData.getIdUser(), debtorSelected.getIdDebtor());
             loadDataAndTitles(retrieveDebtorsDetails());
-            debtorSelected = null;
             disabledButtons();
         } catch (BloSalesV2Exception ex) {
             logger.error(ex.getMessage());
@@ -282,7 +281,6 @@ public final class Debtors extends javax.swing.JPanel implements ITranslate {
             if (CommonAlerts.showConfirmDialog(translate.get(KeysEnum.DEBTORS_DLG_PAY_ALL.getKey()))) {
                 debtors.addPayment(debtorSelected.getDebt(), userData.getIdUser(), debtorSelected.getIdDebtor());
                 loadDataAndTitles(retrieveDebtorsDetails());
-                debtorSelected = null;
                 disabledButtons();
             }
         } catch (BloSalesV2Exception ex) {
@@ -292,12 +290,14 @@ public final class Debtors extends javax.swing.JPanel implements ITranslate {
     }//GEN-LAST:event_btnPayallActionPerformed
 
     private void disabledButtons() {
+        debtorSelected = null;
         GUICommons.disabledButton(btnSave);
         GUICommons.disabledButton(btnPayall);
         GUICommons.setTextToField(txtName, BloSalesV2Utils.EMPTY_STRING);
         GUICommons.setTextToField(nmbPay, BloSalesV2Utils.EMPTY_STRING);
         GUICommons.setTextToField(areaPayments, BloSalesV2Utils.EMPTY_STRING);
         GUICommons.setTextToField(lstProducts);
+        GUICommons.setTextToField(lblDebt, BloSalesV2Utils.EMPTY_STRING);
     }
     
     private void enabledButtons() {

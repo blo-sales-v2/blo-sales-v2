@@ -386,6 +386,13 @@ public final class GUICommons {
         }
     }
     
+    public static void hiddenPanel(JPanel pnl) {
+        pnl.setVisible(false);
+    }
+    
+    public static void showPanel(JPanel pnl) {
+        pnl.setVisible(true);
+    }
     /**
      * Gestor de eventos cuando se realiza la accion que se disparar por doble clic / key
      * @param <T>

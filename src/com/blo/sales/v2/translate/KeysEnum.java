@@ -7,7 +7,7 @@ public enum KeysEnum {
     // sales to day
     SALES_TD_DLG_CANCEL_SALE("sales-today.dialog.cancel-sale"), SALES_TD_DLG_REASON_CANCEL("sales-today.dialog.reason-cancel"),
     // sales
-    SALES_LBL_QUANTITY("sales.lbl.quantity"), SALES_LBL_BAR_CODE("sales.lbl.bar-code"), SALES_BTN_COMPLETE("sales.btn.complete"), SALES_BTN_NO_COMPLETE("sales.btn.no-complete"), SALES_DLG_MANUAL_SEARCH("sales.dlg.manual-search"), SALES_DLG_DEBTORS("sales.dlg.debtors"),
+    SALES_LBL_QUANTITY("sales.lbl.quantity"), SALES_LBL_BAR_CODE("sales.lbl.bar-code"), SALES_BTN_COMPLETE("sales.btn.complete"), SALES_BTN_NO_COMPLETE("sales.btn.no-complete"), SALES_DLG_MANUAL_SEARCH("sales.dlg.manual-search"), SALES_DLG_DEBTORS("sales.dlg.debtors"), SALES_LBL_FAST_REST("sales.lbl.fast-rest"),
     // register product
     REGISTER_PRODUCT_LBL_BAR_CODE("register-product.lbl.bar-code"), REGISTER_PRODUCT_LBL_NAME("register-product.lbl.name"), REGISTER_PRODUCT_BY_KG("register-product.lbl.by-kg"), REGISTER_PRODUCT_LBL_QUANTITY("register-product.lbl.quantity"), REGISTER_PRODUCT_LBL_PRICE("register-product.lbl.price"), REGISTER_PRODUCT_LBL_COST_OF_SALE("register-product.lbl.cost-of-sale"),
     // categories

@@ -151,6 +151,10 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
         pnlPay = new javax.swing.JPanel();
         btnComplete = new javax.swing.JButton();
         btnDebtors = new javax.swing.JButton();
+        pnlCalculator = new javax.swing.JPanel();
+        lblResult = new javax.swing.JLabel();
+        nmbCalcPay = new javax.swing.JTextField();
+        lblFastRest = new javax.swing.JLabel();
         pnlSearch = new javax.swing.JPanel();
         lblQuantity = new javax.swing.JLabel();
         nmbQuantity = new javax.swing.JTextField();
@@ -173,12 +177,50 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
             }
         });
 
+        lblResult.setText("jLabel1");
+
+        nmbCalcPay.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nmbCalcPayKeyReleased(evt);
+            }
+        });
+
+        lblFastRest.setText("resta_rapida");
+
+        javax.swing.GroupLayout pnlCalculatorLayout = new javax.swing.GroupLayout(pnlCalculator);
+        pnlCalculator.setLayout(pnlCalculatorLayout);
+        pnlCalculatorLayout.setHorizontalGroup(
+            pnlCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCalculatorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFastRest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlCalculatorLayout.createSequentialGroup()
+                        .addComponent(nmbCalcPay, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addComponent(lblResult)))
+                .addContainerGap())
+        );
+        pnlCalculatorLayout.setVerticalGroup(
+            pnlCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCalculatorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFastRest)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(pnlCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblResult)
+                    .addComponent(nmbCalcPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout pnlPayLayout = new javax.swing.GroupLayout(pnlPay);
         pnlPay.setLayout(pnlPayLayout);
         pnlPayLayout.setHorizontalGroup(
             pnlPayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPayLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlCalculator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
                 .addComponent(btnComplete)
                 .addGap(18, 18, 18)
                 .addComponent(btnDebtors)
@@ -191,7 +233,11 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
                 .addGroup(pnlPayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnComplete)
                     .addComponent(btnDebtors))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPayLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlCalculator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         lblQuantity.setText("cantidad");
@@ -269,7 +315,7 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
                 .addGap(4, 4, 4)
                 .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -377,6 +423,23 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
             CommonAlerts.openError(ex.getMessage());
         }
     }//GEN-LAST:event_btnDebtorsActionPerformed
+
+    private void nmbCalcPayKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nmbCalcPayKeyReleased
+        try {
+            final var partialPay = GUICommons.getTextFromField(nmbCalcPay, false);
+            if (GUICommons.isEmptyFieldByKeyEvt(evt, partialPay.isBlank())) {
+                GUICommons.setTextToField(lblResult, String.valueOf(totalSale));
+            }
+            if (
+                    !partialPay.isBlank() &&
+                    BloSalesV2Utils.validateTextWithPattern(BloSalesV2Utils.CURRENCY_REGEX, partialPay)
+                ) {
+                final var substract = totalSale.subtract(new BigDecimal(partialPay));
+                GUICommons.setTextToField(lblResult, String.valueOf(substract));
+            }
+        } catch(BloSalesV2Exception e) {
+        }
+    }//GEN-LAST:event_nmbCalcPayKeyReleased
     
     private void addItemToList() {
         try {
@@ -500,9 +563,13 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
     private javax.swing.JButton btnDebtors;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblBarCode;
+    private javax.swing.JLabel lblFastRest;
     private javax.swing.JLabel lblQuantity;
+    private javax.swing.JLabel lblResult;
     private javax.swing.JLabel lblTotal;
+    private javax.swing.JTextField nmbCalcPay;
     private javax.swing.JTextField nmbQuantity;
+    private javax.swing.JPanel pnlCalculator;
     private javax.swing.JPanel pnlPay;
     private javax.swing.JPanel pnlSearch;
     private javax.swing.JTable tblProductsSales;
@@ -516,5 +583,7 @@ public final class Sales extends javax.swing.JPanel implements ITranslate {
         GUICommons.setTextToButton(btnComplete, translate.get(KeysEnum.SALES_BTN_COMPLETE.getKey()));
         GUICommons.setTextToButton(btnDebtors, translate.get(KeysEnum.SALES_BTN_NO_COMPLETE.getKey()));
         GUICommons.setTextToField(lblTotal, String.format(translate.get(KeysEnum.COMMON_TOTAL.getKey()), "0"));
+        GUICommons.setTextToField(lblResult, BloSalesV2Utils.EMPTY_STRING);
+        GUICommons.setTextToField(lblFastRest, translate.get(KeysEnum.SALES_LBL_FAST_REST.getKey()));
     }
 }
