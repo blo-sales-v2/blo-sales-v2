@@ -10,6 +10,8 @@ import com.blo.sales.v2.controller.impl.ProductsControllerImpl;
 import com.blo.sales.v2.controller.impl.StockPricesHistoryControllerImpl;
 import com.blo.sales.v2.controller.pojos.enums.ReasonsIntEnum;
 import com.blo.sales.v2.controller.pojos.enums.TypesIntEnum;
+import com.blo.sales.v2.plugins.xlxs.BloSalesV2Rows;
+import com.blo.sales.v2.plugins.xlxs.BloSalesV2XLXSPlugin;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
@@ -32,6 +34,8 @@ import com.blo.sales.v2.view.pojos.enums.ReasonsEnum;
 import com.blo.sales.v2.view.pojos.enums.RolesEnum;
 import com.blo.sales.v2.view.pojos.enums.TypesEnum;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public final class AllProducts extends AbstractDashboardBase {
@@ -57,6 +61,8 @@ public final class AllProducts extends AbstractDashboardBase {
     private static final WrapperPojoStockPriceHistoryMapper pricesEvolutionPriceMapper = WrapperPojoStockPriceHistoryMapper.getInstance();
     
     private static final WrapperPojoMovementsDetailMapper movementsMapper = WrapperPojoMovementsDetailMapper.getInstance();
+    
+    private static final String[] titles = {"ID", "Codigo de barras", "Producto", "Cantidad en existencia", "Precio", "Costo de venta", "¿Por kg?", "Categoria"};
     
     private BigDecimal currentQuantity;
     
@@ -244,7 +250,12 @@ public final class AllProducts extends AbstractDashboardBase {
                 .addGap(32, 32, 32))
         );
 
-        btnDownloadStock.setText("descargar_inventario_completo");
+        btnDownloadStock.setText("descargar_inventario_complet");
+        btnDownloadStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDownloadStockActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -390,13 +401,38 @@ public final class AllProducts extends AbstractDashboardBase {
         }
     }//GEN-LAST:event_btnMovementsActionPerformed
 
+    private void btnDownloadStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadStockActionPerformed
+        // recuperar todos los registro de la tabla
+        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+        final var bloSalesRow = new BloSalesV2Rows();
+        final var r = new ArrayList<Object[]>();
+        for (var i = 0; i < tblProducts.getRowCount(); i++) {
+            final Object[] row = {
+                String.valueOf(model.getValueAt(i, 0)),
+                String.valueOf(model.getValueAt(i, 1)),
+                String.valueOf(model.getValueAt(i, 2)),
+                String.valueOf(model.getValueAt(i, 4)),
+                String.valueOf(model.getValueAt(i, 5)),
+                String.valueOf(model.getValueAt(i, 6)),
+                String.valueOf(model.getValueAt(i, 7)),
+                String.valueOf(model.getValueAt(i, 3)),
+                BloSalesV2Utils.EMPTY_STRING,
+                BloSalesV2Utils.EMPTY_STRING
+            };
+            r.add(row);
+        }
+        bloSalesRow.setRows(r);
+        final String[] headers = 
+                {"ID", "Codigo de barras", "Producto", "Precio", "Costo de venta", "¿Por kg?", "Categoria",  "Cantidad en existencia", "Observaciones"};
+        BloSalesV2XLXSPlugin.exportFile(headers, bloSalesRow);
+    }//GEN-LAST:event_btnDownloadStockActionPerformed
+
     /** ajustar filtro de categorias */
     private void loadTitlesAndData() {
         try {
             final var productsData = productsMapper.toOuter(productsController.getAllProducts());
             final var categories = categoriesMapper.toOuter(categoriesController.getAllCategories());
             if (userData.getRole().equals(RolesEnum.ROOT)) {
-                final String[] titles = {"ID", "Codigo de barras", "Producto", "Cantidad en existencia", "Precio", "Costo de venta", "¿Por kg?", "Categoria"};
                 GUICommons.loadTitleOnTable(tblProducts, titles, false);
                 final var model = (DefaultTableModel) tblProducts.getModel();
                 model.setRowCount(0);

@@ -275,8 +275,11 @@
     </Container>
     <Component class="javax.swing.JButton" name="btnDownloadStock">
       <Properties>
-        <Property name="text" type="java.lang.String" value="descargar_inventario_completo"/>
+        <Property name="text" type="java.lang.String" value="descargar_inventario_complet"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDownloadStockActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
