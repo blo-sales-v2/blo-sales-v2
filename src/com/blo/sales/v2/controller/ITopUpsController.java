@@ -7,7 +7,7 @@ import com.blo.sales.v2.utils.BloSalesV2Exception;
 
 public interface ITopUpsController {
     
-    PojoIntTopUp addTopUp(PojoIntTopUp data) throws BloSalesV2Exception;
+    PojoIntTopUp addTopUp(PojoIntTopUp data, long idCompany) throws BloSalesV2Exception;
     
     WrapperPojoIntTopUp closeTopUps(WrapperPojoIntTopUp topUps) throws BloSalesV2Exception;
     

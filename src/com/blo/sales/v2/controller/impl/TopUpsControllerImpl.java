@@ -31,11 +31,12 @@ public class TopUpsControllerImpl implements ITopUpsController {
     }
 
     @Override
-    public PojoIntTopUp addTopUp(PojoIntTopUp data) throws BloSalesV2Exception {
+    public PojoIntTopUp addTopUp(PojoIntTopUp data, long idCompany) throws BloSalesV2Exception {
         logger.log(String.format("guardando recarga telefonica", String.valueOf(data)));
-        final var companyFound = mobileCompanyController.getCompanyMobileById(data.getFkMobileCompany());
+        final var companyFound = mobileCompanyController.getCompanyMobileById(idCompany);
         logger.log(String.format("Compania encontrada %s", String.valueOf(companyFound)));
         BloSalesV2Utils.validateRule(companyFound == null, BloSalesV2Utils.CODE_COMPANY_NOT_FOUND, BloSalesV2Utils.ERROR_COMPANY_NOT_FOUND);
+        data.setFkMobileCompany(companyFound);
         return model.addTopUp(data);
     }
 

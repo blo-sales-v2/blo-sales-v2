@@ -7,6 +7,10 @@ import com.blo.sales.v2.utils.IToOuter;
 
 public class TopUpEntityMapper implements IToInner<TopUpEntity, PojoIntTopUp>, IToOuter<TopUpEntity, PojoIntTopUp> {
     
+    private static final MobileCompanyEntityMapper mobileCompanyMapper = MobileCompanyEntityMapper.getInstance();
+    
+    private static final UserLoggedEntityMapper userMapper = UserLoggedEntityMapper.getInstance();
+    
     private static TopUpEntityMapper instance;
     
     private TopUpEntityMapper() { }
@@ -25,8 +29,8 @@ public class TopUpEntityMapper implements IToInner<TopUpEntity, PojoIntTopUp>, I
         }
         final var inner = new TopUpEntity();
         inner.setAmount(outer.getAmount());
-        inner.setFk_mobile_company(outer.getFkMobileCompany());
-        inner.setFk_user(outer.getFkUser());
+        inner.setFk_mobile_company(mobileCompanyMapper.toInner(outer.getFkMobileCompany()));
+        inner.setFk_user(userMapper.toInner(outer.getFkUser()));
         inner.setId_top_up(outer.getIdTopUp());
         inner.setChecked(outer.isChecked());
         inner.setPhone_number(outer.getPhoneNumber());
@@ -42,8 +46,8 @@ public class TopUpEntityMapper implements IToInner<TopUpEntity, PojoIntTopUp>, I
         }
         final var outer = new PojoIntTopUp();
         outer.setAmount(inner.getAmount());
-        outer.setFkMobileCompany(inner.getFk_mobile_company());
-        outer.setFkUser(inner.getFk_user());
+        outer.setFkMobileCompany(mobileCompanyMapper.toOuter(inner.getFk_mobile_company()));
+        outer.setFkUser(userMapper.toOuter(inner.getFk_user()));
         outer.setIdTopUp(inner.getId_top_up());
         outer.setChecked(inner.isChecked());
         outer.setPhoneNumber(inner.getPhone_number());

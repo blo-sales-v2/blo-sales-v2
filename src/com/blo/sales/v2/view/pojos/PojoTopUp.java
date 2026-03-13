@@ -6,9 +6,9 @@ public class PojoTopUp {
     
     private long idTopUp;
     
-    private long fkUser;
+    private PojoLoggedInUser fkUser;
     
-    private long fkMobileCompany;
+    private PojoMobileCompany fkMobileCompany;
     
     private BigDecimal amount;
     
@@ -26,19 +26,19 @@ public class PojoTopUp {
         this.idTopUp = idTopUp;
     }
 
-    public long getFkUser() {
+    public PojoLoggedInUser getFkUser() {
         return fkUser;
     }
 
-    public void setFkUser(long fkUser) {
+    public void setFkUser(PojoLoggedInUser fkUser) {
         this.fkUser = fkUser;
     }
 
-    public long getFkMobileCompany() {
+    public PojoMobileCompany getFkMobileCompany() {
         return fkMobileCompany;
     }
 
-    public void setFkMobileCompany(long fkMobileCompany) {
+    public void setFkMobileCompany(PojoMobileCompany fkMobileCompany) {
         this.fkMobileCompany = fkMobileCompany;
     }
 
@@ -76,6 +76,6 @@ public class PojoTopUp {
 
     @Override
     public String toString() {
-        return "PojoIntTopUp{" + "idTopUp=" + idTopUp + ", fkUser=" + fkUser + ", fkMobileCompany=" + fkMobileCompany + ", amount=" + amount + ", checked=" + checked + ", phoneNumber=" + phoneNumber + ", timestamp=" + timestamp + '}';
+        return "PojoTopUp{" + "idTopUp=" + idTopUp + ", fkUser=" + fkUser + ", fkMobileCompany=" + fkMobileCompany + ", amount=" + amount + ", checked=" + checked + ", phoneNumber=" + phoneNumber + ", timestamp=" + timestamp + '}';
     }
 }

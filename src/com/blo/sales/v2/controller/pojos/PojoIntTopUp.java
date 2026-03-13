@@ -6,9 +6,9 @@ public class PojoIntTopUp {
     
     private long idTopUp;
     
-    private long fkUser;
+    private PojoIntLoggedInUser fkUser;
     
-    private long fkMobileCompany;
+    private PojoIntMobileCompany fkMobileCompany;
     
     private BigDecimal amount;
     
@@ -26,19 +26,19 @@ public class PojoIntTopUp {
         this.idTopUp = idTopUp;
     }
 
-    public long getFkUser() {
+    public PojoIntLoggedInUser getFkUser() {
         return fkUser;
     }
 
-    public void setFkUser(long fkUser) {
+    public void setFkUser(PojoIntLoggedInUser fkUser) {
         this.fkUser = fkUser;
     }
 
-    public long getFkMobileCompany() {
+    public PojoIntMobileCompany getFkMobileCompany() {
         return fkMobileCompany;
     }
 
-    public void setFkMobileCompany(long fkMobileCompany) {
+    public void setFkMobileCompany(PojoIntMobileCompany fkMobileCompany) {
         this.fkMobileCompany = fkMobileCompany;
     }
 

@@ -6,9 +6,9 @@ public class TopUpEntity {
     
     private long id_top_up;
     
-    private long fk_user;
+    private UserEntity fk_user;
     
-    private long fk_mobile_company;
+    private MobileCompanyEntity fk_mobile_company;
     
     private BigDecimal amount;
     
@@ -26,19 +26,19 @@ public class TopUpEntity {
         this.id_top_up = id_top_up;
     }
 
-    public long getFk_user() {
+    public UserEntity getFk_user() {
         return fk_user;
     }
 
-    public void setFk_user(long fk_user) {
+    public void setFk_user(UserEntity fk_user) {
         this.fk_user = fk_user;
     }
 
-    public long getFk_mobile_company() {
+    public MobileCompanyEntity getFk_mobile_company() {
         return fk_mobile_company;
     }
 
-    public void setFk_mobile_company(long fk_mobile_company) {
+    public void setFk_mobile_company(MobileCompanyEntity fk_mobile_company) {
         this.fk_mobile_company = fk_mobile_company;
     }
 
@@ -78,5 +78,4 @@ public class TopUpEntity {
     public String toString() {
         return "TopUpEntity{" + "id_top_up=" + id_top_up + ", fk_user=" + fk_user + ", fk_mobile_company=" + fk_mobile_company + ", amount=" + amount + ", checked=" + checked + ", phone_number=" + phone_number + ", timestamp=" + timestamp + '}';
     }
-    
 }

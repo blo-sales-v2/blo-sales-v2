@@ -156,13 +156,13 @@ public final class TopUps extends AbstractDashboardBase {
             final var topUpData = new PojoTopUp();
             topUpData.setAmount(amount);
             topUpData.setChecked(false);
-            topUpData.setFkMobileCompany(Long.parseLong(idCompany));
-            topUpData.setFkUser(userData.getIdUser());
+            topUpData.setFkMobileCompany(null);
+            topUpData.setFkUser(userData);
             topUpData.setPhoneNumber(phoneNmb);
             topUpData.setTimestamp(BloSalesV2Utils.getTimestamp());
-            topUpsController.addTopUp(topUpMapper.toInner(topUpData));
+            topUpsController.addTopUp(topUpMapper.toInner(topUpData), Long.parseLong(idCompany));
             GUICommons.setTextToField(nmbAmount, BloSalesV2Utils.EMPTY_STRING);
-            GUICommons.setTextToField(lblPhoneNumber, BloSalesV2Utils.EMPTY_STRING);
+            GUICommons.setTextToField(txtPhoneNumber, BloSalesV2Utils.EMPTY_STRING);
             GUICommons.disabledButton(btnSave);
         } catch (BloSalesV2Exception ex) {
             logger.error(ex.getMessage());

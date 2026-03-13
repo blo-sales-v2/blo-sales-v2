@@ -7,6 +7,10 @@ import com.blo.sales.v2.view.pojos.PojoTopUp;
 
 public class PojoTopUpMapper implements IToInner<PojoIntTopUp, PojoTopUp>, IToOuter<PojoIntTopUp, PojoTopUp> {
     
+    private static final PojoMobileCompanyMapper mobileCompanyMapper = PojoMobileCompanyMapper.getInstance();
+    
+    private static final LoggedInUserMapper loggedInUserMapper = LoggedInUserMapper.getInstance();
+    
     private static PojoTopUpMapper instance;
     
     private PojoTopUpMapper() { }
@@ -26,8 +30,8 @@ public class PojoTopUpMapper implements IToInner<PojoIntTopUp, PojoTopUp>, IToOu
         final var inner = new PojoIntTopUp();
         inner.setAmount(outer.getAmount());
         inner.setChecked(outer.isChecked());
-        inner.setFkMobileCompany(outer.getFkMobileCompany());
-        inner.setFkUser(outer.getFkUser());
+        inner.setFkMobileCompany(mobileCompanyMapper.toInner(outer.getFkMobileCompany()));
+        inner.setFkUser(loggedInUserMapper.toInner(outer.getFkUser()));
         inner.setIdTopUp(outer.getIdTopUp());
         inner.setPhoneNumber(outer.getPhoneNumber());
         inner.setTimestamp(outer.getTimestamp());
@@ -43,8 +47,8 @@ public class PojoTopUpMapper implements IToInner<PojoIntTopUp, PojoTopUp>, IToOu
         final var outer = new PojoTopUp();
         outer.setAmount(inner.getAmount());
         outer.setChecked(inner.isChecked());
-        outer.setFkMobileCompany(inner.getFkMobileCompany());
-        outer.setFkUser(inner.getFkUser());
+        outer.setFkMobileCompany(mobileCompanyMapper.toOuter(inner.getFkMobileCompany()));
+        outer.setFkUser(loggedInUserMapper.toOuter(inner.getFkUser()));
         outer.setIdTopUp(inner.getIdTopUp());
         outer.setPhoneNumber(inner.getPhoneNumber());
         outer.setTimestamp(inner.getTimestamp());

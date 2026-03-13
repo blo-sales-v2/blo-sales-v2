@@ -7,6 +7,7 @@ import com.blo.sales.v2.model.ITopUpModel;
 import com.blo.sales.v2.model.config.DBConnection;
 import com.blo.sales.v2.model.constants.BloSalesV2Columns;
 import com.blo.sales.v2.model.constants.BloSalesV2Queries;
+import com.blo.sales.v2.model.entities.MobileCompanyEntity;
 import com.blo.sales.v2.model.entities.TopUpEntity;
 import com.blo.sales.v2.model.entities.WrapperTopUpsEntity;
 import com.blo.sales.v2.model.mapper.TopUpEntityMapper;
@@ -47,8 +48,8 @@ public class TopUpModelImpl implements ITopUpModel {
             final var innerData = topUpEntityMapper.toInner(data);
             DBConnection.disableAutocommit();
             final var ps = conn.prepareStatement(BloSalesV2Queries.INSERT_TOP_UP, Statement.RETURN_GENERATED_KEYS);
-            ps.setLong(1, innerData.getFk_user());
-            ps.setLong(2, innerData.getFk_mobile_company());
+            ps.setLong(1, innerData.getFk_user().getId_user());
+            ps.setLong(2, innerData.getFk_mobile_company().getId_mobile_company());
             ps.setBigDecimal(3, innerData.getAmount());
             ps.setBoolean(4, innerData.isChecked());
             ps.setString(5, innerData.getPhone_number());
@@ -85,8 +86,8 @@ public class TopUpModelImpl implements ITopUpModel {
             logger.log(String.format("Actualizando informacion %s con id %s", String.valueOf(innerData), idTopUp));
             DBConnection.disableAutocommit();
             final var ps = conn.prepareStatement(BloSalesV2Queries.UPDATE_TP_UP);
-            ps.setLong(1, innerData.getFk_user());
-            ps.setLong(2, innerData.getFk_mobile_company());
+            ps.setLong(1, innerData.getFk_user().getId_user());
+            ps.setLong(2, innerData.getFk_mobile_company().getId_mobile_company());
             ps.setBigDecimal(3, innerData.getAmount());
             ps.setBoolean(4, innerData.isChecked());
             ps.setString(5, innerData.getPhone_number());
@@ -127,11 +128,15 @@ public class TopUpModelImpl implements ITopUpModel {
             final var rs = ps.executeQuery();
             final var wrapperTopUps = new WrapperTopUpsEntity();
             final var topUps = new ArrayList<TopUpEntity>();
+            MobileCompanyEntity companyEntity = null;
             while(rs.next()) {
                 final var p = new TopUpEntity();
+                companyEntity = new MobileCompanyEntity();
+                companyEntity.setId_mobile_company(rs.getLong(BloSalesV2Columns.FK_MOBILE_COMPANY));
+                
                 p.setAmount(rs.getBigDecimal(BloSalesV2Columns.AMOUNT));
                 p.setChecked(rs.getBoolean(BloSalesV2Columns.CHECKED));
-                p.setFk_mobile_company(rs.getLong(BloSalesV2Columns.FK_MOBILE_COMPANY));
+                p.setFk_mobile_company(companyEntity);
                 p.setId_top_up(rs.getLong(BloSalesV2Columns.ID_TOP_UP));
                 p.setPhone_number(rs.getString(BloSalesV2Columns.PHONE_NUMBER));
                 p.setTimestamp(rs.getString(BloSalesV2Columns.TIMESTAMP));
