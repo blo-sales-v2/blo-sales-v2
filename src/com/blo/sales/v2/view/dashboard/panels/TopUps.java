@@ -5,12 +5,21 @@ import com.blo.sales.v2.controller.ITopUpsController;
 import com.blo.sales.v2.controller.impl.MobileCompanyControllerImpl;
 import com.blo.sales.v2.controller.impl.TopUpsControllerImpl;
 import com.blo.sales.v2.translate.KeysEnum;
+import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.view.commons.AbstractDashboardBase;
+import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
+import com.blo.sales.v2.view.commons.GUILogger;
+import com.blo.sales.v2.view.mappers.PojoMobileCompanyMapper;
 import com.blo.sales.v2.view.mappers.PojoTopUpMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoMobilesCompaniesMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoTopUpsMapper;
+import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
+import javax.swing.DefaultComboBoxModel;
 
-public class TopUps extends AbstractDashboardBase {
+public final class TopUps extends AbstractDashboardBase {
+    
+    private static final GUILogger logger = GUILogger.getLogger(TopUps.class.getName());
     
     private static final IMobileCompanyController mobileController = MobileCompanyControllerImpl.getInstance();
     
@@ -19,9 +28,18 @@ public class TopUps extends AbstractDashboardBase {
     private static final PojoTopUpMapper topUpMapper = PojoTopUpMapper.getInstance();
     
     private static final WrapperPojoTopUpsMapper wrapperPojoTopUp = WrapperPojoTopUpsMapper.getInstance();
+    
+    private static final WrapperPojoMobilesCompaniesMapper wrapperCompaniesMapper = WrapperPojoMobilesCompaniesMapper.getInstance();
+    
+    private static final PojoMobileCompanyMapper companyMapper = PojoMobileCompanyMapper.getInstance();
+    
+    private PojoLoggedInUser userData;
 
-    public TopUps() {
+    public TopUps(PojoLoggedInUser userData) {
+        this.userData = userData;
         initComponents();
+        loadTargets();
+        retrieveCompanies();
     }
 
     @SuppressWarnings("unchecked")
@@ -36,11 +54,15 @@ public class TopUps extends AbstractDashboardBase {
         txtPhoneNumber = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
 
-        cmbxCompanyPhone.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lblCompanyPhone.setText("company_phone");
 
         lblPhoneNumber.setText("numero_telefonico");
+
+        txtPhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPhoneNumberKeyReleased(evt);
+            }
+        });
 
         btnSave.setText("guardar");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -103,11 +125,39 @@ public class TopUps extends AbstractDashboardBase {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+        final var companySelected = GUICommons.getValueFromComboBox(cmbxCompanyPhone);
+        System.out.println(companySelected);
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void txtPhoneNumberKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhoneNumberKeyReleased
+        try {
+            final var txt = GUICommons.getTextFromField(txtPhoneNumber, false);
+            if (GUICommons.isEmptyFieldByKeyEvt(evt, txt.isBlank())) {
+                GUICommons.disabledButton(btnSave);
+                return;
+            }
+            GUICommons.enabledButton(btnSave);
+        } catch (BloSalesV2Exception ex) {
+            logger.error(ex.getMessage());
+            CommonAlerts.openError(ex.getMessage());
+        }
+    }//GEN-LAST:event_txtPhoneNumberKeyReleased
+
     private void retrieveCompanies() {
-        
+        try {
+            GUICommons.disabledButton(btnSave);
+            final var companies = wrapperCompaniesMapper.toOuter(mobileController.getMobilesCompanies());
+            if (companies.getCompanies() != null && !companies.getCompanies().isEmpty()) {
+                final var categoryModel = new DefaultComboBoxModel<String>();
+                companies.getCompanies().forEach(c -> categoryModel.addElement(String.format("%s %s", c.getIdMobileCompany(), c.getMobileCompany())));
+                cmbxCompanyPhone.setModel(categoryModel);
+                return;
+            }
+            GUICommons.disabledElement(cmbxCompanyPhone);
+        } catch (BloSalesV2Exception ex) {
+            logger.error(ex.getMessage());
+            CommonAlerts.openError(ex.getMessage());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -14,6 +14,7 @@ import com.blo.sales.v2.view.dashboard.panels.RegisterProduct;
 import com.blo.sales.v2.view.dashboard.panels.Sales;
 import com.blo.sales.v2.view.dashboard.panels.SalesReport;
 import com.blo.sales.v2.view.dashboard.panels.SalesToday;
+import com.blo.sales.v2.view.dashboard.panels.TopUps;
 import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
 
 public class DashboardRootFrm extends javax.swing.JFrame {
@@ -52,7 +53,7 @@ public class DashboardRootFrm extends javax.swing.JFrame {
         optNotes = new javax.swing.JMenuItem();
         optDebtors = new javax.swing.JMenuItem();
         itmTopUp = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        optTopUps = new javax.swing.JMenuItem();
         optMobileCompanies = new javax.swing.JMenuItem();
         itmProg = new javax.swing.JMenu();
         optConsole = new javax.swing.JMenuItem();
@@ -170,13 +171,13 @@ public class DashboardRootFrm extends javax.swing.JFrame {
 
         itmTopUp.setText("Recargas telefónicas");
 
-        jMenuItem1.setText("Recargas telefónicas");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        optTopUps.setText("Recargas telefónicas");
+        optTopUps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                optTopUpsActionPerformed(evt);
             }
         });
-        itmTopUp.add(jMenuItem1);
+        itmTopUp.add(optTopUps);
 
         optMobileCompanies.setText("Compañías");
         optMobileCompanies.addActionListener(new java.awt.event.ActionListener() {
@@ -277,9 +278,9 @@ public class DashboardRootFrm extends javax.swing.JFrame {
         GUICommons.showPanel(content, new MobileCompanies());
     }//GEN-LAST:event_optMobileCompaniesActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void optTopUpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optTopUpsActionPerformed
+        GUICommons.showPanel(content, new TopUps(userData));
+    }//GEN-LAST:event_optTopUpsActionPerformed
     
     private void openAllProducts() {
         GUICommons.showPanel(content, new AllProducts(userData));
@@ -293,7 +294,6 @@ public class DashboardRootFrm extends javax.swing.JFrame {
     private javax.swing.JMenu itmSales;
     private javax.swing.JMenu itmStock;
     private javax.swing.JMenu itmTopUp;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblVersion;
     private javax.swing.JMenuBar mnuBar;
@@ -308,6 +308,7 @@ public class DashboardRootFrm extends javax.swing.JFrame {
     private javax.swing.JMenuItem optRegister;
     private javax.swing.JMenuItem optSalesReport;
     private javax.swing.JMenuItem optStock;
+    private javax.swing.JMenuItem optTopUps;
     private javax.swing.JMenuItem optViewSales;
     private javax.swing.JPopupMenu.Separator sprt01;
     // End of variables declaration//GEN-END:variables

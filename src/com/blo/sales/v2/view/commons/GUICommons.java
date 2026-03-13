@@ -393,6 +393,14 @@ public final class GUICommons {
     public static void showPanel(JPanel pnl) {
         pnl.setVisible(true);
     }
+    
+    public static void disabledElement(JComboBox<String> cmbx) {
+        cmbx.setEnabled(false);
+    }
+    
+    public static void enabledElement(JComboBox<String> cmbx) {
+        cmbx.setEnabled(true);
+    }
     /**
      * Gestor de eventos cuando se realiza la accion que se disparar por doble clic / key
      * @param <T>
