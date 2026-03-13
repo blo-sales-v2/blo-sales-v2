@@ -117,4 +117,13 @@ public final class BloSalesV2Queries {
     public static final String RETRIEVE_MOBILE_COMPANY_BY_ID = "SELECT id_mobile_company, company FROM mobile_company WHERE id_company = ?";
     
     public static final String UPDATE_MOBILE_COMPANY = "UPDATE mobile_company SET company = ? WHERE id_mobile_company = ?";
+    
+    /** recargas telefonicas */
+    public static final String INSERT_TOP_UP = "INSERT INTO top_up(fk_user, fk_mobile_company, amount, checked, phone_number, timestamp) VALUES (?, ?, ?, ?, ?, ?)";
+    
+    public static final String UPDATE_TP_UP = "UPDATE top_up SET fk_user = ?, fk_mobile_company = ?, amount = ?, checked = ?, phone_number = ?, timestamp = ? WHERE id_top_up = ?";
+    
+    public static final String SELECT_TOP_UPS_BY_STATUS = "SELECT id_top_up, fk_user, fk_mobile_company, amount, checked, phone_number, timestamp FROM top_up WHERE checked = ?";
+    
+    public static final String SELECT_ALL_TOP_UP = "SELECT id_top_up, fk_user, fk_mobile_company, amount, checked, phone_number, timestamp FROM top_up";
 }

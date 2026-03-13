@@ -52,6 +52,7 @@ public class DashboardRootFrm extends javax.swing.JFrame {
         optNotes = new javax.swing.JMenuItem();
         optDebtors = new javax.swing.JMenuItem();
         itmTopUp = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         optMobileCompanies = new javax.swing.JMenuItem();
         itmProg = new javax.swing.JMenu();
         optConsole = new javax.swing.JMenuItem();
@@ -169,6 +170,14 @@ public class DashboardRootFrm extends javax.swing.JFrame {
 
         itmTopUp.setText("Recargas telefónicas");
 
+        jMenuItem1.setText("Recargas telefónicas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        itmTopUp.add(jMenuItem1);
+
         optMobileCompanies.setText("Compañías");
         optMobileCompanies.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,6 +276,10 @@ public class DashboardRootFrm extends javax.swing.JFrame {
     private void optMobileCompaniesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optMobileCompaniesActionPerformed
         GUICommons.showPanel(content, new MobileCompanies());
     }//GEN-LAST:event_optMobileCompaniesActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
     
     private void openAllProducts() {
         GUICommons.showPanel(content, new AllProducts(userData));
@@ -280,6 +293,7 @@ public class DashboardRootFrm extends javax.swing.JFrame {
     private javax.swing.JMenu itmSales;
     private javax.swing.JMenu itmStock;
     private javax.swing.JMenu itmTopUp;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblVersion;
     private javax.swing.JMenuBar mnuBar;

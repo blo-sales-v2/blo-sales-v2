@@ -104,6 +104,14 @@ public final class BloSalesV2Columns {
     
     public static final String ID_COMPANY = "id_mobile_company";
     
+    public static final String ID_TOP_UP = "id_top_up";
+    
     public static final String COMPANY = "company";
+    
+    public static final String FK_MOBILE_COMPANY = "fk_mobile_company";
+    
+    public static final String CHECKED = "checked";
+    
+    public static final String PHONE_NUMBER = "phone_number";
     
 }
