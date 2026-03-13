@@ -114,7 +114,7 @@ public final class BloSalesV2Queries {
     
     public static final String RETRIEVE_ALL_MOBILES_COMPANIES = "SELECT id_mobile_company, company FROM mobile_company";
     
-    public static final String RETRIEVE_MOBILE_COMPANY_BY_ID = "SELECT id_mobile_company, company FROM mobile_company WHERE id_company = ?";
+    public static final String RETRIEVE_MOBILE_COMPANY_BY_ID = "SELECT id_mobile_company, company FROM mobile_company WHERE id_mobile_company = ?";
     
     public static final String UPDATE_MOBILE_COMPANY = "UPDATE mobile_company SET company = ? WHERE id_mobile_company = ?";
     

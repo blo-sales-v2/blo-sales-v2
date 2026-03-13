@@ -82,6 +82,8 @@ public final class BloSalesV2Utils {
     
     public static final String ERROR_COMPANY_NOT_FOUND = "Compa\u00f1\u00eda no econtrada";
     
+    public static final String ERROR_INVALID_PHONE_NUMBER = "N\u00famero telef\u00f3nico no v\u00e1lido";
+    
     public static final long DEBTORS_PAYMENTS = 1;
     
     /** codigos de error */
@@ -126,6 +128,8 @@ public final class BloSalesV2Utils {
     public static final String CODE_PATTERN_ERROR = "017";
     
     public static final String CODE_COMPANY_NOT_FOUND = "018";
+    
+    public static final String CODE_INVALID_PHONE_NUMBER = "019";
     
     public static final String FORMAT_DATE = "yyyy-MM-dd";
     
