@@ -45,6 +45,7 @@ public class TopUpsControllerImpl implements ITopUpsController {
         logger.log(String.format("actualizando topUps %s", topUps.getTopUps().size()));
         if (topUps.getTopUps() != null && !topUps.getTopUps().isEmpty()) {
             for(final var element: topUps.getTopUps()) {
+                element.setChecked(true);
                 model.updateTopUp(element, element.getIdTopUp());
             }
             logger.log("Se han cerrado las recargas");

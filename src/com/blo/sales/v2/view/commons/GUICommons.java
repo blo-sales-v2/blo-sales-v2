@@ -394,6 +394,14 @@ public final class GUICommons {
         pnl.setVisible(true);
     }
     
+    public static void hiddenElement(JButton btn) {
+        btn.setVisible(false);
+    }
+    
+    public static void showElement(JButton btn) {
+        btn.setVisible(true);
+    }
+    
     public static void disabledElement(JComboBox<String> cmbx) {
         cmbx.setEnabled(false);
     }
