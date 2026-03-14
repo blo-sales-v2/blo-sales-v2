@@ -53,6 +53,7 @@ public class DashboardRootFrm extends javax.swing.JFrame {
         optNotes = new javax.swing.JMenuItem();
         optDebtors = new javax.swing.JMenuItem();
         itmTopUp = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
         optTopUps = new javax.swing.JMenuItem();
         optMobileCompanies = new javax.swing.JMenuItem();
         itmProg = new javax.swing.JMenu();
@@ -169,15 +170,17 @@ public class DashboardRootFrm extends javax.swing.JFrame {
 
         mnuBar.add(itmAdmon);
 
-        itmTopUp.setText("Recargas telefónicas");
+        itmTopUp.setText("Pagos de servicios");
 
-        optTopUps.setText("Recargas telefónicas");
+        jMenu1.setText("Recargas");
+
+        optTopUps.setText("Panel");
         optTopUps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 optTopUpsActionPerformed(evt);
             }
         });
-        itmTopUp.add(optTopUps);
+        jMenu1.add(optTopUps);
 
         optMobileCompanies.setText("Compañías");
         optMobileCompanies.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +188,9 @@ public class DashboardRootFrm extends javax.swing.JFrame {
                 optMobileCompaniesActionPerformed(evt);
             }
         });
-        itmTopUp.add(optMobileCompanies);
+        jMenu1.add(optMobileCompanies);
+
+        itmTopUp.add(jMenu1);
 
         mnuBar.add(itmTopUp);
 
@@ -294,6 +299,7 @@ public class DashboardRootFrm extends javax.swing.JFrame {
     private javax.swing.JMenu itmSales;
     private javax.swing.JMenu itmStock;
     private javax.swing.JMenu itmTopUp;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblVersion;
     private javax.swing.JMenuBar mnuBar;

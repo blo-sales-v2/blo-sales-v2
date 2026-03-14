@@ -118,25 +118,32 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="itmTopUp">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Recargas telef&#xf3;nicas"/>
+            <Property name="text" type="java.lang.String" value="Pagos de servicios"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="optTopUps">
+            <Menu class="javax.swing.JMenu" name="jMenu1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Recargas telef&#xf3;nicas"/>
+                <Property name="text" type="java.lang.String" value="Recargas"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optTopUpsActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="optMobileCompanies">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Compa&#xf1;&#xed;as"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optMobileCompaniesActionPerformed"/>
-              </Events>
-            </MenuItem>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="optTopUps">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Panel"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optTopUpsActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="optMobileCompanies">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Compa&#xf1;&#xed;as"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optMobileCompaniesActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="itmProg">
