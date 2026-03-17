@@ -21,9 +21,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="pnlSearch" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="pnlPay" max="32767" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="lblTotal" min="-2" pref="121" max="-2" attributes="0"/>
+                      <Component id="pnlPay" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="lblTotal" min="-2" pref="211" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane2" alignment="0" pref="1288" max="32767" attributes="0"/>
               </Group>
@@ -50,6 +50,11 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblTotal">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="24" style="1"/>
+        </Property>
+      </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="pnlPay">
 
@@ -57,7 +62,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="626" max="32767" attributes="0"/>
                   <Component id="pnlCalculator" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   <Component id="btnDebtors" min="-2" max="-2" attributes="0"/>
@@ -109,10 +114,10 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblFastRest" pref="174" max="32767" attributes="0"/>
+                          <Component id="lblFastRest" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="nmbCalcPay" min="-2" pref="81" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="56" max="32767" attributes="0"/>
                               <Component id="lblResult" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>

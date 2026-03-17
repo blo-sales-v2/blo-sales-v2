@@ -10,6 +10,11 @@ public abstract class AbstractFrameBase extends javax.swing.JFrame {
         return translate.get(key);
     }
     
+    public void loadTitle(String key) {
+        final var txt = translate.get(key);
+        setTitle(txt);
+    }
+    
     public abstract void loadTargets();
     
 }

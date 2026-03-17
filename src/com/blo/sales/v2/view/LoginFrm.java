@@ -27,6 +27,7 @@ public final class LoginFrm extends AbstractFrameBase {
     public LoginFrm() {
         initComponents();
         loadTargets();
+        loadTitle(KeysEnum.DASHBOARD_TITLES_LOGIN.getKey());
         setLocationRelativeTo(null); 
         GUICommons.setDimensions(this);
     }
@@ -192,4 +193,5 @@ public final class LoginFrm extends AbstractFrameBase {
         GUICommons.setTextToField(lblPassword, getTranslateBy(KeysEnum.LOGIN_LBL_PASSWROD.getKey()));
         GUICommons.setTextToField(lblUsername, getTranslateBy(KeysEnum.LOGIN_LBL_USERNAME.getKey()));
     }
+    
 }

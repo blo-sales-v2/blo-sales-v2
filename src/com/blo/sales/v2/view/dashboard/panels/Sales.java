@@ -61,86 +61,18 @@ public final class Sales extends AbstractDashboardBase {
     private PojoLoggedInUser userData;
         
     public Sales(PojoLoggedInUser userData) {
-        initComponents();
-        loadTargets();
-        this.userData = userData;
-        totalSale = BigDecimal.ZERO;
-        resetFields();
-        disableButtons();
         try {
+            initComponents();
+            loadTargets();
+            this.userData = userData;
+            totalSale = BigDecimal.ZERO;
+            resetFields();
+            disableButtons();
             retrieveProducts();
             final String[] titles = {"ID", "Producto", "Cantidad comprada", "Precio", "Total"};
             GUICommons.loadTitleOnTable(tblProductsSales, titles, false);
-            GUICommons.addDoubleClickOnTable(tblProductsSales, id -> {
-                final var model = (DefaultTableModel) tblProductsSales.getModel();
-                // elimina un item de la lista
-                final var indexSelected = tblProductsSales.getSelectedRow();
-                if (indexSelected != -1) {
-                    final var filaModelo = tblProductsSales.convertRowIndexToModel(indexSelected);
-                    var quantityOnSale = new BigDecimal(model.getValueAt(filaModelo, 2).toString());
-                    // resta una unidad al total
-                    final var productFound = products.stream().filter(p -> p.getIdProduct() == Long.parseLong(String.valueOf(id))).findFirst().orElse(null);
-                    final var price = new BigDecimal(model.getValueAt(filaModelo, 3).toString());
-                    totalSale = totalSale.subtract(price);
-                    if (!productFound.isKg()) {
-                        quantityOnSale = quantityOnSale.subtract(BigDecimal.ONE);
-                        // si la cantidad es 0 se elimina la fila
-                        if (quantityOnSale.compareTo(BigDecimal.ZERO) == 0) {
-                            model.removeRow(indexSelected);
-                        } else {
-                            final var totalOnSale = quantityOnSale.multiply(price);
-                            model.setValueAt(quantityOnSale, filaModelo, 2);
-                            model.setValueAt(totalOnSale, filaModelo, 4);
-                        }
-                    } else {
-                        model.removeRow(indexSelected);
-                    }
-                    GUICommons.setTextToField(lblTotal, String.format(getTranslateBy(KeysEnum.COMMON_TOTAL.getKey()), totalSale));
-                    if (totalSale.compareTo(BigDecimal.ZERO) == 0) {
-                        disableButtons();
-                    }
-                }
-            });
-            GUICommons.addKeyEventOnTable(tblProductsSales, GUICommons.ENTER_KEY, id -> {
-                final var model = (DefaultTableModel) tblProductsSales.getModel();
-                final var indexSelected = tblProductsSales.getSelectedRow();
-                if (indexSelected != -1) {
-                    final var filaModelo = tblProductsSales.convertRowIndexToModel(indexSelected);
-                    final var idProduct = Long.parseLong(model.getValueAt(filaModelo, 0).toString());
-                    final var productFound = products.stream().filter(p -> p.getIdProduct() == idProduct).findFirst().orElse(null);
-                    try {
-                        BloSalesV2Utils.validateRule(
-                                productFound == null,
-                                BloSalesV2Utils.CODE_PRODUCT_NOT_FOUND,
-                                BloSalesV2Utils.PRODUCT_NOT_FOUND
-                        );
-                        // se valida que no sea por kg
-                        if (productFound.isKg()) {
-                            CommonAlerts.showMessageDialog(BloSalesV2Utils.PRODUCT_IS_BY_KG);
-                            return;
-                        }
-                        // validar que existan productos suficientes
-                        var quantitySale = new BigDecimal(model.getValueAt(filaModelo, 2).toString());
-                        // se suma uno a la actual cantidad de producto
-                        quantitySale = quantitySale.add(BigDecimal.ONE);
-                        BloSalesV2Utils.validateRule(
-                                quantitySale.compareTo(productFound.getQuantity()) > 0,
-                                BloSalesV2Utils.CODE_PRODUCT_INSUFFICIENT,
-                                BloSalesV2Utils.PRODUCT_INSUFFICIENT
-                        );
-                        totalSale = totalSale.add(productFound.getPrice());
-                        GUICommons.setTextToField(lblTotal, String.format(getTranslateBy(KeysEnum.COMMON_TOTAL.getKey()), totalSale));
-                        // cantidad comprada col
-                        model.setValueAt(quantitySale, filaModelo, 2);
-                        //total
-                        final var totalProduct = productFound.getPrice().multiply(quantitySale);
-                        model.setValueAt(totalProduct, filaModelo, 4);
-                    } catch (BloSalesV2Exception ex) {
-                        logger.error(ex.getMessage());
-                        CommonAlerts.openError(ex.getMessage());
-                    }
-                }
-            });
+            GUICommons.addDoubleClickOnTable(tblProductsSales, id -> removeItemFromSale(Long.parseLong(String.format("%s", id))));
+            GUICommons.addKeyEventOnTable(tblProductsSales, GUICommons.ENTER_KEY, id -> addElementByKeyEnter());
         } catch (BloSalesV2Exception ex) {
             logger.error(ex.getMessage());
             CommonAlerts.openError(ex.getMessage());
@@ -167,6 +99,8 @@ public final class Sales extends AbstractDashboardBase {
         lblBarCode = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblProductsSales = new javax.swing.JTable();
+
+        lblTotal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         btnComplete.setText("completo");
         btnComplete.addActionListener(new java.awt.event.ActionListener() {
@@ -199,10 +133,10 @@ public final class Sales extends AbstractDashboardBase {
             .addGroup(pnlCalculatorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFastRest, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                    .addComponent(lblFastRest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlCalculatorLayout.createSequentialGroup()
                         .addComponent(nmbCalcPay, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                         .addComponent(lblResult)))
                 .addContainerGap())
         );
@@ -223,7 +157,7 @@ public final class Sales extends AbstractDashboardBase {
         pnlPayLayout.setHorizontalGroup(
             pnlPayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPayLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(626, Short.MAX_VALUE)
                 .addComponent(pnlCalculator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(btnDebtors)
@@ -308,9 +242,9 @@ public final class Sales extends AbstractDashboardBase {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlPay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1288, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -556,6 +490,81 @@ public final class Sales extends AbstractDashboardBase {
             retrieveProducts();
         } catch (BloSalesV2Exception ex) {
             Logger.getLogger(Sales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void addElementByKeyEnter() {
+        final var model = (DefaultTableModel) tblProductsSales.getModel();
+        final var indexSelected = tblProductsSales.getSelectedRow();
+        if (indexSelected != -1) {
+            final var filaModelo = tblProductsSales.convertRowIndexToModel(indexSelected);
+            final var idProduct = Long.parseLong(model.getValueAt(filaModelo, 0).toString());
+            final var productFound = products.stream().filter(p -> p.getIdProduct() == idProduct).findFirst().orElse(null);
+            try {
+                BloSalesV2Utils.validateRule(
+                        productFound == null,
+                        BloSalesV2Utils.CODE_PRODUCT_NOT_FOUND,
+                        BloSalesV2Utils.PRODUCT_NOT_FOUND
+                );
+                // se valida que no sea por kg
+                if (productFound.isKg()) {
+                    CommonAlerts.showMessageDialog(BloSalesV2Utils.PRODUCT_IS_BY_KG);
+                    return;
+                }
+                // validar que existan productos suficientes
+                var quantitySale = new BigDecimal(model.getValueAt(filaModelo, 2).toString());
+                // se suma uno a la actual cantidad de producto
+                quantitySale = quantitySale.add(BigDecimal.ONE);
+                BloSalesV2Utils.validateRule(
+                        quantitySale.compareTo(productFound.getQuantity()) > 0,
+                        BloSalesV2Utils.CODE_PRODUCT_INSUFFICIENT,
+                        BloSalesV2Utils.PRODUCT_INSUFFICIENT
+                );
+                totalSale = totalSale.add(productFound.getPrice());
+                GUICommons.setTextToField(lblTotal, String.format(getTranslateBy(KeysEnum.COMMON_TOTAL.getKey()), totalSale));
+                // cantidad comprada col
+                model.setValueAt(quantitySale, filaModelo, 2);
+                //total
+                final var totalProduct = productFound.getPrice().multiply(quantitySale);
+                model.setValueAt(totalProduct, filaModelo, 4);
+            } catch (BloSalesV2Exception ex) {
+                logger.error(ex.getMessage());
+                CommonAlerts.openError(ex.getMessage());
+            }
+        }
+    }
+    
+    /** 
+     * Elimina un item de una tabla
+     */
+    private void removeItemFromSale(long id) {
+        final var model = (DefaultTableModel) tblProductsSales.getModel();
+        // elimina un item de la lista
+        final var indexSelected = tblProductsSales.getSelectedRow();
+        if (indexSelected != -1) {
+            final var filaModelo = tblProductsSales.convertRowIndexToModel(indexSelected);
+            var quantityOnSale = new BigDecimal(model.getValueAt(filaModelo, 2).toString());
+            // resta una unidad al total
+            final var productFound = products.stream().filter(p -> p.getIdProduct() == id).findFirst().orElse(null);
+            final var price = new BigDecimal(model.getValueAt(filaModelo, 3).toString());
+            totalSale = totalSale.subtract(price);
+            if (!productFound.isKg()) {
+                quantityOnSale = quantityOnSale.subtract(BigDecimal.ONE);
+                // si la cantidad es 0 se elimina la fila
+                if (quantityOnSale.compareTo(BigDecimal.ZERO) == 0) {
+                    model.removeRow(indexSelected);
+                } else {
+                    final var totalOnSale = quantityOnSale.multiply(price);
+                    model.setValueAt(quantityOnSale, filaModelo, 2);
+                    model.setValueAt(totalOnSale, filaModelo, 4);
+                }
+            } else {
+                model.removeRow(indexSelected);
+            }
+            GUICommons.setTextToField(lblTotal, String.format(getTranslateBy(KeysEnum.COMMON_TOTAL.getKey()), totalSale));
+            if (totalSale.compareTo(BigDecimal.ZERO) == 0) {
+                disableButtons();
+            }
         }
     }
     

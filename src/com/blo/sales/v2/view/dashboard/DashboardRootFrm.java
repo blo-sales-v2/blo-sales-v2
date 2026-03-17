@@ -1,6 +1,8 @@
 package com.blo.sales.v2.view.dashboard;
 
+import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
+import com.blo.sales.v2.view.commons.AbstractFrameBase;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.dashboard.panels.AllCashboxes;
 import com.blo.sales.v2.view.dashboard.panels.AllProducts;
@@ -18,7 +20,7 @@ import com.blo.sales.v2.view.dashboard.panels.TopUps;
 import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
 import java.awt.BorderLayout;
 
-public class DashboardRootFrm extends javax.swing.JFrame {
+public class DashboardRootFrm extends AbstractFrameBase {
     
     private PojoLoggedInUser userData;
     
@@ -26,6 +28,7 @@ public class DashboardRootFrm extends javax.swing.JFrame {
         this.userData = userData;
         initComponents();
         content.setLayout(new BorderLayout());
+        loadTitle(KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey());
         GUICommons.showPanel(content, new Sales(userData));
         GUICommons.allWindow(this);
         GUICommons.setTextToField(lblVersion, BloSalesV2Utils.VERSION);
@@ -240,6 +243,7 @@ public class DashboardRootFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void optRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optRegisterActionPerformed
+        loadTitle(KeysEnum.DASHBOARD_TITLES_REGISTER_PRODUCT.getKey());
         GUICommons.showPanel(content, new RegisterProduct());
     }//GEN-LAST:event_optRegisterActionPerformed
 
@@ -248,10 +252,12 @@ public class DashboardRootFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_optCategoryActionPerformed
 
     private void optStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optStockActionPerformed
-        openAllProducts();
+        loadTitle(KeysEnum.DASHBOARD_TITLES_VIEW_SALES_TODAY.getKey());
+        GUICommons.showPanel(content, new AllProducts(userData));
     }//GEN-LAST:event_optStockActionPerformed
 
     private void optAddSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAddSaleActionPerformed
+        loadTitle(KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey());
         GUICommons.showPanel(content, new Sales(userData));
     }//GEN-LAST:event_optAddSaleActionPerformed
 
@@ -268,7 +274,7 @@ public class DashboardRootFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_optOpoenCashboxActionPerformed
 
     private void optViewSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optViewSalesActionPerformed
-        //GUICommons.showPanel(content, new SalesViewer());
+        loadTitle(KeysEnum.DASHBOARD_TITLES_VIEW_SALES_TODAY.getKey());
         GUICommons.showPanel(content, new SalesToday(userData));
     }//GEN-LAST:event_optViewSalesActionPerformed
 
@@ -291,11 +297,7 @@ public class DashboardRootFrm extends javax.swing.JFrame {
     private void optTopUpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optTopUpsActionPerformed
         GUICommons.showPanel(content, new TopUps(userData));
     }//GEN-LAST:event_optTopUpsActionPerformed
-    
-    private void openAllProducts() {
-        GUICommons.showPanel(content, new AllProducts(userData));
-    }
-    
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content;
     private javax.swing.JMenu itmAdmon;
@@ -323,4 +325,9 @@ public class DashboardRootFrm extends javax.swing.JFrame {
     private javax.swing.JMenuItem optViewSales;
     private javax.swing.JPopupMenu.Separator sprt01;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void loadTargets() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

@@ -27,27 +27,13 @@ public final class SalesToday extends AbstractDashboardBase {
 
     private static final String[] titles = {"ID de venta", "ID producto", "Producto", "Precio o comprado", "Cantidad en venta", "Total de venta", "Timestamp"};
     
+    private final PojoLoggedInUser userData;
+    
     public SalesToday(PojoLoggedInUser userData) {
+        this.userData = userData;
         initComponents();
         loadData();
-        GUICommons.addDoubleClickOnTable(tblSummary, id -> {
-            final var deletedAccept = CommonAlerts.showConfirmDialog(getTranslateBy(KeysEnum.SALES_TD_DLG_CANCEL_SALE.getKey()));
-            if (deletedAccept) {
-                final var rowSelected = tblSummary.getSelectedRow();
-                if (rowSelected != -1) {
-                    try {
-                        final var model = tblSummary.getModel();
-                        final var idSale = Long.parseLong(model.getValueAt(rowSelected, 0).toString());
-                        final var idProduct = Long.parseLong(model.getValueAt(rowSelected, 1).toString());
-                        final var message = CommonAlerts.showMessageDialog(getTranslateBy(KeysEnum.SALES_TD_DLG_REASON_CANCEL.getKey()));
-                        salesController.deleteSaleProduct(userData.getIdUser(), idSale, idProduct, message);
-                        loadData();
-                    } catch (BloSalesV2Exception ex) {
-                        CommonAlerts.openError(ex.getMessage());
-                    }
-                }
-            }
-        });
+        GUICommons.addDoubleClickOnTable(tblSummary, id -> removeSale(Long.parseLong(String.valueOf(id))));
     }
     
     private void loadData() {
@@ -76,7 +62,7 @@ public final class SalesToday extends AbstractDashboardBase {
                     d.getProductTotalOnSale(),
                     d.getQuantityOnSale(),
                     d.getTotalOnSale(),
-                    d.getTimestamp()
+                    parserTimestamp(d.getTimestamp())
                 };
                 model.addRow(row);
             });
@@ -102,6 +88,27 @@ public final class SalesToday extends AbstractDashboardBase {
                         reduce(BigDecimal.ZERO, (acc, curr) -> acc.add(curr));
     }
 
+    /**
+     * Elimina una venta y solicita el motivo de baja
+     * @param idSale 
+     */
+    private void removeSale(long idSale) {
+        final var deletedAccept = CommonAlerts.showConfirmDialog(getTranslateBy(KeysEnum.SALES_TD_DLG_CANCEL_SALE.getKey()));
+        if (deletedAccept) {
+            final var rowSelected = tblSummary.getSelectedRow();
+            if (rowSelected != -1) {
+                try {
+                    final var model = tblSummary.getModel();
+                    final var idProduct = Long.parseLong(model.getValueAt(rowSelected, 1).toString());
+                    final var message = CommonAlerts.showMessageDialog(getTranslateBy(KeysEnum.SALES_TD_DLG_REASON_CANCEL.getKey()));
+                    salesController.deleteSaleProduct(this.userData.getIdUser(), idSale, idProduct, message);
+                    loadData();
+                } catch (BloSalesV2Exception ex) {
+                    CommonAlerts.openError(ex.getMessage());
+                }
+            }
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -129,9 +136,9 @@ public final class SalesToday extends AbstractDashboardBase {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1170, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
