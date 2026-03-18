@@ -170,18 +170,19 @@ public class UserModelImpl implements IUserModel {
     @Override
     public PojoIntNote updateNote(PojoIntNote note) throws BloSalesV2Exception {
         try {
-            logger.log("actaulizando " + note.getIdNote() + " " + note.toString());
+            logger.log(String.format("Actualizando [%s]", String.valueOf(note)));
             DBConnection.disableAutocommit();
             final var noteInner = noteMapper.toInner(note);
             final var ps = conn.prepareStatement(BloSalesV2Queries.UPDATE_NOTE);
             ps.setString(1, noteInner.getNote());
-            ps.setLong(2, noteInner.getId_note());
+            ps.setString(2, noteInner.getTimestamp());
+            ps.setLong(3, noteInner.getId_note());
             final var rowsAffected = ps.executeUpdate();
             
             BloSalesV2Utils.validateRule(rowsAffected == 0, BloSalesV2Utils.SQL_UPDATE_EXCEPTION_CODE, BloSalesV2Utils.ERROR_UPDATING_ON_DATA_BASE);
             
             DBConnection.doCommit();
-            logger.log("nota actualizada " + noteInner.toString());
+            logger.log(String.format("nota actualizada %s", String.valueOf(noteInner)));
             return noteMapper.toOuter(noteInner);
         } catch (SQLException e) {
             throw new BloSalesV2Exception(BloSalesV2Utils.SQL_EXCEPTION_CODE, BloSalesV2Utils.SQL_EXCEPTION_MESSAGE);
