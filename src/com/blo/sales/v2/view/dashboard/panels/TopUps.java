@@ -138,7 +138,7 @@ public final class TopUps extends AbstractDashboardBase {
                             .addComponent(cmbxCompanyPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(nmbAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(669, Short.MAX_VALUE))
+                .addContainerGap(655, Short.MAX_VALUE))
         );
 
         tabTopUps.addTab("Hacer recarga", pnlDoToUp);
@@ -191,7 +191,7 @@ public final class TopUps extends AbstractDashboardBase {
             .addGroup(pnlShowToUpLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlShowToUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTotalAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(lblTotalAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlShowToUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cmbxFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnFilterApply)
@@ -216,7 +216,7 @@ public final class TopUps extends AbstractDashboardBase {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabTopUps)
+                .addComponent(tabTopUps, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -280,6 +280,7 @@ public final class TopUps extends AbstractDashboardBase {
 
     private void btnFilterApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterApplyActionPerformed
         try {
+            topUpsTotal = BigDecimal.ZERO;
             final var filterSelected = cmbxFilter.getSelectedItem();
             final var filterEnum = Arrays.asList(TopUpSearchStatusEnum.values()).stream().
                     filter(c -> c.getTarget().equals(filterSelected)).
@@ -305,9 +306,9 @@ public final class TopUps extends AbstractDashboardBase {
                     model.addRow(row);
                 }
                 tblResults.setModel(model);
-                GUICommons.setTextToField(lblTotalAmount, topUpsTotal);
                 if (filterEnum.compareTo(TopUpSearchStatusEnum.NO_CHECKED) == 0) {
                     GUICommons.showElement(btnCloseTopUps);
+                    GUICommons.setTextToField(lblTotalAmount, topUpsTotal);
                 }
             }
         } catch (BloSalesV2Exception ex) {

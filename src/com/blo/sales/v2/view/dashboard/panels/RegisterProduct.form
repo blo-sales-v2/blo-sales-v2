@@ -49,7 +49,7 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="nmbSaleCost" min="-2" pref="90" max="-2" attributes="0"/>
-                              <EmptySpace pref="100" max="32767" attributes="0"/>
+                              <EmptySpace pref="130" max="32767" attributes="0"/>
                               <Component id="lstMarks" min="-2" pref="160" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -89,7 +89,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnSave" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace pref="196" max="32767" attributes="0"/>
+              <EmptySpace pref="464" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

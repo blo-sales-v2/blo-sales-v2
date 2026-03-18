@@ -76,7 +76,7 @@ public final class GUICommons {
      * @param p - contenido
      */
     private static void openPanel(JPanel content, JPanel p) {
-        p.setSize(1000, 600); // Ajusta al tamaño de tu contenedor
+        p.setSize(1300, 600); // Ajusta al tamaño de tu contenedor
         p.setLocation(0, 0);
         content.removeAll(); // Limpia el panel principal
         content.add(p, BorderLayout.CENTER); // Agrega el nuevo formulario

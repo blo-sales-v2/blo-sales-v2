@@ -97,7 +97,7 @@ public final class Categories extends AbstractDashboardBase {
             }
         });
 
-        btnSaveChanges.setText("guardar cambios");
+        btnSaveChanges.setText("guardar_cambios");
         btnSaveChanges.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveChangesActionPerformed(evt);
@@ -111,7 +111,7 @@ public final class Categories extends AbstractDashboardBase {
             }
         });
 
-        lblEditCategory.setText("editar una categoria");
+        lblEditCategory.setText("editar_una_categoria");
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -173,7 +173,7 @@ public final class Categories extends AbstractDashboardBase {
                                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(btnSave))
                         .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1058, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))

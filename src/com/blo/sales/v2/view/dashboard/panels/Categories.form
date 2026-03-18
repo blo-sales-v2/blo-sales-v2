@@ -36,7 +36,7 @@
                           <Component id="btnSave" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="1058" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="1075" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="content" min="-2" max="-2" attributes="0"/>
@@ -175,7 +175,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnSaveChanges">
           <Properties>
-            <Property name="text" type="java.lang.String" value="guardar cambios"/>
+            <Property name="text" type="java.lang.String" value="guardar_cambios"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveChangesActionPerformed"/>
@@ -191,7 +191,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblEditCategory">
           <Properties>
-            <Property name="text" type="java.lang.String" value="editar una categoria"/>
+            <Property name="text" type="java.lang.String" value="editar_una_categoria"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblIdCategory">
