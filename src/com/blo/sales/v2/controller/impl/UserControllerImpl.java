@@ -8,6 +8,7 @@ import com.blo.sales.v2.controller.pojos.WrapperPojoIntNotes;
 import com.blo.sales.v2.model.IUserModel;
 import com.blo.sales.v2.model.impl.UserModelImpl;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
+import com.blo.sales.v2.utils.BloSalesV2Utils;
 
 public class UserControllerImpl implements IUserController {
     
@@ -46,6 +47,7 @@ public class UserControllerImpl implements IUserController {
 
     @Override
     public PojoIntNote updateNote(PojoIntNote note) throws BloSalesV2Exception {
+        note.setTimesamp(BloSalesV2Utils.getTimestamp());
         return userModel.updateNote(note);
     }
 
