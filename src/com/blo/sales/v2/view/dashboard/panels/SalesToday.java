@@ -131,6 +131,8 @@ public final class SalesToday extends AbstractDashboardBase {
         ));
         jScrollPane1.setViewportView(tblSummary);
 
+        lblTotal.setFont(new java.awt.Font("Adwaita Sans", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(

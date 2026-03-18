@@ -35,6 +35,7 @@ import com.blo.sales.v2.view.pojos.enums.RolesEnum;
 import com.blo.sales.v2.view.pojos.enums.TypesEnum;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
 
 public final class AllProducts extends AbstractDashboardBase {
@@ -314,17 +315,7 @@ public final class AllProducts extends AbstractDashboardBase {
                 type = TypesEnum.ADJUST;
                 newData.setQuantity(GUICommons.getNumberFromJText(nmbQuantity, GUICommons.DIGITS_OF_QUANTITY));
                 final var reason = GUICommons.getValueFromComboBox(lstReason);
-                switch (reason) {
-                    case "Vendido":
-                        reasonEnum = ReasonsEnum.SALE;
-                        break;
-                    case "Perdido":
-                        reasonEnum = ReasonsEnum.LOST;
-                        break;
-                    case "Reabastecimiento":
-                        reasonEnum = ReasonsEnum.REPLENISHMENT;
-                        break;
-                }
+                reasonEnum = Arrays.asList(ReasonsEnum.values()).stream().filter(r -> r.getReasonTarget().equals(reason)).findFirst().orElse(ReasonsEnum.PRODUCT_NOT_MODIFIED);
             }
             newData.setQuantity(GUICommons.getNumberFromJText(nmbQuantity, GUICommons.DIGITS_OF_QUANTITY));
             productsController.updateProductInfo(
