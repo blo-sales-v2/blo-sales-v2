@@ -24,6 +24,32 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     
     private final PojoLoggedInUser userData;
     
+    private RegisterProduct registerProduct;
+    
+    private Categories categories;
+    
+    private AllProducts allProducts;
+    
+    private Sales sales;
+    
+    private Console console;
+    
+    private Debtors debtors;
+    
+    private CashboxOpen cashboxOpen;
+    
+    private SalesToday salesToday;
+    
+    private AllCashboxes allCashboxes;
+    
+    private Notes notes;
+    
+    private SalesReport salesReport;
+    
+    private MobileCompanies mobileCompanies;
+    
+    private TopUps topUps;
+    
     public DashboardRootFrm(PojoLoggedInUser userData) {
         this.userData = userData;
         initComponents();
@@ -78,7 +104,7 @@ public final class DashboardRootFrm extends AbstractFrameBase {
             .addGap(0, 494, Short.MAX_VALUE)
         );
 
-        lblVersion.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        lblVersion.setFont(new java.awt.Font("Monospaced", 0, 11)); // NOI18N
 
         itmSales.setText("Ventas");
 
@@ -242,32 +268,6 @@ public final class DashboardRootFrm extends AbstractFrameBase {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private RegisterProduct registerProduct;
-    
-    private Categories categories;
-    
-    private AllProducts allProducts;
-    
-    private Sales sales;
-    
-    private Console console;
-    
-    private Debtors debtors;
-    
-    private CashboxOpen cashboxOpen;
-    
-    private SalesToday salesToday;
-    
-    private AllCashboxes allCashboxes;
-    
-    private Notes notes;
-    
-    private SalesReport salesReport;
-    
-    private MobileCompanies mobileCompanies;
-    
-    private TopUps topUps;
-    
     private void optRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optRegisterActionPerformed
       registerProduct = new RegisterProduct(KeysEnum.DASHBOARD_TITLES_REGISTER_PRODUCT.getKey());
       GUICommons.showPanel(this, content, registerProduct);

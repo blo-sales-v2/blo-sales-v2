@@ -26,7 +26,11 @@ public abstract class AbstractDashboardBase extends javax.swing.JPanel {
     public String parserTimestamp(String timestamp) {
         final var time = LocalDateTime.parse(timestamp, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         final var formateador = DateTimeFormatter.ofPattern(DATE_FORMAT, new Locale("es", "ES"));
-        return time.format(formateador);
+        final var onText = time.format(formateador);
+        if (onText == null || onText.trim().isBlank()) {
+            return onText;
+        }
+        return String.format("%s%s", onText.substring(0, 1).toUpperCase(), onText.substring(1).toLowerCase());
     }
 
     public String getTitle() {
