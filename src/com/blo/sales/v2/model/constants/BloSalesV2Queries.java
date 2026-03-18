@@ -98,7 +98,7 @@ public final class BloSalesV2Queries {
     
     public static final String DELETE_NOTE = "DELETE FROM notes WHERE notes.id_note = ?";
     
-    public static final String UPDATE_NOTE = "UPDATE notes SET notes.note = ? wHERE notes.id_note = ?";
+    public static final String UPDATE_NOTE = "UPDATE notes SET notes.note = ?, timestamp = ? wHERE notes.id_note = ?";
     
     /** hsitorial de precios */
     public static final String INSERT_PRICE_HISTORY_ITEM = "INSERT INTO prices_history(price, cost_of_sale) VALUES (?, ?)";
