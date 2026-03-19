@@ -122,6 +122,7 @@ public final class Debtors extends AbstractDashboardBase {
             }
         });
 
+        btnPayall.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnPayall.setText("pagar todo");
         btnPayall.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,6 +132,7 @@ public final class Debtors extends AbstractDashboardBase {
 
         lblAddPartialPay.setText("abonar");
 
+        btnSave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSave.setText("guardar");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +157,7 @@ public final class Debtors extends AbstractDashboardBase {
                         .addComponent(lblDebt, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(nmbPay, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAddPartialPay))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,17 +296,20 @@ public final class Debtors extends AbstractDashboardBase {
                 GUICommons.setTextToField(lblDebt, String.format(getTranslateBy(KeysEnum.DEBTORS_LBL_DEBTOR_DEBT.getKey()), debtorSelected.getDebt()));
                 Arrays.stream(debtorSelected.getPayments().split(BloSalesV2Utils.SEPARATOR_PAYMENTS)).forEach(p -> {
                     final var arrayTimes = p.split(BloSalesV2Utils.TIMESTAMP);
-                    final var pay = arrayTimes[0];
-                    final var timestamp = parserTimestamp(arrayTimes[1]);
-                    areaPayments.append(String.format("%s - %s \n", pay, timestamp));
+                    if (arrayTimes.length == 2) {
+                        final var pay = arrayTimes[0];
+                        final var timestamp = parserTimestamp(arrayTimes[1]);
+                        areaPayments.append(String.format("%s - %s \n", pay, timestamp));
+                    }
                 });
                 final var model = new DefaultListModel<String>();
-                debtorDetail.forEach(d -> model.addElement(String.format("%s - %s [%s]", d.getQuantitySale(), d.getProduct(), parserTimestamp(d.getTimestamp()))));
+                debtorDetail.forEach(d -> model.addElement(String.format("%s - %s [%s]", d.getProduct(), d.getQuantitySale(), parserTimestamp(d.getTimestamp()))));
                 lstProducts.setModel(model);
                 enabledButtons();
             }
         } catch (BloSalesV2Exception ex) {
-            System.getLogger(Debtors.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            logger.error(ex.getMessage());
+            CommonAlerts.openError(ex.getMessage(), getTranslateBy(KeysEnum.COMMON_ALERT_ERROR.getKey()));
         }
     }
     

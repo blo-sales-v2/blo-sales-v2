@@ -104,6 +104,7 @@ public final class RegisterProduct extends AbstractDashboardBase {
 
         chkbxItsKg.setText("por kg");
 
+        btnSave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSave.setText("guardar");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

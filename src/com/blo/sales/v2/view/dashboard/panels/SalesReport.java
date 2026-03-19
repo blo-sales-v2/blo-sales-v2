@@ -65,6 +65,7 @@ public final class SalesReport extends AbstractDashboardBase {
 
         lblEnd.setText("fecha_fin");
 
+        btnFilterNow.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnFilterNow.setText("filtrar_ahora");
         btnFilterNow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +86,7 @@ public final class SalesReport extends AbstractDashboardBase {
         ));
         jScrollPane1.setViewportView(tblSales);
 
+        btnDownloadReport.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDownloadReport.setText("descargar_reporte");
         btnDownloadReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,7 +115,7 @@ public final class SalesReport extends AbstractDashboardBase {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblTotalBruto, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                                .addComponent(lblTotalBruto, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                                 .addGap(508, 508, 508))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnDownloadReport)

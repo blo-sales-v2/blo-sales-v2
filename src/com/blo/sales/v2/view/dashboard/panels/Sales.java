@@ -29,8 +29,6 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
@@ -103,6 +101,7 @@ public final class Sales extends AbstractDashboardBase {
 
         lblTotal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
+        btnComplete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnComplete.setText("completo");
         btnComplete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,6 +109,7 @@ public final class Sales extends AbstractDashboardBase {
             }
         });
 
+        btnDebtors.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDebtors.setText("incompleto");
         btnDebtors.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -374,7 +374,7 @@ public final class Sales extends AbstractDashboardBase {
                     !partialPay.isBlank() &&
                     BloSalesV2Utils.validateTextWithPattern(BloSalesV2Utils.CURRENCY_REGEX, partialPay)
                 ) {
-                final var substract = totalSale.subtract(new BigDecimal(partialPay));
+                final var substract = new BigDecimal(partialPay).subtract(totalSale);
                 GUICommons.setTextToField(lblResult, String.valueOf(substract));
             }
         } catch(BloSalesV2Exception e) {
@@ -510,7 +510,7 @@ public final class Sales extends AbstractDashboardBase {
                 );
                 // se valida que no sea por kg
                 if (productFound.isKg()) {
-                    CommonAlerts.showMessageDialog(BloSalesV2Utils.PRODUCT_IS_BY_KG);
+                    CommonAlerts.openWarning(BloSalesV2Utils.PRODUCT_IS_BY_KG, getTranslateBy(KeysEnum.COMMON_ALERT_WARNING.getKey()));
                     return;
                 }
                 // validar que existan productos suficientes
