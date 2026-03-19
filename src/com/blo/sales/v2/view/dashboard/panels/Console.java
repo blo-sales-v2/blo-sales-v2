@@ -37,6 +37,7 @@ public final class Console extends AbstractDashboardBase {
         txtArea.setRows(5);
         scrllConsole.setViewportView(txtArea);
 
+        btnDownloadLogs.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDownloadLogs.setText("descargar_logs");
         btnDownloadLogs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,7 +61,7 @@ public final class Console extends AbstractDashboardBase {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(scrllConsole, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                .addComponent(scrllConsole, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDownloadLogs)
                 .addContainerGap())

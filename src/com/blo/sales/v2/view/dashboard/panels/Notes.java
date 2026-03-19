@@ -106,6 +106,7 @@ public final class Notes extends AbstractDashboardBase {
         });
         jScrollPane1.setViewportView(areaNote);
 
+        btnSaveNow.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSaveNow.setText("guardar nota");
         btnSaveNow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
