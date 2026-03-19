@@ -29,8 +29,6 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
@@ -376,7 +374,7 @@ public final class Sales extends AbstractDashboardBase {
                     !partialPay.isBlank() &&
                     BloSalesV2Utils.validateTextWithPattern(BloSalesV2Utils.CURRENCY_REGEX, partialPay)
                 ) {
-                final var substract = totalSale.subtract(new BigDecimal(partialPay));
+                final var substract = new BigDecimal(partialPay).subtract(totalSale);
                 GUICommons.setTextToField(lblResult, String.valueOf(substract));
             }
         } catch(BloSalesV2Exception e) {

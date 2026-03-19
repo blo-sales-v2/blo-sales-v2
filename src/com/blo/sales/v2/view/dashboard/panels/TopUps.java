@@ -86,6 +86,7 @@ public final class TopUps extends AbstractDashboardBase {
             }
         });
 
+        btnSave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSave.setText("guardar");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +121,7 @@ public final class TopUps extends AbstractDashboardBase {
                     .addComponent(lblAmount))
                 .addGap(18, 18, 18)
                 .addComponent(btnSave)
-                .addContainerGap(785, Short.MAX_VALUE))
+                .addContainerGap(796, Short.MAX_VALUE))
         );
         pnlDoToUpLayout.setVerticalGroup(
             pnlDoToUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +217,7 @@ public final class TopUps extends AbstractDashboardBase {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabTopUps, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
+                .addComponent(tabTopUps)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
