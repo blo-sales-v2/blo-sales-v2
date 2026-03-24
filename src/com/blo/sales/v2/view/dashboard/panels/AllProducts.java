@@ -36,6 +36,8 @@ import com.blo.sales.v2.view.pojos.enums.TypesEnum;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 public final class AllProducts extends AbstractDashboardBase {
@@ -72,6 +74,7 @@ public final class AllProducts extends AbstractDashboardBase {
         super(key);
         this.userData = userData;
         initComponents();
+        initComboBox();
         loadTargets();
         lblIdProduct.setVisible(false);
         loadTitlesAndData();
@@ -142,8 +145,6 @@ public final class AllProducts extends AbstractDashboardBase {
                 btnCancelActionPerformed(evt);
             }
         });
-
-        lstReason.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vendidos", "Perdido", "Reabastecimiento" }));
 
         lblProducto.setText("producto");
 
@@ -316,7 +317,7 @@ public final class AllProducts extends AbstractDashboardBase {
                 type = TypesEnum.ADJUST;
                 newData.setQuantity(GUICommons.getNumberFromJText(nmbQuantity, GUICommons.DIGITS_OF_QUANTITY));
                 final var reason = GUICommons.getValueFromComboBox(lstReason);
-                reasonEnum = Arrays.asList(ReasonsEnum.values()).stream().filter(r -> r.getReasonTarget().equals(reason)).findFirst().orElse(ReasonsEnum.PRODUCT_NOT_MODIFIED);
+                reasonEnum = getReasons().stream().filter(r -> r.getReasonTarget().equals(reason)).findFirst().orElse(ReasonsEnum.PRODUCT_NOT_MODIFIED);
             }
             newData.setQuantity(GUICommons.getNumberFromJText(nmbQuantity, GUICommons.DIGITS_OF_QUANTITY));
             productsController.updateProductInfo(
@@ -349,22 +350,21 @@ public final class AllProducts extends AbstractDashboardBase {
             }
             final var quantity = new BigDecimal(tmpQuantity.trim());
             final var quantityCompared = currentQuantity.compareTo(quantity);
-            logger.log(String.format("Current quantity %s tmpQuantity %s result %s", currentQuantity, tmpQuantity, quantityCompared));
+            logger.log(String.format("CurrentQuantity %s tmpQuantity %s result %s", currentQuantity, tmpQuantity, quantityCompared));
+            /** desactiva el combo si se modifico pero la cantidad es la misma */
             if (quantityCompared == 0) {
                 lstReason.setVisible(false);
             }
-            if (quantityCompared == 1) {
-                System.out.println("Menor");
-            }
-            if (quantityCompared == -1) {
-                System.out.println("Mayor");
-            }
-            /** desactiva el combo si se modifico pero la cantidad es la misma */
-            //if (currentQuantity.compareTo(quantity) == 0) {
-                //lstReason.setVisible(false);
-            //}
-            /** si la nueva cantidad es mayor puede ser reabastecimiento */
             /** si la nueva cantidad es menor puede ser perdido o vendido */
+            if (quantityCompared == 1) {
+                logger.log(String.format("cantidad menor [%s]", String.valueOf(ReasonsEnum.LOST)));
+                lstReason.setSelectedIndex(ReasonsEnum.LOST.getIndex());
+            }
+            /** si la nueva cantidad es mayor puede ser reabastecimiento */
+            if (quantityCompared == -1) {
+                logger.log(String.format("cantidad mayor [%s]", String.valueOf(ReasonsEnum.REPLENISHMENT)));
+                lstReason.setSelectedIndex(ReasonsEnum.REPLENISHMENT.getIndex());
+            }
         } catch (BloSalesV2Exception ex) {
             logger.error(ex.getMessage());
             CommonAlerts.openError(ex.getMessage(), getTranslateBy(KeysEnum.COMMON_ALERT_ERROR.getKey()));
@@ -458,7 +458,6 @@ public final class AllProducts extends AbstractDashboardBase {
             }
             /** se actualiza cuando hay un cambio en algun producto */
             GUICommons.addDoubleClickOnTable(tblProducts, (Long id) -> {
-                logger.log(id + "<- id");
                 pnlManageProduct.setVisible(true);
                 final var productSelected = 
                         productsData.getProducts().stream().filter(p -> p.getIdProduct() == id).findFirst().orElse(null);
@@ -491,6 +490,17 @@ public final class AllProducts extends AbstractDashboardBase {
         GUICommons.setTextToField(nmbPrice, BloSalesV2Utils.EMPTY_STRING);
         GUICommons.setTextToField(nmbQuantity, BloSalesV2Utils.EMPTY_STRING);
         GUICommons.setTextToField(lblIdProduct, BloSalesV2Utils.EMPTY_STRING);
+    }
+    
+    private void initComboBox() {
+        final var categoryModel = new DefaultComboBoxModel<String>();
+        getReasons().forEach(r -> categoryModel.addElement(r.getReasonTarget()));
+        lstReason.setModel(categoryModel);
+    }
+    
+    /** recupera solo una sublista con los primeros 3 elementos */
+    private List<ReasonsEnum> getReasons() {
+        return Arrays.asList(ReasonsEnum.values()).subList(0, 3);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
