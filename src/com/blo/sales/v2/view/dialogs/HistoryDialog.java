@@ -1,10 +1,14 @@
 package com.blo.sales.v2.view.dialogs;
 
+import com.blo.sales.v2.plugins.xlxs.BloSalesV2CSVCols;
+import com.blo.sales.v2.plugins.xlxs.BloSalesV2CSVPlugin;
 import com.blo.sales.v2.translate.KeysEnum;
+import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.AbstractDialogBase;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.pojos.WrapperPojoMovementsDetail;
 import java.awt.Component;
+import java.util.ArrayList;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,7 +16,7 @@ public final class HistoryDialog extends AbstractDialogBase {
     
     private static final String[] titles = {"ID Movimiento", "Tipo de movimiento", "Razón de movimiento", "Producto", "Cantidad", "Timestamp", "Usuario"};
 
-    private WrapperPojoMovementsDetail history;
+    private final WrapperPojoMovementsDetail history;
     
     public HistoryDialog(Component parent, String title, WrapperPojoMovementsDetail history) {
         super(SwingUtilities.getWindowAncestor(parent), title, ModalityType.APPLICATION_MODAL);
@@ -47,6 +51,7 @@ public final class HistoryDialog extends AbstractDialogBase {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblData = new javax.swing.JTable();
         btnClose = new javax.swing.JButton();
+        btnDownloadMovements = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -70,6 +75,13 @@ public final class HistoryDialog extends AbstractDialogBase {
             }
         });
 
+        btnDownloadMovements.setText("descargar_movimientos");
+        btnDownloadMovements.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDownloadMovementsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,7 +91,8 @@ public final class HistoryDialog extends AbstractDialogBase {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDownloadMovements)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnClose)))
                 .addContainerGap())
         );
@@ -89,7 +102,9 @@ public final class HistoryDialog extends AbstractDialogBase {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnClose)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClose)
+                    .addComponent(btnDownloadMovements))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -100,8 +115,29 @@ public final class HistoryDialog extends AbstractDialogBase {
         this.dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
 
+    private void btnDownloadMovementsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadMovementsActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tblData.getModel();
+        final var bloSalesRow = new BloSalesV2CSVCols();
+        final var r = new ArrayList<Object[]>();
+        for (var i = 0; i < tblData.getRowCount(); i++) {
+            final Object[] row = {
+                String.valueOf(model.getValueAt(i, 0)),
+                String.valueOf(model.getValueAt(i, 1)),
+                String.valueOf(model.getValueAt(i, 2)),
+                String.valueOf(model.getValueAt(i, 3)),
+                String.valueOf(model.getValueAt(i, 4)),
+                String.valueOf(model.getValueAt(i, 5)),
+                String.valueOf(model.getValueAt(i, 6)),
+            };
+            r.add(row);
+        }
+        bloSalesRow.setCols(r);
+        BloSalesV2CSVPlugin.exportFile(titles, bloSalesRow);
+    }//GEN-LAST:event_btnDownloadMovementsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnDownloadMovements;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblData;
     // End of variables declaration//GEN-END:variables
@@ -109,5 +145,6 @@ public final class HistoryDialog extends AbstractDialogBase {
     @Override
     public void loadTargets() {
         GUICommons.setTextToButton(btnClose, getTranslateBy(KeysEnum.COMMON_BTN_CLOSE.getKey()));
+        GUICommons.setTextToButton(btnDownloadMovements, getTranslateBy(KeysEnum.STOCK_DLG_BTN_DOWNLOAD_HISTORY.getKey()));
     }
 }
