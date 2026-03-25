@@ -192,7 +192,9 @@ public final class SalesReport extends AbstractDashboardBase {
                 final var dateSelected = entry.getStringValue(8).trim();
                 if (dateSelected.isEmpty()) return false;
                 try {
-                    final var strDate = dateSelected.substring(0, 10);
+                    // formato requerido -> 2026-03-17T18:34:39.761059288 
+                    final var revertedTimestamp = revertTimestap(dateSelected);
+                    final var strDate = revertedTimestamp.substring(0, 10);
                     if (!endDate.isBlank()) {
                         return strDate.compareTo(initDate) >= 0 && strDate.compareTo(endDate) <= 0;
                     } else {
