@@ -323,7 +323,7 @@ public final class Sales extends AbstractDashboardBase {
                 item -> {
                     try {
                         // formato de pagos amountTIMESTAMPtimestamp, 
-                        logger.log("deudor " + item.toString());
+                        logger.info("deudor %s", String.valueOf(item));
                         var pay = BloSalesV2Utils.getFirstLastPayment(item.getPayments(), BloSalesV2UtilsEnum.LAST);
                         // es nuevo deudor  
                         if (item.getIdDebtor() == 0) {

@@ -4,6 +4,7 @@ import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.AbstractDialogBase;
+import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
 import com.blo.sales.v2.view.pojos.PojoDebtor;
@@ -11,8 +12,6 @@ import java.awt.Component;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -211,7 +210,6 @@ public final class DebtorsDialog<T> extends AbstractDialogBase {
             GUICommons.enabledButton(btnSaveRegister);
             GUICommons.disabledButton(btnRegister);
         } catch (BloSalesV2Exception ex) {
-            Logger.getLogger(DebtorsDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
@@ -230,40 +228,41 @@ public final class DebtorsDialog<T> extends AbstractDialogBase {
             final var newPay = BloSalesV2Utils.getPartialPayment(partialPayment);
             // deudor existente
             if (debtor.getIdDebtor() != 0) {
-                logger.log("deudor existente");
+                logger.info("deudor existente");
                 var payments = debtor.getPayments();
                 final var newDebt = new BigDecimal(GUICommons.getTextFromField(lblAmount, true).substring(1));
-                logger.log("se realiza la resta del total acumulado menos el pago " + newDebt);
+                logger.info("se realiza la resta del total acumulado menos el pago " + newDebt);
                 // no se realizo pago
                 debtor.setDebt(newDebt);
                 // se realiza pago
                 if (partialPayment.compareTo(BigDecimal.ZERO) != 0) {
-                    logger.log("hay un pago extra, se arma cadena de pagos");
+                    logger.info("hay un pago extra, se arma cadena de pagos");
                     payments = payments + newPay;
                     debtor.setPayments(payments);
-                    logger.log("pagos " + debtor.getPayments());
+                    logger.info("pagos " + debtor.getPayments());
                 }
                 // se paga toda la duda
                 if (newDebt.compareTo(BigDecimal.ZERO) <= 0) {
-                    logger.log("se hizo el pago completo: " + totalSale);
+                    logger.info("se hizo el pago completo: " + totalSale);
                     debtor.setDebt(totalSale);
                 }
-                logger.log("nuevos datos del deudor " + debtor.toString());
+                logger.info("nuevos datos del deudor " + debtor.toString());
                 callback.accept((T) debtor);
                 this.dispose();
                 return;
             }
-            logger.log("flujo de nuevo deudor");
+            logger.info("flujo de nuevo deudor");
             /** nuevo deudor flujo */
             if (partialPayment.compareTo(BigDecimal.ZERO) != 0) {
                 debtor.setPayments(newPay);
             }
             debtor.setDebt(new BigDecimal(GUICommons.getTextFromField(lblAmount, true).substring(1)));
-            logger.log("nuevo deudor" + debtor.toString());
+            logger.info("nuevo deudor" + debtor.toString());
             callback.accept((T) debtor);
             this.dispose();
         } catch (BloSalesV2Exception ex) {
-            Logger.getLogger(DebtorsDialog.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex.getMessage());
+            CommonAlerts.openError(ex.getMessage(), getTranslateBy(KeysEnum.COMMON_ALERT_ERROR.getKey()));
         }
 
     }//GEN-LAST:event_btnSaveRegisterActionPerformed
@@ -279,7 +278,8 @@ public final class DebtorsDialog<T> extends AbstractDialogBase {
                 GUICommons.setTextToField(lblAmount, String.format(getTranslateBy(KeysEnum.COMMON_CURRENCY_SYMBOL_BEFORE.getKey()), (totalSale.subtract(new BigDecimal(partialPayTmp)))));
             }
         } catch (BloSalesV2Exception ex) {
-            Logger.getLogger(DebtorsDialog.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex.getMessage());
+            CommonAlerts.openError(ex.getMessage(), getTranslateBy(KeysEnum.COMMON_ALERT_ERROR.getKey()));
         }
     }//GEN-LAST:event_txtPartialPayKeyReleased
 

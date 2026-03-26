@@ -96,6 +96,7 @@ public class SalesControllerImpl implements ISalesController {
         sale.setTotal(totalSale);
         sale.setTimestamp(timestamp);
         final var saleSaved = saleModel.registerSale(sale);
+        logger.info("venta registrada %s", String.valueOf(saleSaved));
         for (final var p: products) {
             final var productFound = filterProductById(productsFound, p.getIdProduct());
             // registro de movimiento previo a resta
@@ -107,7 +108,7 @@ public class SalesControllerImpl implements ISalesController {
             movementBef.setTimestamp(timestamp);
             movementBef.setType(TypesEntityEnum.NOT_MODIFIED);
             historyController.registerMovement(movementBef);
-            logger.log(String.format("registro de movimiento previo a resta %s", movementBef));
+            logger.info("registro de movimiento previo a resta %s", String.valueOf(movementBef));
             
             // registro de movimiento
             final var movement = new PojoIntMovement();
@@ -131,6 +132,7 @@ public class SalesControllerImpl implements ISalesController {
             // actualizar cantidad en el stock
             final var newQuantity = productFound.getQuantity().subtract(p.getQuantityOnSale());
             productFound.setQuantity(newQuantity);
+            logger.info("producto actualizado %s", String.valueOf(productFound));
             productsController.updateProductInfo(productFound, ReasonsIntEnum.SALE, idUser, TypesIntEnum.ADJUST);
         }
         /** se agrega el dinero a la caja */
@@ -138,6 +140,7 @@ public class SalesControllerImpl implements ISalesController {
         var openCashbox = cashboxController.getOpenCashbox();
         // si no existe se crea
         if (openCashbox == null) {
+            logger.info("cashbox inexistente");
             final var newCashbox = new PojoIntCashbox();
             newCashbox.setFkUser(idUser);
             newCashbox.setAmount(BigDecimal.ZERO);
@@ -145,11 +148,13 @@ public class SalesControllerImpl implements ISalesController {
             newCashbox.setTimestamp(timestamp);
             openCashbox = cashboxController.addCashbox(newCashbox);
         }
+        logger.info("cashbox %s", String.valueOf(openCashbox));
         // se suma la cantidad de la venta al monto de la caja abierta
         final var amount = openCashbox.getAmount().add(totalSale);
         openCashbox.setAmount(amount);
         openCashbox.setTimestamp(timestamp);
         // actualizar cantidad en la caja
+        logger.info("actualizando caja abierta %s", String.valueOf(openCashbox));
         cashboxController.updateCAshbox(openCashbox, openCashbox.getIdCashbox());
         return saleSaved;
     }
@@ -184,12 +189,12 @@ public class SalesControllerImpl implements ISalesController {
         // se guarda deuda original
         BloSalesV2Utils.validateRule(debtorFound == null, BloSalesV2Utils.CODE_DEBTOR_NOT_FOUND, BloSalesV2Utils.DEBTOR_NOT_FOUND);
         final var currentDebt = debtorFound.getDebt();
-        logger.log(String.format("Deudor encontrado %s", String.valueOf(debtorFound)));
+        logger.info("Deudor encontrado %s", String.valueOf(debtorFound));
         debtorFound.setDebt(totalSale);
         /** se actualiza deudor */
         if (partialPay.compareTo(BigDecimal.ZERO) == 0) {
             // el deudor no ha abonado
-            logger.log("sin pago parcial");
+            logger.info("sin pago parcial");
             // se guarda relacion
             final var resiteredSale = registerSale(BigDecimal.ZERO, productsInfo, idUser);
             registereRelationship(idDebtor, resiteredSale.getIdSale(), resiteredSale.getTimestamp());
@@ -198,18 +203,18 @@ public class SalesControllerImpl implements ISalesController {
         final var allProductsSum = productsInfo.stream().
                 map(PojoIntSaleProductData::getProductBuyTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
         final var newDebt = currentDebt.add(allProductsSum).subtract(partialPay);
-        logger.log(String.format("nueva deuda (%s + %s - %s = %s)", currentDebt, allProductsSum, partialPay, newDebt));
+        logger.info("nueva deuda (%s + %s - %s = %s)", currentDebt, allProductsSum, partialPay, newDebt);
         if (newDebt.compareTo(BigDecimal.ZERO) > 0) {
-            logger.log("aun hay deuda");
+            logger.info("aun hay deuda");
             registerSale(partialPay, productsInfo, idUser);
             debtorFound.setPayments(partialPayments);
-            logger.log(String.format("debtor found actualizado %s", String.valueOf(debtorFound)));
+            logger.info("debtor found actualizado %s", String.valueOf(debtorFound));
             // se guarda relacion
             final var regiteredSale = registerSale(BigDecimal.ZERO, productsInfo, idUser);
             registereRelationship(idDebtor, regiteredSale.getIdSale(), regiteredSale.getTimestamp());
             return debtorsController.updateDebtor(debtorFound, idDebtor);
         }
-        logger.log("se ha pagado toda la deuda");
+        logger.info("se ha pagado toda la deuda");
         registerSale(totalSale, productsInfo, idUser);
         debtorsSalesController.deleteRelationhip(idDebtor);
         debtorsController.deleteDebtor(idDebtor);
@@ -218,25 +223,25 @@ public class SalesControllerImpl implements ISalesController {
     
     @Override
     public WrapperPojoIntSalesAndStock retrieveAllSalesDetail() throws BloSalesV2Exception {
-        logger.log("recuperando todas las ventas");
+        logger.info("recuperando todas las ventas");
         return saleModel.retrieveAllSalesDetail();
     }
     
     @Override
     public WrapperPojoIntSalesAndStock retrieveSalesByStatus(SalesStatusIntEnum saleStatus) throws BloSalesV2Exception {
-        logger.log("recuperando ventas por status " + saleStatus.name());
+        logger.info("recuperando ventas por status %s", String.valueOf(saleStatus));
         return saleModel.retrieveSalesByStatus(saleStatus);
     }
 
     @Override
     public WrapperPojoIntSales retrieveSalesDataByStatus(SalesStatusIntEnum saleStatus) throws BloSalesV2Exception {
-        logger.log("recuperando ventas por " + saleStatus.name());
+        logger.info("recuperando ventas por %s", String.valueOf(saleStatus));
         return saleModel.retrieveSalesDataByStatus(saleStatus);
     }
 
     @Override
     public boolean setCashboxSale(long idSale) throws BloSalesV2Exception {
-        logger.log("acualizando la venta " + idSale);
+        logger.info("acualizando la venta %s", idSale);
         return saleModel.setCashboxSale(idSale);
     }
     
@@ -275,7 +280,7 @@ public class SalesControllerImpl implements ISalesController {
         movementBef.setTimestamp(BloSalesV2Utils.getTimestamp());
         movementBef.setType(TypesEntityEnum.NOT_MODIFIED);
         historyController.registerMovement(movementBef);
-        logger.log(String.format("movimiento registrado %s", movementBef.toString()));
+        logger.info("movimiento registrado %s", String.valueOf(movementBef));
         
         // registrar los productos que llegan al stock
         final var movement = new PojoIntMovement();
@@ -286,13 +291,13 @@ public class SalesControllerImpl implements ISalesController {
         movement.setTimestamp(BloSalesV2Utils.getTimestamp());
         movement.setType(TypesEntityEnum.INPUT);
         historyController.registerMovement(movement);
-        logger.log(String.format("movimiento registrado %s", movement.toString()));
+        logger.info("movimiento registrado %s", String.valueOf(movement));
         
         // agregar el producto al stock
         var productQuantityOnSale = relationFound.getQuantityOnSale();
         productQuantityOnSale = productFound.getQuantity().add(productQuantityOnSale);
         productFound.setQuantity(productQuantityOnSale);
-        logger.log(String.format("Product data [%s]", productFound.toString()));
+        logger.info("Product data [%s]", String.valueOf(productFound));
         productsController.updateProductInfo(productFound, ReasonsIntEnum.DEVOLUTION, idUser, TypesIntEnum.INPUT);
         
         // restar el precio del producto a la venta
@@ -303,7 +308,7 @@ public class SalesControllerImpl implements ISalesController {
         relationFound.setTimestap(timestamp);
         relationFound.setProductTotalOnSale(BigDecimal.ZERO);
         relationFound.setQuantityOnSale(BigDecimal.ZERO);
-        logger.log(String.format("guardando datos [%s]", relationFound.toString()));
+        logger.info("guardando datos [%s]", String.valueOf(relationFound));
         salesProductsController.updateRelationship(relationFound);
         
         // restar el dinero de la venta a la caja
@@ -316,7 +321,7 @@ public class SalesControllerImpl implements ISalesController {
         var currentTotal = currentCashbox.getAmount().subtract(productFound.getPrice());
         currentCashbox.setAmount(currentTotal);
         currentCashbox.setTimestamp(timestamp);
-        logger.log(String.format("datos de la caja actualizar %s", currentCashbox.toString()));
+        logger.info("datos de la caja actualizar %s", String.valueOf(currentCashbox));
         cashboxController.updateCAshbox(currentCashbox, currentCashbox.getIdCashbox());
     
         output.setFkSaleProduct(relationFound.getIdSaleProduct());
@@ -329,7 +334,7 @@ public class SalesControllerImpl implements ISalesController {
                 filter(s -> s.getFkProduct() != idProduct).
                 collect(Collectors.toList());
         
-        logger.log(String.format("elementos restantes para actualizar %s", reduced.size()));
+        logger.info("elementos restantes para actualizar %s", reduced.size());
         
         // evita borrar actualizaciones
         if (!reduced.isEmpty()) {
@@ -353,7 +358,7 @@ public class SalesControllerImpl implements ISalesController {
         item.setProductBuyTotal(BigDecimal.ONE);
         item.setQuantityOnSale(BigDecimal.ZERO);
         productsInfo.add(item);
-        logger.log(String.format("guardando la comision [%s]", String.valueOf(item)));
+        logger.info(String.format("guardando la comision [%s]", String.valueOf(item)));
         return registerSale(comissionData.getPrice(), productsInfo, idUser);
     }
     
