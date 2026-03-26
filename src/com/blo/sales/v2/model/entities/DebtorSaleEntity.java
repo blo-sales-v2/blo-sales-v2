@@ -41,5 +41,17 @@ public class DebtorSaleEntity {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("DebtorSaleEntity{");
+        sb.append("id_debtor_sale=").append(id_debtor_sale);
+        sb.append(", fk_sale=").append(fk_sale);
+        sb.append(", fk_debtor=").append(fk_debtor);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append('}');
+        return sb.toString();
+    }
     
 }

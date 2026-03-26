@@ -24,6 +24,12 @@ public class MobileCompanyEntity {
 
     @Override
     public String toString() {
-        return "MobileCompanyEntity{" + "id_mobile_company=" + id_mobile_company + ", mobile_company=" + mobile_company + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("MobileCompanyEntity{");
+        sb.append("id_mobile_company=").append(id_mobile_company);
+        sb.append(", mobile_company=").append(mobile_company);
+        sb.append('}');
+        return sb.toString();
     }
+
 }

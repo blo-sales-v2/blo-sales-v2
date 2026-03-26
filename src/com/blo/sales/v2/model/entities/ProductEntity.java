@@ -93,5 +93,22 @@ public class ProductEntity {
     public void setFk_category(long fk_category) {
         this.fk_category = fk_category;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ProductEntity{");
+        sb.append("id_product=").append(id_product);
+        sb.append(", product=").append(product);
+        sb.append(", quantity=").append(quantity);
+        sb.append(", cost_of_sale=").append(cost_of_sale);
+        sb.append(", price=").append(price);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append(", kg=").append(kg);
+        sb.append(", bar_code=").append(bar_code);
+        sb.append(", fk_category=").append(fk_category);
+        sb.append('}');
+        return sb.toString();
+    }
     
 }

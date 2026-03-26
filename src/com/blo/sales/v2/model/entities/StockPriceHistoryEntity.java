@@ -52,11 +52,18 @@ public class StockPriceHistoryEntity {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-    }
+    }    
 
     @Override
     public String toString() {
-        return "PojoIntStockPriceHistory{" + "id_stock_price_history=" + id_stock_price_history + ", product=" + product + ", price=" + price + ", costOfSale=" + costOfSale + ", timestamp=" + timestamp + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("StockPriceHistoryEntity{");
+        sb.append("id_stock_price_history=").append(id_stock_price_history);
+        sb.append(", product=").append(product);
+        sb.append(", price=").append(price);
+        sb.append(", costOfSale=").append(costOfSale);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append('}');
+        return sb.toString();
     }
-    
 }

@@ -36,6 +36,12 @@ public class PriceHistoryEntity {
 
     @Override
     public String toString() {
-        return "PriceHistoryEntity{" + "id_price_history=" + id_price_history + ", price=" + price + ", cost_of_sale=" + cost_of_sale + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("PriceHistoryEntity{");
+        sb.append("id_price_history=").append(id_price_history);
+        sb.append(", price=").append(price);
+        sb.append(", cost_of_sale=").append(cost_of_sale);
+        sb.append('}');
+        return sb.toString();
     }
 }

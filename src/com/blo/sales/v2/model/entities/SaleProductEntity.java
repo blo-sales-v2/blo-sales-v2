@@ -86,7 +86,18 @@ public class SaleProductEntity {
 
     @Override
     public String toString() {
-        return "SaleProductEntity{" + "id_sale_product=" + id_sale_product + ", fk_sale=" + fk_sale + ", fk_product=" + fk_product + ", qunatity_sale=" + qunatity_sale + ", total_on_sale=" + total_on_sale + ", product_total_on_sale=" + product_total_on_sale + ", timestamp=" + timestamp + ", is_live=" + is_live + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("SaleProductEntity{");
+        sb.append("id_sale_product=").append(id_sale_product);
+        sb.append(", fk_sale=").append(fk_sale);
+        sb.append(", fk_product=").append(fk_product);
+        sb.append(", qunatity_sale=").append(qunatity_sale);
+        sb.append(", total_on_sale=").append(total_on_sale);
+        sb.append(", product_total_on_sale=").append(product_total_on_sale);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append(", is_live=").append(is_live);
+        sb.append('}');
+        return sb.toString();
     }
 
 }
