@@ -19,11 +19,7 @@ import java.util.ArrayList;
 public class DebtorsControllerImpl implements IDebtorsController {
     
     private static final GUILogger logger = GUILogger.getLogger(DebtorsControllerImpl.class.getName());
-    
-    //private static final long ID_PRODUCT_PAY = 1; // actualizar
-    
-    private static final String RELEASE = "RELEASE";
-    
+        
     private static final IDebtorsModel model = DebtorsModelImpl.getInstance();
     
     private static final IProductsController productsController = ProductsControllerImpl.getInstance();
@@ -74,7 +70,7 @@ public class DebtorsControllerImpl implements IDebtorsController {
         
         logger.info("deudor encontrado %s", String.valueOf(debtorFound));
         // se registra como venta
-        final var productPay = productsController.getProductById(getIdPaymentProduct());
+        final var productPay = productsController.getProductById(BloSalesV2Utils.getIdPaymentProduct());
         final var productsLst = new ArrayList<PojoIntSaleProductData>();
         final var item = new PojoIntSaleProductData();
         item.setIdProduct(productPay.getIdProduct());
@@ -112,12 +108,5 @@ public class DebtorsControllerImpl implements IDebtorsController {
     public void deleteDebtor(long idDebtor) throws BloSalesV2Exception {
         logger.info("eliminando deudor por id = %s", idDebtor);
         model.deleteDebtor(idDebtor);
-    }
-
-     private long getIdPaymentProduct() {
-        if (BloSalesV2Utils.VERSION.lastIndexOf(RELEASE) == 7) {
-            return 1L;
-        }
-        return 1000L;
     }
 }
