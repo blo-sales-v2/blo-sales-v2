@@ -16,7 +16,11 @@ public class WrapperMovementsDetailEntity {
 
     @Override
     public String toString() {
-        return "WrapperMovementDetailEntity{" + "history=" + history + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("WrapperMovementsDetailEntity{");
+        sb.append("history=").append(history);
+        sb.append('}');
+        return sb.toString();
     }
-    
+
 }

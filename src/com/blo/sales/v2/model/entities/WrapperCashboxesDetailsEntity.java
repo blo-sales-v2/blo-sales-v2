@@ -13,5 +13,14 @@ public class WrapperCashboxesDetailsEntity {
     public void setCashbocesInfo(List<CashboxDetailEntity> cashboxesInfo) {
         this.cashboxesInfo = cashboxesInfo;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("WrapperCashboxesDetailsEntity{");
+        sb.append("cashboxesInfo=").append(cashboxesInfo);
+        sb.append('}');
+        return sb.toString();
+    }
     
 }

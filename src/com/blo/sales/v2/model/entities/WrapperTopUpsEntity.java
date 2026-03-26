@@ -16,7 +16,11 @@ public class WrapperTopUpsEntity {
 
     @Override
     public String toString() {
-        return "WrapperTopUpEntity{" + "topUps=" + topUps + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("WrapperTopUpsEntity{");
+        sb.append("topUps=").append(topUps);
+        sb.append('}');
+        return sb.toString();
     }
     
 }
