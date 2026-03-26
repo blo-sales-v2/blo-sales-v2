@@ -194,7 +194,7 @@ public class SalesControllerImpl implements ISalesController {
         /** se actualiza deudor */
         if (partialPay.compareTo(BigDecimal.ZERO) == 0) {
             // el deudor no ha abonado
-            logger.log("sin pago parcial");
+            logger.info("sin pago parcial");
             // se guarda relacion
             final var resiteredSale = registerSale(BigDecimal.ZERO, productsInfo, idUser);
             registereRelationship(idDebtor, resiteredSale.getIdSale(), resiteredSale.getTimestamp());
@@ -358,7 +358,7 @@ public class SalesControllerImpl implements ISalesController {
         item.setProductBuyTotal(BigDecimal.ONE);
         item.setQuantityOnSale(BigDecimal.ZERO);
         productsInfo.add(item);
-        logger.log(String.format("guardando la comision [%s]", String.valueOf(item)));
+        logger.info(String.format("guardando la comision [%s]", String.valueOf(item)));
         return registerSale(comissionData.getPrice(), productsInfo, idUser);
     }
     

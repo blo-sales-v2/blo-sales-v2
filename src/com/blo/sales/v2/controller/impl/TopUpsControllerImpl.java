@@ -42,7 +42,7 @@ public class TopUpsControllerImpl implements ITopUpsController {
         data.setFkMobileCompany(companyFound);
         // guardando comision
         salesController.registerTopUpComission(data.getFkUser().getIdUser());
-        logger.log("comision guardada");
+        logger.info("comision guardada");
         return model.addTopUp(data);
     }
 

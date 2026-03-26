@@ -354,19 +354,19 @@ public final class AllProducts extends AbstractDashboardBase {
             }
             final var quantity = new BigDecimal(tmpQuantity.trim());
             final var quantityCompared = currentQuantity.compareTo(quantity);
-            logger.log(String.format("CurrentQuantity %s tmpQuantity %s result %s", currentQuantity, tmpQuantity, quantityCompared));
+            logger.info("CurrentQuantity %s tmpQuantity %s result %s", currentQuantity, tmpQuantity, quantityCompared);
             /** desactiva el combo si se modifico pero la cantidad es la misma */
             if (quantityCompared == 0) {
                 lstReason.setVisible(false);
             }
             /** si la nueva cantidad es menor puede ser perdido o vendido */
             if (quantityCompared == 1) {
-                logger.log(String.format("cantidad menor [%s]", String.valueOf(ReasonsEnum.LOST)));
+                logger.info("cantidad menor [%s]", String.valueOf(ReasonsEnum.LOST));
                 lstReason.setSelectedIndex(ReasonsEnum.LOST.getIndex());
             }
             /** si la nueva cantidad es mayor puede ser reabastecimiento */
             if (quantityCompared == -1) {
-                logger.log(String.format("cantidad mayor [%s]", String.valueOf(ReasonsEnum.REPLENISHMENT)));
+                logger.info("cantidad mayor [%s]", String.valueOf(ReasonsEnum.REPLENISHMENT));
                 lstReason.setSelectedIndex(ReasonsEnum.REPLENISHMENT.getIndex());
             }
         } catch (BloSalesV2Exception ex) {
