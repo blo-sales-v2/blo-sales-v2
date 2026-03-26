@@ -13,5 +13,14 @@ public class WrapperPojoMobilesCompanies {
     public void setCompanies(List<PojoMobileCompany> companies) {
         this.companies = companies;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("WrapperPojoMobilesCompanies{");
+        sb.append("companies=").append(companies);
+        sb.append('}');
+        return sb.toString();
+    }
     
 }
