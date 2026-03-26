@@ -31,5 +31,16 @@ public class CategoryEntity {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("CategoryEntity{");
+        sb.append("id_category=").append(id_category);
+        sb.append(", category=").append(category);
+        sb.append(", description=").append(description);
+        sb.append('}');
+        return sb.toString();
+    }
     
 }

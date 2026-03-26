@@ -13,5 +13,14 @@ public class WrapperPojoCategories {
     public void setCategories(List<PojoCategory> categories) {
         this.categories = categories;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("WrapperPojoCategories{");
+        sb.append("categories=").append(categories);
+        sb.append('}');
+        return sb.toString();
+    }
     
 }

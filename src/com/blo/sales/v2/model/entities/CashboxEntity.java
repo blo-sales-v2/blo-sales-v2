@@ -67,7 +67,16 @@ public class CashboxEntity {
 
     @Override
     public String toString() {
-        return "CashboxEntity{" + "id_cashbox=" + id_cashbox + ", fk_user=" + fk_user + ", timestamp=" + timestamp + ", amount=" + amount + ", status=" + status + ", username=" + username + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("CashboxEntity{");
+        sb.append("id_cashbox=").append(id_cashbox);
+        sb.append(", fk_user=").append(fk_user);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append(", amount=").append(amount);
+        sb.append(", status=").append(status);
+        sb.append(", username=").append(username);
+        sb.append('}');
+        return sb.toString();
     }
     
 }

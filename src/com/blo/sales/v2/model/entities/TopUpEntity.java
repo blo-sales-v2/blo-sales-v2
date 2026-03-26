@@ -76,6 +76,17 @@ public class TopUpEntity {
 
     @Override
     public String toString() {
-        return "TopUpEntity{" + "id_top_up=" + id_top_up + ", fk_user=" + fk_user + ", fk_mobile_company=" + fk_mobile_company + ", amount=" + amount + ", checked=" + checked + ", phone_number=" + phone_number + ", timestamp=" + timestamp + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("TopUpEntity{");
+        sb.append("id_top_up=").append(id_top_up);
+        sb.append(", fk_user=").append(fk_user);
+        sb.append(", fk_mobile_company=").append(fk_mobile_company);
+        sb.append(", amount=").append(amount);
+        sb.append(", checked=").append(checked);
+        sb.append(", phone_number=").append(phone_number);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append('}');
+        return sb.toString();
     }
+
 }

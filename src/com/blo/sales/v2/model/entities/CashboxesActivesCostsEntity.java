@@ -44,7 +44,14 @@ public class CashboxesActivesCostsEntity {
 
     @Override
     public String toString() {
-        return "CashboxesActivesCostsEntity{" + "id_cashboxes_actives_costs=" + id_cashboxes_actives_costs + ", fk_cashbox=" + fk_cashbox + ", fk_actives_costs=" + fk_actives_costs + ", timestamp=" + timestamp + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("CashboxesActivesCostsEntity{");
+        sb.append("id_cashboxes_actives_costs=").append(id_cashboxes_actives_costs);
+        sb.append(", fk_cashbox=").append(fk_cashbox);
+        sb.append(", fk_actives_costs=").append(fk_actives_costs);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append('}');
+        return sb.toString();
     }
     
 }

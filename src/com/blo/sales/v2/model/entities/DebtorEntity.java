@@ -46,6 +46,14 @@ public class DebtorEntity {
 
     @Override
     public String toString() {
-        return "DebtorEntity{" + "id_debtor=" + id_debtor + ", name=" + name + ", debt=" + debt + ", payments=" + payments + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("DebtorEntity{");
+        sb.append("id_debtor=").append(id_debtor);
+        sb.append(", name=").append(name);
+        sb.append(", debt=").append(debt);
+        sb.append(", payments=").append(payments);
+        sb.append('}');
+        return sb.toString();
     }
+
 }

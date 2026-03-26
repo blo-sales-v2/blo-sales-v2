@@ -56,6 +56,14 @@ public class NoteEntity {
 
     @Override
     public String toString() {
-        return "NoteEntity{" + "id_note=" + id_note + ", fk_user=" + fk_user + ", note=" + note + ", timestamp=" + timestamp + ", type_note=" + type_note + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("NoteEntity{");
+        sb.append("id_note=").append(id_note);
+        sb.append(", fk_user=").append(fk_user);
+        sb.append(", note=").append(note);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append(", type_note=").append(type_note);
+        sb.append('}');
+        return sb.toString();
     }
 }

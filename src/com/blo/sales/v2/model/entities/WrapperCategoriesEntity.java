@@ -13,4 +13,13 @@ public class WrapperCategoriesEntity {
     public void setCategories(List<CategoryEntity> categories) {
         this.categories = categories;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("WrapperCategoriesEntity{");
+        sb.append("categories=").append(categories);
+        sb.append('}');
+        return sb.toString();
+    }
 }
