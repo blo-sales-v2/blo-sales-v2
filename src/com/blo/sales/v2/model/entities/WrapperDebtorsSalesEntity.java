@@ -13,5 +13,14 @@ public class WrapperDebtorsSalesEntity {
     public void setDebtorsSales(List<DebtorSaleEntity> debtorsSales) {
         this.debtorsSales = debtorsSales;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("WrapperDebtorsSalesEntity{");
+        sb.append("debtorsSales=").append(debtorsSales);
+        sb.append('}');
+        return sb.toString();
+    }
     
 }

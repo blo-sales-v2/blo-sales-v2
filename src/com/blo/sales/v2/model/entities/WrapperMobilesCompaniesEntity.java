@@ -13,5 +13,14 @@ public class WrapperMobilesCompaniesEntity {
     public void setCompanies(List<MobileCompanyEntity> companies) {
         this.companies = companies;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("WrapperMobilesCompaniesEntity{");
+        sb.append("companies=").append(companies);
+        sb.append('}');
+        return sb.toString();
+    }
     
 }

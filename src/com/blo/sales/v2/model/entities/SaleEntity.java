@@ -47,7 +47,13 @@ public class SaleEntity {
 
     @Override
     public String toString() {
-        return "SaleEntity{" + "id_sale=" + id_sale + ", total=" + total + ", sale_status=" + sale_status + ", timestamp=" + timestamp + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("SaleEntity{");
+        sb.append("id_sale=").append(id_sale);
+        sb.append(", total=").append(total);
+        sb.append(", sale_status=").append(sale_status);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append('}');
+        return sb.toString();
     }
-    
 }

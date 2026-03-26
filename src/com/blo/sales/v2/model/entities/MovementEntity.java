@@ -75,4 +75,19 @@ public class MovementEntity {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("MovementEntity{");
+        sb.append("id_movement=").append(id_movement);
+        sb.append(", fk_product=").append(fk_product);
+        sb.append(", fk_user=").append(fk_user);
+        sb.append(", type=").append(type);
+        sb.append(", quantity=").append(quantity);
+        sb.append(", reason=").append(reason);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append('}');
+        return sb.toString();
+    }
 }

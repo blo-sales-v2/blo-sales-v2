@@ -50,11 +50,18 @@ public class SaleDeletedDetailEntity {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-    }
+    }    
 
     @Override
     public String toString() {
-        return "SaleDeletedDetailEntity{" + "id_sale_deleted=" + id_sale_deleted + ", fk_sale_product=" + fk_sale_product + ", fk_user=" + fk_user + ", reason=" + reason + ", timestamp=" + timestamp + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("SaleDeletedDetailEntity{");
+        sb.append("id_sale_deleted=").append(id_sale_deleted);
+        sb.append(", fk_sale_product=").append(fk_sale_product);
+        sb.append(", fk_user=").append(fk_user);
+        sb.append(", reason=").append(reason);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append('}');
+        return sb.toString();
     }
-    
 }

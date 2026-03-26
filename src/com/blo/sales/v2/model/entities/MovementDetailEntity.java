@@ -88,6 +88,18 @@ public class MovementDetailEntity {
 
     @Override
     public String toString() {
-        return "MovementDetailEntity{" + "id_movement=" + id_movement + ", type=" + type + ", reason=" + reason + ", id_product=" + id_product + ", product=" + product + ", timestamp=" + timestamp + ", username=" + username + ", quantity=" + quantity + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("MovementDetailEntity{");
+        sb.append("id_movement=").append(id_movement);
+        sb.append(", type=").append(type);
+        sb.append(", reason=").append(reason);
+        sb.append(", id_product=").append(id_product);
+        sb.append(", product=").append(product);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append(", username=").append(username);
+        sb.append(", quantity=").append(quantity);
+        sb.append('}');
+        return sb.toString();
     }
+
 }

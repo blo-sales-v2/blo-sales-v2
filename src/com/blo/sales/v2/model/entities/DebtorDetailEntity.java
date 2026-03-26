@@ -83,4 +83,20 @@ public class DebtorDetailEntity {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("DebtorDetailEntity{");
+        sb.append("id_debtor=").append(id_debtor);
+        sb.append(", name=").append(name);
+        sb.append(", debt=").append(debt);
+        sb.append(", payments=").append(payments);
+        sb.append(", product=").append(product);
+        sb.append(", quantity_sale=").append(quantity_sale);
+        sb.append(", total_on_sale=").append(total_on_sale);
+        sb.append(", timestamp=").append(timestamp);
+        sb.append('}');
+        return sb.toString();
+    }
 }

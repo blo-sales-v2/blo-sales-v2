@@ -13,5 +13,14 @@ public class WrapperActivesCostsEntity {
     public void setActivesCosts(List<ActiveCostEntity> activesCosts) {
         this.activesCosts = activesCosts;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("WrapperActivesCostsEntity{");
+        sb.append("activesCosts=").append(activesCosts);
+        sb.append('}');
+        return sb.toString();
+    }
     
 }

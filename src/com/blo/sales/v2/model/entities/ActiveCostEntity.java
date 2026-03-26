@@ -57,6 +57,15 @@ public class ActiveCostEntity {
 
     @Override
     public String toString() {
-        return "ActiveCostEntity{" + "id_actives_costs=" + id_actives_costs + ", concept=" + concept + ", amount=" + amount + ", type=" + type + ", complete=" + complete + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("ActiveCostEntity{");
+        sb.append("id_actives_costs=").append(id_actives_costs);
+        sb.append(", concept=").append(concept);
+        sb.append(", amount=").append(amount);
+        sb.append(", type=").append(type);
+        sb.append(", complete=").append(complete);
+        sb.append('}');
+        return sb.toString();
     }
+
 }
