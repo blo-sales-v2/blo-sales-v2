@@ -205,4 +205,11 @@ public final class BloSalesV2Utils {
         }
         return 1000L;
     }
+    
+    public static long getTopUpIdComission() {
+        if (BloSalesV2Utils.VERSION.lastIndexOf(RELEASE) == 7) {
+            return 494L;
+        }
+        return 1016L;
+    }
 }

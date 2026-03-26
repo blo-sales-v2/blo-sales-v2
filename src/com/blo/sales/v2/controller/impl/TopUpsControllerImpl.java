@@ -3,7 +3,6 @@ package com.blo.sales.v2.controller.impl;
 import com.blo.sales.v2.controller.IMobileCompanyController;
 import com.blo.sales.v2.controller.ISalesController;
 import com.blo.sales.v2.controller.ITopUpsController;
-import com.blo.sales.v2.controller.pojos.PojoIntSaleProductData;
 import com.blo.sales.v2.controller.pojos.PojoIntTopUp;
 import com.blo.sales.v2.controller.pojos.WrapperPojoIntTopUp;
 import com.blo.sales.v2.controller.pojos.enums.TopUpSearchStatusIntEnum;
@@ -12,8 +11,6 @@ import com.blo.sales.v2.model.impl.TopUpModelImpl;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 
 public class TopUpsControllerImpl implements ITopUpsController {
     
@@ -44,15 +41,8 @@ public class TopUpsControllerImpl implements ITopUpsController {
         BloSalesV2Utils.validateRule(companyFound == null, BloSalesV2Utils.CODE_COMPANY_NOT_FOUND, BloSalesV2Utils.ERROR_COMPANY_NOT_FOUND);
         data.setFkMobileCompany(companyFound);
         // guardando comision
-        final var productsInfo = new ArrayList<PojoIntSaleProductData>();
-        final var item = new PojoIntSaleProductData();
-        item.setIdProduct(BloSalesV2Utils.getIdPaymentProduct());
-        item.setPrice(BigDecimal.ONE);
-        item.setProductBuyTotal(BigDecimal.ONE);
-        item.setQuantityOnSale(BigDecimal.ZERO);
-        productsInfo.add(item);
-        logger.log(String.format("guardando la comision [%s]", String.valueOf(item)));
-        salesController.registerSale(BigDecimal.ONE, productsInfo, data.getFkUser().getIdUser());
+        salesController.registerTopUpComission(data.getFkUser().getIdUser());
+        logger.log("comision guardada");
         return model.addTopUp(data);
     }
 
