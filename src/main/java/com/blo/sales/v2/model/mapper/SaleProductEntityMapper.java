@@ -32,7 +32,7 @@ public class SaleProductEntityMapper implements IToInner<SaleProductEntity, Pojo
         inner.setQunatity_sale(outer.getQuantityOnSale());
         inner.setTimestamp(outer.getTimestap());
         inner.setProduct_total_on_sale(outer.getProductTotalOnSale());
-        inner.setIs_live(outer.isLive());
+        inner.setLive(outer.isLive());
         return inner;
     }
 
