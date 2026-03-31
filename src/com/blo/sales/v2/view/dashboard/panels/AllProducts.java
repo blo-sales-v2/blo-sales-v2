@@ -432,7 +432,7 @@ public final class AllProducts extends AbstractDashboardBase {
         bloSalesRow.setCols(r);
         final String[] headers = 
                 {"ID", "Codigo de barras", "Producto", "Precio", "Costo de venta", "¿Por kg?", "Categoria",  "Cantidad en existencia", "¿Completo?", "Observaciones"};
-        BloSalesV2CSVPlugin.exportFile(headers, bloSalesRow);
+        BloSalesV2CSVPlugin.exportFile(headers, bloSalesRow, getTranslateBy(KeysEnum.STOCK_FILE_NAME.getKey()), false);
     }//GEN-LAST:event_btnDownloadStockActionPerformed
 
     /** ajustar filtro de categorias */
