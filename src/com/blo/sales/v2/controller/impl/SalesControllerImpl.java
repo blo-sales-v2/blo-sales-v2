@@ -124,7 +124,7 @@ public class SalesControllerImpl implements ISalesController {
             saleProduct.setFkProduct(p.getIdProduct());
             saleProduct.setFkSale(saleSaved.getIdSale());
             saleProduct.setQuantityOnSale(p.getQuantityOnSale());
-            saleProduct.setTimestap(timestamp);
+            saleProduct.setTimestamp(timestamp);
             saleProduct.setProductTotalOnSale(p.getProductBuyTotal());
             saleProduct.setTotalOnSale(totalSale);
             // guardar relacion venta-product
@@ -305,7 +305,7 @@ public class SalesControllerImpl implements ISalesController {
         totalOnSale = totalOnSale.subtract(productFound.getPrice());
         relationFound.setTotalOnSale(BigDecimal.ZERO);
         relationFound.setIsLive(false);
-        relationFound.setTimestap(timestamp);
+        relationFound.setTimestamp(timestamp);
         relationFound.setProductTotalOnSale(BigDecimal.ZERO);
         relationFound.setQuantityOnSale(BigDecimal.ZERO);
         logger.info("guardando datos [%s]", String.valueOf(relationFound));

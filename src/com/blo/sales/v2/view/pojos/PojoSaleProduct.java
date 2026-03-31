@@ -1,8 +1,8 @@
-package com.blo.sales.v2.controller.pojos;
+package com.blo.sales.v2.view.pojos;
 
 import java.math.BigDecimal;
 
-public class PojoIntSaleProduct {
+public class PojoSaleProduct {
     
     private long idSaleProduct;
     

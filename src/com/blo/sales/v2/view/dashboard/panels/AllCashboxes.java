@@ -10,9 +10,11 @@ import com.blo.sales.v2.view.commons.AbstractDashboardBase;
 import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
+import com.blo.sales.v2.view.dialogs.CashboxDetailDialog;
 import com.blo.sales.v2.view.mappers.WrapperPojoCashboxesDetailsMapper;
 import com.blo.sales.v2.view.pojos.PojoCashboxDetail;
 import com.blo.sales.v2.view.pojos.WrapperPojoCashboxesDetails;
+import com.blo.sales.v2.view.pojos.WrapperPojoCashboxesSalesDetailMapper;
 import com.blo.sales.v2.view.pojos.enums.ActivesCostsEnum;
 import java.util.Comparator;
 import java.util.List;
@@ -29,6 +31,8 @@ public final class AllCashboxes extends AbstractDashboardBase {
     private static final ICashboxesSalesController cashboxesSales = CashboxesSalesControllerImpl.getInstance();
     
     private static final WrapperPojoCashboxesDetailsMapper mapper = WrapperPojoCashboxesDetailsMapper.getInstance();
+    
+    private static final WrapperPojoCashboxesSalesDetailMapper salesDetailsMapper = WrapperPojoCashboxesSalesDetailMapper.getInstanace();
     
     private long idCashbox;
 
@@ -183,7 +187,19 @@ public final class AllCashboxes extends AbstractDashboardBase {
     private void btnViewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailsActionPerformed
         try {
             logger.info("buscando id %s", idCashbox);
-            cashboxesSales.getCashboxSalesDetailById(idCashbox);
+            final var cashboxes = salesDetailsMapper.toOuter(cashboxesSales.getCashboxSalesDetailById(idCashbox));
+            if (cashboxes.getCashboxes() != null && !cashboxes.getCashboxes().isEmpty()) {
+                final var title = String.format(
+                        getTranslateBy(
+                                KeysEnum.CASHBOXES_LBL_CASHBOX_OF.getKey()),
+                                idCashbox, parserTimestamp(cashboxes.getCashboxes().get(0).getCashbox().getTimestamp()
+                            )
+                        );
+                final var detailsDialog = new CashboxDetailDialog(this, title, cashboxes);
+                detailsDialog.setVisible(true);
+                return;
+            }
+            CommonAlerts.openWarning("Esta caja aún no tiene disponible esta funcionalidad", "Espera");
         } catch (BloSalesV2Exception ex) {
             System.getLogger(AllCashboxes.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }

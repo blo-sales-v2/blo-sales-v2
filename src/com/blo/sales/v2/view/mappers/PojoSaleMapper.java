@@ -39,9 +39,10 @@ public class PojoSaleMapper implements IToInner<PojoIntSale, PojoSale>, IToOuter
             return null;
         }
         final var outer = new PojoSale();
-        outer.setIdSale(outer.getIdSale());
+        outer.setIdSale(inner.getIdSale());
         outer.setSaleStatus(SalesStatusEnum.valueOf(inner.getSaleStatus().name()));
-        outer.setTotal(outer.getTotal());
+        outer.setTotal(inner.getTotal());
+        outer.setTimestamp(inner.getTimestamp());
         return outer;
     }
     
