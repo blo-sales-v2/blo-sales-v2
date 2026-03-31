@@ -18,10 +18,10 @@ public class CashboxDetailDialog extends AbstractDialogBase {
         String title,
         WrapperPojoCashboxesSalesDetails cashboxDetails
     ) {
-        super(SwingUtilities.getWindowAncestor(parent), title, ModalityType.APPLICATION_MODAL);
+        super(SwingUtilities.getWindowAncestor(parent), title, ModalityType.APPLICATION_MODAL, true);
         this.cashboxDetails = cashboxDetails;
         initComponents();
-        allWidth();
+        dialogSizeHandler();
         loadDataOnTable();
     }
 

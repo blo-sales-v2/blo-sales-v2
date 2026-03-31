@@ -14,8 +14,11 @@ public abstract class AbstractDialogBase extends javax.swing.JDialog {
     
     private static final String DATE_FORMAT = "EEEE d 'de' MMMM 'a las' HH:mm";
     
-    public AbstractDialogBase(Window window, String title, ModalityType modalityType) {
+    private final boolean viewComplete;
+    
+    public AbstractDialogBase(Window window, String title, ModalityType modalityType, boolean viewComplete) {
         super(window, title, modalityType);
+        this.viewComplete = viewComplete;
     }
     
     public String getTranslateBy(String key) {
@@ -35,13 +38,17 @@ public abstract class AbstractDialogBase extends javax.swing.JDialog {
         return String.format("%s%s", onText.substring(0, 1).toUpperCase(), onText.substring(1).toLowerCase());
     }
     
-    
-    public void allWidth() {
-        final var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        final var width = (int)screenSize.getWidth();
-        final var height = (int)(screenSize.getHeight() * 0.5);
-        setSize(width, height);
+    public void dialogSizeHandler() {
+        if (viewComplete) {
+            final var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            final var width = (int)screenSize.getWidth();
+            final var height = (int)(screenSize.getHeight() * 0.5);
+            setSize(width, height);
+            return;
+        }
+        this.setLocationRelativeTo(null);
     }
     
     public abstract void loadTargets();
+    
 }

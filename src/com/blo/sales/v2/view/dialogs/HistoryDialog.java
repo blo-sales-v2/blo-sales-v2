@@ -3,7 +3,6 @@ package com.blo.sales.v2.view.dialogs;
 import com.blo.sales.v2.plugins.xlxs.BloSalesV2CSVCols;
 import com.blo.sales.v2.plugins.xlxs.BloSalesV2CSVPlugin;
 import com.blo.sales.v2.translate.KeysEnum;
-import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.AbstractDialogBase;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.pojos.WrapperPojoMovementsDetail;
@@ -19,7 +18,8 @@ public final class HistoryDialog extends AbstractDialogBase {
     private final WrapperPojoMovementsDetail history;
     
     public HistoryDialog(Component parent, String title, WrapperPojoMovementsDetail history) {
-        super(SwingUtilities.getWindowAncestor(parent), title, ModalityType.APPLICATION_MODAL);
+        super(SwingUtilities.getWindowAncestor(parent), title, ModalityType.APPLICATION_MODAL, true);
+        dialogSizeHandler();
         this.history = history;
         initComponents();
         loadData();
