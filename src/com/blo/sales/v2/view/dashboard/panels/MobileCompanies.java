@@ -22,9 +22,11 @@ public final class MobileCompanies extends AbstractDashboardBase {
     @Inject
     private IMobileCompanyController mobileController;
     
-    private static final WrapperPojoMobilesCompaniesMapper wrapperCompaniesMapper = WrapperPojoMobilesCompaniesMapper.getInstance();
+    @Inject
+    private WrapperPojoMobilesCompaniesMapper wrapperCompaniesMapper;
     
-    private static final PojoMobileCompanyMapper companyMapper = PojoMobileCompanyMapper.getInstance();
+    @Inject
+    private PojoMobileCompanyMapper companyMapper;
 
     private static final String[] titles = {"ID de compañía", "Compañía"};
     

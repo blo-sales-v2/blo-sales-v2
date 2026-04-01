@@ -34,26 +34,19 @@ public final class TopUps extends AbstractDashboardBase {
     @Inject
     private ITopUpsController topUpsController;
     
-    private static final PojoTopUpMapper topUpMapper = PojoTopUpMapper.getInstance();
+    @Inject
+    private PojoTopUpMapper topUpMapper;
     
-    private static final WrapperPojoTopUpsMapper wrapperPojoTopUp = WrapperPojoTopUpsMapper.getInstance();
+    @Inject
+    private WrapperPojoTopUpsMapper wrapperPojoTopUp;
     
-    private static final WrapperPojoMobilesCompaniesMapper wrapperCompaniesMapper = WrapperPojoMobilesCompaniesMapper.getInstance();
+    @Inject
+    private WrapperPojoMobilesCompaniesMapper wrapperCompaniesMapper;
     
     private BigDecimal topUpsTotal;
-            
-    private PojoLoggedInUser userData;
 
-    public TopUps(PojoLoggedInUser userData, String key) {
+    public TopUps(String key) {
         super(key);
-        this.userData = userData;
-        topUpsTotal = BigDecimal.ZERO;
-        initComponents();
-        GUICommons.loadTitleOnTable(tblResults, titles, false);
-        loadTargets();
-        retrieveCompanies();
-        setTextToFilter();
-        GUICommons.hiddenElement(btnCloseTopUps);
     }
 
     @SuppressWarnings("unchecked")
@@ -238,7 +231,7 @@ public final class TopUps extends AbstractDashboardBase {
             topUpData.setAmount(amount);
             topUpData.setChecked(false);
             topUpData.setFkMobileCompany(null);
-            topUpData.setFkUser(userData);
+            topUpData.setFkUser(getUserData());
             topUpData.setPhoneNumber(phoneNmb);
             topUpData.setTimestamp(BloSalesV2Utils.getTimestamp());
             topUpsController.addTopUp(topUpMapper.toInner(topUpData), Long.parseLong(idCompany));
@@ -397,6 +390,12 @@ public final class TopUps extends AbstractDashboardBase {
 
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        topUpsTotal = BigDecimal.ZERO;
+        initComponents();
+        GUICommons.loadTitleOnTable(tblResults, titles, false);
+        loadTargets();
+        retrieveCompanies();
+        setTextToFilter();
+        GUICommons.hiddenElement(btnCloseTopUps);
     }
 }

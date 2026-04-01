@@ -13,7 +13,7 @@ import com.blo.sales.v2.view.dialogs.CashboxesGraphicsDialog;
 import com.blo.sales.v2.view.mappers.WrapperPojoCashboxesDetailsMapper;
 import com.blo.sales.v2.view.pojos.PojoCashboxDetail;
 import com.blo.sales.v2.view.pojos.WrapperPojoCashboxesDetails;
-import com.blo.sales.v2.view.pojos.WrapperPojoCashboxesSalesDetailMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoCashboxesSalesDetailMapper;
 import com.blo.sales.v2.view.pojos.enums.ActivesCostsEnum;
 import jakarta.inject.Inject;
 import java.util.Comparator;
@@ -26,9 +26,11 @@ public final class AllCashboxes extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(AllCashboxes.class.getName());
     
-    private static final WrapperPojoCashboxesDetailsMapper mapper = WrapperPojoCashboxesDetailsMapper.getInstance();
+    @Inject
+    private WrapperPojoCashboxesDetailsMapper mapper;
     
-    private static final WrapperPojoCashboxesSalesDetailMapper salesDetailsMapper = WrapperPojoCashboxesSalesDetailMapper.getInstanace();
+    @Inject
+    private WrapperPojoCashboxesSalesDetailMapper salesDetailsMapper;
     
     @Inject
     private ICashboxController controller;

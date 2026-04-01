@@ -25,7 +25,8 @@ public final class Debtors extends AbstractDashboardBase {
     @Inject
     private IDebtorsController debtors;
     
-    private static final WrapperPojoDebtorsDetailsMapper debtorsDetailsMapper = WrapperPojoDebtorsDetailsMapper.getInstance();
+    @Inject
+    private WrapperPojoDebtorsDetailsMapper debtorsDetailsMapper;
     
     /** deudor seleccionado para hacer operaciones */
     private PojoDebtorDetail debtorSelected;

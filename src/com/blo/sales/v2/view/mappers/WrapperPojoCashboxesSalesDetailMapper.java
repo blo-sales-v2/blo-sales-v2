@@ -1,24 +1,18 @@
-package com.blo.sales.v2.view.pojos;
+package com.blo.sales.v2.view.mappers;
 
 import com.blo.sales.v2.controller.pojos.WrapperPojoIntCashboxesSalesDetails;
 import com.blo.sales.v2.utils.IToOuter;
-import com.blo.sales.v2.view.mappers.PojoCashboxSaleDetailMapper;
+import com.blo.sales.v2.view.pojos.PojoCashboxSaleDetail;
+import com.blo.sales.v2.view.pojos.WrapperPojoCashboxesSalesDetails;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import java.util.ArrayList;
 
+@Singleton
 public class WrapperPojoCashboxesSalesDetailMapper implements IToOuter<WrapperPojoIntCashboxesSalesDetails, WrapperPojoCashboxesSalesDetails> {
     
-    private static final PojoCashboxSaleDetailMapper mapper = PojoCashboxSaleDetailMapper.getInstance();
-    
-    private static WrapperPojoCashboxesSalesDetailMapper instance;
-    
-    private WrapperPojoCashboxesSalesDetailMapper() { }
-    
-    public static WrapperPojoCashboxesSalesDetailMapper getInstanace() {
-        if (instance == null) {
-            instance = new WrapperPojoCashboxesSalesDetailMapper();
-        }
-        return instance;
-    }
+    @Inject
+    private PojoCashboxSaleDetailMapper mapper;
 
     @Override
     public WrapperPojoCashboxesSalesDetails toOuter(WrapperPojoIntCashboxesSalesDetails inner) {

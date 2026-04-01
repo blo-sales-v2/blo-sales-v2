@@ -3,29 +3,26 @@ package com.blo.sales.v2.view.mappers;
 import com.blo.sales.v2.controller.pojos.PojoIntCashboxSaleDetail;
 import com.blo.sales.v2.utils.IToOuter;
 import com.blo.sales.v2.view.pojos.PojoCashboxSaleDetail;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
+@Singleton
 public class PojoCashboxSaleDetailMapper implements IToOuter<PojoIntCashboxSaleDetail, PojoCashboxSaleDetail> {
     
-    private static final PojoCashboxMapper cashboxMapper = PojoCashboxMapper.getInstance();
+    @Inject
+    private PojoCashboxMapper cashboxMapper;
     
-    private static final PojoSaleMapper saleMapper = PojoSaleMapper.getInstance();
+    @Inject
+    private PojoSaleMapper saleMapper;
     
-    private static final ProductMapper productMapper = ProductMapper.getInstance();
+    @Inject
+    private ProductMapper productMapper;
     
-    private static final LoggedInUserMapper loggedInUserMapper = LoggedInUserMapper.getInstance();
+    @Inject
+    private LoggedInUserMapper loggedInUserMapper;
     
-    private static final PojoSaleProductMapper saleProduct = PojoSaleProductMapper.getInstance();
-    
-    private static PojoCashboxSaleDetailMapper instance;
-    
-    private PojoCashboxSaleDetailMapper() { }
-    
-    public static PojoCashboxSaleDetailMapper getInstance() {
-        if (instance == null) {
-            instance = new PojoCashboxSaleDetailMapper();
-        }
-        return instance;
-    }
+    @Inject
+    private PojoSaleProductMapper saleProduct;
 
     @Override
     public PojoCashboxSaleDetail toOuter(PojoIntCashboxSaleDetail inner) {

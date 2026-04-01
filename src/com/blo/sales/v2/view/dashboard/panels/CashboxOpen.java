@@ -32,11 +32,14 @@ public final class CashboxOpen extends AbstractDashboardBase {
     @Inject
     private IUserController userController;
     
-    private static final WrapperPojoActivesCostsMapper activesCostMapper = WrapperPojoActivesCostsMapper.getInstance();
+    @Inject
+    private WrapperPojoActivesCostsMapper activesCostMapper;
     
-    private static final PojoCashboxMapper mapper = PojoCashboxMapper.getInstance();
+    @Inject
+    private PojoCashboxMapper mapper;
     
-    private static final WrapperPojoNotesMapper mapperNotes = WrapperPojoNotesMapper.getInstance();
+    @Inject
+    private WrapperPojoNotesMapper mapperNotes;
     
     private PojoCashbox openCashbox;
     

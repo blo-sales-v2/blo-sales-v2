@@ -20,9 +20,11 @@ public final class LoginFrm extends AbstractFrameBase {
     
     private static final GUILogger logger = GUILogger.getLogger(LoginFrm.class.getName());
     
-    private static final UserMapper userMapper = UserMapper.getInstance();
+    @Inject
+    private UserMapper userMapper;
     
-    private static final LoggedInUserMapper loggedInUserMapper = LoggedInUserMapper.getInstance();
+    @Inject
+    private LoggedInUserMapper loggedInUserMapper;
     
     @Inject
     private IUserController userController;

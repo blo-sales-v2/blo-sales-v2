@@ -4,9 +4,6 @@ import com.blo.sales.v2.controller.ICategoriesController;
 import com.blo.sales.v2.controller.IHistoryController;
 import com.blo.sales.v2.controller.IProductsController;
 import com.blo.sales.v2.controller.IStockPricesHistoryController;
-import com.blo.sales.v2.controller.impl.HistoryControllerImpl;
-import com.blo.sales.v2.controller.impl.ProductsControllerImpl;
-import com.blo.sales.v2.controller.impl.StockPricesHistoryControllerImpl;
 import com.blo.sales.v2.controller.pojos.enums.ReasonsIntEnum;
 import com.blo.sales.v2.controller.pojos.enums.TypesIntEnum;
 import com.blo.sales.v2.plugins.xlxs.BloSalesV2CSVCols;
@@ -55,17 +52,23 @@ public final class AllProducts extends AbstractDashboardBase {
     @Inject
     private ICategoriesController categoriesController;
     
-    private static final WrapperPojoProductsMapper productsMapper = WrapperPojoProductsMapper.getInstance();
+    @Inject
+    private WrapperPojoProductsMapper productsMapper;
     
-    private static final ProductMapper productMapper = ProductMapper.getInstance();
+    @Inject
+    private ProductMapper productMapper;
     
-    private static final WrapperPojoCategoriesMapper categoriesMapper = WrapperPojoCategoriesMapper.getInstance();
+    @Inject
+    private WrapperPojoCategoriesMapper categoriesMapper;
     
-    private static final PojoPriceHistoryMapper priceHistoryMapper = PojoPriceHistoryMapper.getInstance();
+    @Inject
+    private PojoPriceHistoryMapper priceHistoryMapper;
     
-    private static final WrapperPojoStockPriceHistoryMapper pricesEvolutionPriceMapper = WrapperPojoStockPriceHistoryMapper.getInstance();
+    @Inject
+    private WrapperPojoStockPriceHistoryMapper pricesEvolutionPriceMapper;
     
-    private static final WrapperPojoMovementsDetailMapper movementsMapper = WrapperPojoMovementsDetailMapper.getInstance();
+    @Inject
+    private WrapperPojoMovementsDetailMapper movementsMapper;
     
     private static final String[] titles = {"ID", "Codigo de barras", "Producto", "Cantidad en existencia", "Precio", "Costo de venta", "¿Por kg?", "Categoria"};
     

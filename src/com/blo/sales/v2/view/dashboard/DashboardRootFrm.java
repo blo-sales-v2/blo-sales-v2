@@ -330,8 +330,8 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     }//GEN-LAST:event_optMobileCompaniesActionPerformed
 
     private void optTopUpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optTopUpsActionPerformed
-        topUps = new TopUps(userData, KeysEnum.DASHBOARD_TITLES_TOP_UPS.getKey());
-        GUICommons.showPanel(this, content, topUps);
+        topUps = new TopUps(KeysEnum.DASHBOARD_TITLES_TOP_UPS.getKey());
+        handlerDashboard(topUps);
     }//GEN-LAST:event_optTopUpsActionPerformed
     
     private void handlerDashboard(AbstractDashboardBase dashboard) {

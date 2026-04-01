@@ -25,9 +25,11 @@ public final class Notes extends AbstractDashboardBase {
     @Inject
     private IUserController controller;
     
-    private static final PojoNoteMapper noteMapper = PojoNoteMapper.getInstance();
+    @Inject
+    private PojoNoteMapper noteMapper;
     
-    private static final WrapperPojoNotesMapper notesMapper = WrapperPojoNotesMapper.getInstance();
+    @Inject
+    private WrapperPojoNotesMapper notesMapper;
     
     private static final String[] titles = {"ID", "Nota", "Tipo", "Timestamp"};
     

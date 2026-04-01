@@ -68,6 +68,42 @@ import com.blo.sales.v2.model.impl.SalesModelImpl;
 import com.blo.sales.v2.model.impl.StockPricesHistoryModelImpl;
 import com.blo.sales.v2.model.impl.TopUpModelImpl;
 import com.blo.sales.v2.model.impl.UserModelImpl;
+import com.blo.sales.v2.view.mappers.CategoryMapper;
+import com.blo.sales.v2.view.mappers.DebtorMapper;
+import com.blo.sales.v2.view.mappers.DebtorSaleMapper;
+import com.blo.sales.v2.view.mappers.LoggedInUserMapper;
+import com.blo.sales.v2.view.mappers.PojoActiveCostMapper;
+import com.blo.sales.v2.view.mappers.PojoCashboxDetailMapper;
+import com.blo.sales.v2.view.mappers.PojoCashboxMapper;
+import com.blo.sales.v2.view.mappers.PojoCashboxSaleDetailMapper;
+import com.blo.sales.v2.view.mappers.PojoDebtorDetailMapper;
+import com.blo.sales.v2.view.mappers.PojoMobileCompanyMapper;
+import com.blo.sales.v2.view.mappers.PojoMovementDetailMapper;
+import com.blo.sales.v2.view.mappers.PojoNoteMapper;
+import com.blo.sales.v2.view.mappers.PojoPriceHistoryMapper;
+import com.blo.sales.v2.view.mappers.PojoSaleAndProductMapper;
+import com.blo.sales.v2.view.mappers.PojoSaleMapper;
+import com.blo.sales.v2.view.mappers.PojoSaleProductDataMapper;
+import com.blo.sales.v2.view.mappers.PojoSaleProductMapper;
+import com.blo.sales.v2.view.mappers.PojoStockPriceHistoryMapper;
+import com.blo.sales.v2.view.mappers.PojoTopUpMapper;
+import com.blo.sales.v2.view.mappers.ProductMapper;
+import com.blo.sales.v2.view.mappers.UserMapper;
+import com.blo.sales.v2.view.mappers.WrapperDebtorsMapper;
+import com.blo.sales.v2.view.mappers.WrapperDebtorsSalesMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoActivesCostsMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoCashboxesDetailsMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoCashboxesMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoCashboxesSalesDetailMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoCategoriesMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoDebtorsDetailsMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoMobilesCompaniesMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoMovementsDetailMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoNotesMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoProductsMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoSalesAndStockMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoStockPriceHistoryMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoTopUpsMapper;
 import com.google.inject.AbstractModule;
 import jakarta.inject.Singleton;
 
@@ -76,7 +112,9 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
     @Override
     protected void configure() {
         // --- VINCULACIÓN DE CONTROLADORES ---
-        /** controller */
+        /**
+         * controller
+         */
         bind(IActivesCostsController.class).
                 to(ActivesCostsControllerImpl.class).
                 in(Singleton.class);
@@ -128,8 +166,10 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
         bind(IUserController.class).
                 to(UserControllerImpl.class).
                 in(Singleton.class);
-        
-        /** models */
+
+        /**
+         * models
+         */
         bind(IActivesCostsModel.class).
                 to(ActivesCostsModelImpl.class).
                 in(Singleton.class);
@@ -182,11 +222,50 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
                 to(UserModelImpl.class).
                 in(Singleton.class);
 
+        bind(CategoryMapper.class).in(Singleton.class);
+        bind(DebtorMapper.class).in(Singleton.class);
+        bind(DebtorSaleMapper.class).in(Singleton.class);
+        bind(LoggedInUserMapper.class).in(Singleton.class);
+        bind(PojoActiveCostMapper.class).in(Singleton.class);
+        bind(PojoCashboxDetailMapper.class).in(Singleton.class);
+        bind(PojoCashboxMapper.class).in(Singleton.class);
+        bind(PojoCashboxSaleDetailMapper.class).in(Singleton.class);
+        bind(PojoDebtorDetailMapper.class).in(Singleton.class);
+        bind(PojoMobileCompanyMapper.class).in(Singleton.class);
+        bind(PojoMovementDetailMapper.class).in(Singleton.class);
+        bind(PojoNoteMapper.class).in(Singleton.class);
+        bind(PojoPriceHistoryMapper.class).in(Singleton.class);
+        bind(PojoSaleAndProductMapper.class).in(Singleton.class);
+        bind(PojoSaleMapper.class).in(Singleton.class);
+        bind(PojoSaleProductDataMapper.class).in(Singleton.class);
+        bind(PojoSaleProductMapper.class).in(Singleton.class);
+        bind(PojoStockPriceHistoryMapper.class).in(Singleton.class);
+        bind(PojoTopUpMapper.class).in(Singleton.class);
+        bind(ProductMapper.class).in(Singleton.class);
+        bind(UserMapper.class).in(Singleton.class);
+        bind(WrapperDebtorsMapper.class).in(Singleton.class);
+        bind(WrapperDebtorsSalesMapper.class).in(Singleton.class);
+        bind(WrapperPojoActivesCostsMapper.class).in(Singleton.class);
+        bind(WrapperPojoCashboxesDetailsMapper.class).in(Singleton.class);
+        bind(WrapperPojoCashboxesSalesDetailMapper.class).in(Singleton.class);
+        bind(WrapperPojoCashboxesMapper.class).in(Singleton.class);
+        bind(WrapperPojoCategoriesMapper.class).in(Singleton.class);
+        bind(WrapperPojoDebtorsDetailsMapper.class).in(Singleton.class);
+        bind(WrapperPojoMobilesCompaniesMapper.class).in(Singleton.class);
+        bind(WrapperPojoMovementsDetailMapper.class).in(Singleton.class);
+        bind(WrapperPojoNotesMapper.class).in(Singleton.class);
+        bind(WrapperPojoProductsMapper.class).in(Singleton.class);
+        bind(WrapperPojoSalesAndStockMapper.class).in(Singleton.class);
+        bind(WrapperPojoStockPriceHistoryMapper.class).in(Singleton.class);
+        bind(WrapperPojoTopUpsMapper.class).in(Singleton.class);
+        
+        
+        
+
         // --- VINCULACIÓN DE MAPPERS ---
         // Los mappers suelen ser clases concretas (sin interfaz). 
         // Solo necesitamos asegurar que Guice los maneje como Singletons.
         //bind(UserMapper.class).in(Singleton.class);
-        
         // --- NOTA SOBRE JFRAMES ---
         // No es obligatorio hacer bind de los JFrames (LoginFrm, DashboardRootFrm),
         // Guice los encuentra automáticamente si tienen la anotación @Inject.

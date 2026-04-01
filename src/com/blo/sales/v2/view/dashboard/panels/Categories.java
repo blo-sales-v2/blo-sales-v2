@@ -19,13 +19,14 @@ public final class Categories extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(Categories.class.getName());
     
-    private static final CategoryMapper categoryMapper = CategoryMapper.getInstance();
-    
-    private static final WrapperPojoCategoriesMapper wrapperPojoCategoriesMapper = WrapperPojoCategoriesMapper.getInstance();
-    
-    /** Variable global para almacenar categorias y usarla en cualquer metodo */
     @Inject
     private ICategoriesController categoriesController;
+    
+    @Inject
+    private CategoryMapper categoryMapper;
+    
+    @Inject
+    private WrapperPojoCategoriesMapper wrapperPojoCategoriesMapper;
     
     private WrapperPojoCategories categoriesGlobal;
 

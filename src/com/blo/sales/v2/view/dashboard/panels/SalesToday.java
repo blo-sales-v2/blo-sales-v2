@@ -24,7 +24,8 @@ public final class SalesToday extends AbstractDashboardBase {
     @Inject
     private ISalesController salesController;
     
-    private static final WrapperPojoSalesAndStockMapper mapper = WrapperPojoSalesAndStockMapper.getInstance();
+    @Inject
+    private WrapperPojoSalesAndStockMapper mapper;
 
     private static final String[] titles = {"ID de venta", "ID producto", "Producto", "Precio o comprado", "Cantidad en venta", "Total de venta", "Timestamp"};
     
