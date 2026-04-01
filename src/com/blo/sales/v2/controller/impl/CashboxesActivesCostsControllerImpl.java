@@ -13,25 +13,8 @@ public class CashboxesActivesCostsControllerImpl implements ICashboxesActivesCos
     
     private static final GUILogger logger = GUILogger.getLogger(CashboxesActivesCostsControllerImpl.class.getName());
     
-    private final ICashboxesActivesCostsModel model;
-
     @Inject
-    public CashboxesActivesCostsControllerImpl(ICashboxesActivesCostsModel model) {
-        this.model = model;
-    }
-    
-    /*private static final ICashboxesActivesCostsModel model = CashboxesActivesCostsModelImpl.getInstance();
-    
-    private static CashboxesActivesCostsControllerImpl instance;
-    
-    private CashboxesActivesCostsControllerImpl() { }
-    
-    public static CashboxesActivesCostsControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new CashboxesActivesCostsControllerImpl();
-        }
-        return instance;
-    }*/
+    private ICashboxesActivesCostsModel model;
 
     @Override
     public PojoIntCashboxesActivesCosts addRelationship(PojoIntCashboxesActivesCosts data) throws BloSalesV2Exception {

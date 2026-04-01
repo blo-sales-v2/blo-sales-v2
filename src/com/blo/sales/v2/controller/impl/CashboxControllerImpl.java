@@ -23,46 +23,20 @@ public class CashboxControllerImpl implements ICashboxController {
     
     private static final GUILogger logger = GUILogger.getLogger(CashboxControllerImpl.class.getName());
     
-    private final IActivesCostsController activesCostsController;
-    
-    private final ICashboxModel model;
-    
-    private final ICashboxesActivesCostsController cashboxesAactivesCostsController;
-    
-    private final ISalesController salesController;
-    
-    private final ICashboxesSalesController cashboxesSalesController;
-
     @Inject
-    public CashboxControllerImpl(IActivesCostsController activesCostsController, ICashboxModel model, ICashboxesActivesCostsController cashboxesAactivesCostsController, ISalesController salesController, ICashboxesSalesController cashboxesSalesController) {
-        this.activesCostsController = activesCostsController;
-        this.model = model;
-        this.cashboxesAactivesCostsController = cashboxesAactivesCostsController;
-        this.salesController = salesController;
-        this.cashboxesSalesController = cashboxesSalesController;
-    }
+    private IActivesCostsController activesCostsController;
     
+    @Inject
+    private ICashboxModel model;
     
-    /*private static final ICashboxModel model = CashboxModelImpl.getInstance();
+    @Inject
+    private ICashboxesActivesCostsController cashboxesAactivesCostsController;
     
-    private static final ICashboxesActivesCostsController cashboxesAactivesCostsController = CashboxesActivesCostsControllerImpl.getInstance();
+    @Inject
+    private ISalesController salesController;
     
-    private static final IActivesCostsController activesCostsController = ActivesCostsControllerImpl.getInstance();
-    
-    private static final ISalesController salesController = SalesControllerImpl.getInstance();
-    
-    private static final ICashboxesSalesController cashboxesSalesController = CashboxesSalesControllerImpl.getInstance();
-    
-    private static CashboxControllerImpl instance;
-        
-    private CashboxControllerImpl() { }
-    
-    public static CashboxControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new CashboxControllerImpl();
-        }
-        return instance;
-    }*/
+    @Inject
+    private ICashboxesSalesController cashboxesSalesController;
     
     @Override
     public PojoIntCashbox addCashbox(PojoIntCashbox cashbox) throws BloSalesV2Exception {

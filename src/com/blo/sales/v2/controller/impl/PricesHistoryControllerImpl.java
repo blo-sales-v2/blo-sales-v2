@@ -13,25 +13,8 @@ public class PricesHistoryControllerImpl implements IPricesHistoryController {
     
     private static final GUILogger logger = GUILogger.getLogger(PricesHistoryControllerImpl.class.getName());
     
-    private final IPricesHistoryModel model;
-
     @Inject
-    public PricesHistoryControllerImpl(IPricesHistoryModel model) {
-        this.model = model;
-    }
-    
-    /*private static final IPricesHistoryModel model = PricesHistoryModelImpl.getInstance();
-    
-    private static PricesHistoryControllerImpl instance;
-    
-    private PricesHistoryControllerImpl() { }
-    
-    public static PricesHistoryControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new PricesHistoryControllerImpl();
-        }
-        return instance;
-    }*/
+    private IPricesHistoryModel model;
 
     @Override
     public PojoIntPriceHistory addPriceHistory(PojoIntPriceHistory priceHistory) throws BloSalesV2Exception {

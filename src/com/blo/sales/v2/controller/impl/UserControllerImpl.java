@@ -14,25 +14,8 @@ import jakarta.inject.Singleton;
 @Singleton
 public class UserControllerImpl implements IUserController {
     
-    /*private static final IUserModel userModel = UserModelImpl.getInstance();
-    
-    private static UserControllerImpl instance;
-    
-    private UserControllerImpl() { }
-
-    public static UserControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new UserControllerImpl();
-        }
-        return instance;
-    }*/
-    
-    private final IUserModel userModel;
-    
     @Inject
-    public UserControllerImpl(final IUserModel userModel) {
-        this.userModel = userModel;
-    }
+    private IUserModel userModel;
     
     @Override
     public PojoIntLoggedInUser doLogin(PojoIntUser userData) throws BloSalesV2Exception {

@@ -13,25 +13,8 @@ public class DebtorsSalesControllerImpl implements IDebtorsSalesController {
     
     private static final GUILogger logger = GUILogger.getLogger(DebtorsSalesControllerImpl.class.getName());
     
-    private final IDebtorsSalesModel model;
-
     @Inject
-    public DebtorsSalesControllerImpl(IDebtorsSalesModel model) {
-        this.model = model;
-    }
-    
-    /*private static DebtorsSalesControllerImpl instance;
-    
-    private static final IDebtorsSalesModel model = DebtorsSalesModelImpl.getInstance();
-    
-    private DebtorsSalesControllerImpl() { }
-    
-    public static DebtorsSalesControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new DebtorsSalesControllerImpl();
-        }
-        return instance;
-    }*/
+    private IDebtorsSalesModel model;
 
     @Override
     public PojoIntDebtorSale addRelationship(PojoIntDebtorSale debtor) throws BloSalesV2Exception {

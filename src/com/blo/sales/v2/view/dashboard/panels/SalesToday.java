@@ -23,7 +23,6 @@ public final class SalesToday extends AbstractDashboardBase {
     
     @Inject
     private ISalesController salesController;
-   // private static final ISalesController salesController = SalesControllerImpl.getInstance();
     
     private static final WrapperPojoSalesAndStockMapper mapper = WrapperPojoSalesAndStockMapper.getInstance();
 

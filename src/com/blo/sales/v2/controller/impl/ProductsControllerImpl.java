@@ -25,47 +25,20 @@ public class ProductsControllerImpl implements IProductsController {
     
     private static final GUILogger logger = GUILogger.getLogger(ProductsControllerImpl.class.getName());
     
-    private final ICategoriesController categoriesController;
-    
-    private final IProductsModel model;
-    
-    private final IUserController user;
-    
-    private final IHistoryController historyController;
-    
-    private final IStockPricesHistoryController historyPrices;
-
     @Inject
-    public ProductsControllerImpl(ICategoriesController categoriesController, IProductsModel model, IUserController user, IHistoryController historyController, IStockPricesHistoryController historyPrices) {
-        this.categoriesController = categoriesController;
-        this.model = model;
-        this.user = user;
-        this.historyController = historyController;
-        this.historyPrices = historyPrices;
-    }
+    private ICategoriesController categoriesController;
     
+    @Inject
+    private IProductsModel model;
     
-    /*private static final ICategoriesController categoriesController = null;
+    @Inject
+    private IUserController user;
     
-    private static final IProductsModel model = ProductsModelImpl.getInstance();
+    @Inject
+    private IHistoryController historyController;
     
-    private static final IUserController user = UserControllerImpl.getInstance();
-    
-    private static final IHistoryController historyController = HistoryControllerImpl.getInstance();
-    
-    private static final IStockPricesHistoryController historyPrices = StockPricesHistoryControllerImpl.getInstance();
-    
-    private static ProductsControllerImpl instance;
-    
-    private ProductsControllerImpl() {
-    }
-    
-    public static ProductsControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new ProductsControllerImpl();
-        }
-        return instance;
-    }*/
+    @Inject
+    private IStockPricesHistoryController historyPrices;
 
     @Override
     public PojoIntProduct registerProduct(PojoIntProduct product) throws BloSalesV2Exception {

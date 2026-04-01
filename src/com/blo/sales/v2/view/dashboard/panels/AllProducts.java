@@ -52,13 +52,8 @@ public final class AllProducts extends AbstractDashboardBase {
     @Inject
     private IHistoryController historyController;
     
-    //private static final IProductsController productsController = ProductsControllerImpl.getInstance();
-    
-    //private static final IStockPricesHistoryController stockPricesHistoryController = StockPricesHistoryControllerImpl.getInstance();
-     @Inject
+    @Inject
     private ICategoriesController categoriesController;
-    
-    //private static final IHistoryController historyController = HistoryControllerImpl.getInstance();
     
     private static final WrapperPojoProductsMapper productsMapper = WrapperPojoProductsMapper.getInstance();
     

@@ -26,8 +26,6 @@ public final class SalesReport extends AbstractDashboardBase {
     @Inject
     private ISalesController salesController;
     
-    //private static final ISalesController salesController = SalesControllerImpl.getInstance();
-    
     private static final WrapperPojoSalesAndStockMapper mapper = WrapperPojoSalesAndStockMapper.getInstance();
     
     private static final String[] titles = {"ID venta", "ID producto", "Producto", "Cantidad vendida", "Precio unidad", "Costo de venta", "Precio en venta", "Total", "Timestamp", "¿Por kg?"};

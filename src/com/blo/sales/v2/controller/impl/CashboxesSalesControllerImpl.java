@@ -14,25 +14,8 @@ public class CashboxesSalesControllerImpl implements ICashboxesSalesController {
     
     private static final GUILogger logger = GUILogger.getLogger(CashboxesSalesControllerImpl.class.getName());
     
-    private final ICashboxesSalesModel cashboxSalesModel;
-
     @Inject
-    public CashboxesSalesControllerImpl(ICashboxesSalesModel cashboxSalesModel) {
-        this.cashboxSalesModel = cashboxSalesModel;
-    }
-    
-    /*private static final ICashboxesSalesModel cashboxSalesModel = CashboxesSalesModelImpl.getInstance();
-    
-    private static CashboxesSalesControllerImpl instance;
-    
-    private CashboxesSalesControllerImpl() { }
-    
-    public static CashboxesSalesControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new CashboxesSalesControllerImpl();
-        }
-        return instance;
-    }*/
+    private ICashboxesSalesModel cashboxSalesModel;
 
     @Override
     public PojoIntCashboxSale addCashboxSale(long idCashbox, long idSale) throws BloSalesV2Exception {

@@ -17,30 +17,11 @@ public class StockPricesHistoryControllerImpl implements IStockPricesHistoryCont
 
     private static final GUILogger logger = GUILogger.getLogger(StockPricesHistoryControllerImpl.class.getName());
     
-    private final IStockPricesHistoryModel model;
-    
-    private final IPricesHistoryController pricesController;
-
     @Inject
-    public StockPricesHistoryControllerImpl(IStockPricesHistoryModel model, IPricesHistoryController pricesController) {
-        this.model = model;
-        this.pricesController = pricesController;
-    }
-
-    /*private static final IStockPricesHistoryModel model = StockPricesHistoryModelImpl.getInstance();
+    private IStockPricesHistoryModel model;
     
-    private static final IPricesHistoryController pricesController = PricesHistoryControllerImpl.getInstance();
-    
-    private static StockPricesHistoryControllerImpl instance;
-    
-    private StockPricesHistoryControllerImpl() { }
-    
-    public static StockPricesHistoryControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new StockPricesHistoryControllerImpl();
-        }
-        return instance;
-    }    */
+    @Inject
+    private IPricesHistoryController pricesController;
 
     @Override
     public PojoIntStockPricesHistory addPriceOnHistory(PojoIntPriceHistory priceItem, long idProduct) throws BloSalesV2Exception {

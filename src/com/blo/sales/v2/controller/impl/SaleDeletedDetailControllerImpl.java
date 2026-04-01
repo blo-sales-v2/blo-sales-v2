@@ -13,25 +13,8 @@ public class SaleDeletedDetailControllerImpl implements ISaleDeletedDetailContro
     
     private static final GUILogger logger = GUILogger.getLogger(SaleDeletedDetailControllerImpl.class.getName());
     
-    private final ISaleDeletedDetailModel model;
-
     @Inject
-    public SaleDeletedDetailControllerImpl(ISaleDeletedDetailModel model) {
-        this.model = model;
-    }
-    
-    /*private static SaleDeletedDetailControllerImpl instance;
-    
-    private static final ISaleDeletedDetailModel model = SaleDeletedDetailModelImpl.getInstance();
-    
-    private SaleDeletedDetailControllerImpl() { }
-    
-    public static SaleDeletedDetailControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new SaleDeletedDetailControllerImpl();
-        }
-        return instance;
-    }*/
+    private ISaleDeletedDetailModel model;
 
     @Override
     public PojoIntSaleDeletedDetail addSaleDeletedDetail(PojoIntSaleDeletedDetail detail) throws BloSalesV2Exception {

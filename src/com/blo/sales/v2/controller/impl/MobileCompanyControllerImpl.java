@@ -14,25 +14,8 @@ public class MobileCompanyControllerImpl implements IMobileCompanyController {
     
     private static final GUILogger logger = GUILogger.getLogger(MobileCompanyControllerImpl.class.getName());
     
-    private final IMobileCompanyModel model;
-
     @Inject
-    public MobileCompanyControllerImpl(IMobileCompanyModel model) {
-        this.model = model;
-    }
-    
-    /*private static final IMobileCompanyModel model = MobileCompanyModelImpl.getInstance();
-    
-    private static MobileCompanyControllerImpl instance;
-    
-    private MobileCompanyControllerImpl() { }
-    
-    public static MobileCompanyControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new MobileCompanyControllerImpl();
-        }
-        return instance;
-    }*/
+    private IMobileCompanyModel model;
 
     @Override
     public WrapperPojoIntMobilesCompanies getMobilesCompanies() throws BloSalesV2Exception {

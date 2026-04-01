@@ -35,12 +35,7 @@ public final class AllCashboxes extends AbstractDashboardBase {
     
     @Inject
     private ICashboxesSalesController cashboxesSales;
-    /*private static final ICashboxController controller = CashboxControllerImpl.getInstance();
     
-    private static final ICashboxesSalesController cashboxesSales = CashboxesSalesControllerImpl.getInstance();
-    
-    
-    */
     private long idCashbox;
     
     private WrapperPojoCashboxesDetails cashboxesDetails;

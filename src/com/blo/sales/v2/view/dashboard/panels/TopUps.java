@@ -2,8 +2,6 @@ package com.blo.sales.v2.view.dashboard.panels;
 
 import com.blo.sales.v2.controller.IMobileCompanyController;
 import com.blo.sales.v2.controller.ITopUpsController;
-import com.blo.sales.v2.controller.impl.MobileCompanyControllerImpl;
-import com.blo.sales.v2.controller.impl.TopUpsControllerImpl;
 import com.blo.sales.v2.controller.pojos.enums.TopUpSearchStatusIntEnum;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
@@ -35,9 +33,6 @@ public final class TopUps extends AbstractDashboardBase {
     
     @Inject
     private ITopUpsController topUpsController;
-    //private static final IMobileCompanyController mobileController = MobileCompanyControllerImpl.getInstance();
-    
-    //private static final ITopUpsController topUpsController = TopUpsControllerImpl.getInstance();
     
     private static final PojoTopUpMapper topUpMapper = PojoTopUpMapper.getInstance();
     

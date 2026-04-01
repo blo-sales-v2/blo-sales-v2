@@ -28,11 +28,7 @@ public final class RegisterProduct extends AbstractDashboardBase {
     @Inject
     private ICategoriesController categories;
     
-    //private static final ICategoriesController categories = null;
-    
     private static final ProductMapper productMapper = ProductMapper.getInstance();
-    
-    //private static final IProductsController productsController = ProductsControllerImpl.getInstance();
     
     private static final WrapperPojoCategoriesMapper categoriesMapper = WrapperPojoCategoriesMapper.getInstance();
 

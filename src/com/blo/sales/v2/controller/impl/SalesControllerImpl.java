@@ -42,72 +42,32 @@ public class SalesControllerImpl implements ISalesController {
     
     private static final GUILogger logger = GUILogger.getLogger(SalesControllerImpl.class.getName());
     
-    private final ISalesModel saleModel;
-    
-    private final IUserController userController;
-    
-    private final IHistoryController historyController;
-    
-    private final IProductsController productsController;
-    
-    private final ISalesProductController salesProductsController;
-    
-    private final ICashboxController cashboxController;
-    
-    private final IDebtorsController debtorsController;
-    
-    private final ISaleDeletedDetailController salesDeletedController;
-    
-    private final IDebtorsSalesController debtorsSalesController;
-
     @Inject
-    public SalesControllerImpl(ISalesModel saleModel, IUserController userController, IHistoryController historyController, IProductsController productsController, ISalesProductController salesProductsController, ICashboxController cashboxController, IDebtorsController debtorsController, ISaleDeletedDetailController salesDeletedController, IDebtorsSalesController debtorsSalesController) {
-        this.saleModel = saleModel;
-        this.userController = userController;
-        this.historyController = historyController;
-        this.productsController = productsController;
-        this.salesProductsController = salesProductsController;
-        this.cashboxController = cashboxController;
-        this.debtorsController = debtorsController;
-        this.salesDeletedController = salesDeletedController;
-        this.debtorsSalesController = debtorsSalesController;
-    }
-    
-    /*//private static SalesControllerImpl instance;
-    
-    private static final ISalesModel saleModel = SalesModelImpl.getInstance();
-    
-    private static final IUserController userController = UserControllerImpl.getInstance();
-    
-    private static final IHistoryController historyController = HistoryControllerImpl.getInstance();
-    
-    private static final IProductsController productsController = ProductsControllerImpl.getInstance();
-    
-    private static final ISalesProductController salesProductsController = SalesProductControllerImpl.getInstance();
-    
-    private static final ICashboxController cashboxController = CashboxControllerImpl.getInstance();
-    
-    private static final IDebtorsController debtorsController = DebtorsControllerImpl.getInstance();
-    
-    private static final IDebtorsSalesController debtorsSalesController = DebtorsSalesControllerImpl.getInstance();
-    
-    private static final ISaleDeletedDetailController salesDeletedController = SaleDeletedDetailControllerImpl.getInstance();
-    
-    private final IUserController userController;
+    private ISalesModel saleModel;
     
     @Inject
-    public SalesControllerImpl(final IUserController userController) {
-        this.userController = userController;
-    }
+    private IUserController userController;
     
-   /* private SalesControllerImpl() { }
+    @Inject
+    private IHistoryController historyController;
     
-    public static SalesControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new SalesControllerImpl();
-        }
-        return instance;
-    }*/
+    @Inject
+    private IProductsController productsController;
+    
+    @Inject
+    private ISalesProductController salesProductsController;
+    
+    @Inject
+    private ICashboxController cashboxController;
+    
+    @Inject
+    private IDebtorsController debtorsController;
+    
+    @Inject
+    private ISaleDeletedDetailController salesDeletedController;
+    
+    @Inject
+    private IDebtorsSalesController debtorsSalesController;
 
     @Override
     public PojoIntSale registerSale(BigDecimal totalSale, List<PojoIntSaleProductData> products, long idUser) throws BloSalesV2Exception {

@@ -22,40 +22,17 @@ public class DebtorsControllerImpl implements IDebtorsController {
     
     private static final GUILogger logger = GUILogger.getLogger(DebtorsControllerImpl.class.getName());
     
-    private final IDebtorsModel model;
-    
-    private final IProductsController productsController;
-    
-    private final ISalesController salesController;
-    
-    private final IDebtorsSalesController debtorsSales;
-
     @Inject
-    public DebtorsControllerImpl(IDebtorsModel model, IProductsController productsController, ISalesController salesController, IDebtorsSalesController debtorsSales) {
-        this.model = model;
-        this.productsController = productsController;
-        this.salesController = salesController;
-        this.debtorsSales = debtorsSales;
-    }
-        
-    /*private static final IDebtorsModel model = DebtorsModelImpl.getInstance();
+    private IDebtorsModel model;
     
-    private static final IProductsController productsController = ProductsControllerImpl.getInstance();
+    @Inject
+    private IProductsController productsController;
     
-    private static final ISalesController salesController = SalesControllerImpl.getInstance();
+    @Inject
+    private ISalesController salesController;
     
-    private static final IDebtorsSalesController debtorsSales = DebtorsSalesControllerImpl.getInstance();
-    
-    private static DebtorsControllerImpl instance;
-    
-    private DebtorsControllerImpl() { }
-    
-    public static DebtorsControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new DebtorsControllerImpl();
-        }
-        return instance;
-    }*/
+    @Inject
+    private IDebtorsSalesController debtorsSales;
 
     @Override
     public WrapperPojoIntDebtors getAllDebtors() throws BloSalesV2Exception {

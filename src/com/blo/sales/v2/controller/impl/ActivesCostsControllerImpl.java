@@ -13,26 +13,9 @@ public class ActivesCostsControllerImpl implements IActivesCostsController {
     
     private static final GUILogger log = GUILogger.getLogger(ActivesCostsControllerImpl.class.getName());
     
-    private final IActivesCostsModel model;
-    
     @Inject
-    public ActivesCostsControllerImpl(IActivesCostsModel model) {
-        this.model = model;
-    }
+    private IActivesCostsModel model;
     
-    /*private static final IActivesCostsModel model = ActivesCostsModelImpl.getInstance();
-    
-    private static ActivesCostsControllerImpl instance;
-    
-    private ActivesCostsControllerImpl() { }
-    
-    public static ActivesCostsControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new ActivesCostsControllerImpl();
-        }
-        return instance;
-    }*/
-
     @Override
     public WrapperPojoIntActivesCosts addActiveCost(WrapperPojoIntActivesCosts activeCost) throws BloSalesV2Exception {
         log.info("guardando activos y costos %s", activeCost.getActivesCosts().size());

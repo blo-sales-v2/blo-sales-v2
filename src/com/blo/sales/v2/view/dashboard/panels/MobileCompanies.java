@@ -22,8 +22,6 @@ public final class MobileCompanies extends AbstractDashboardBase {
     @Inject
     private IMobileCompanyController mobileController;
     
-    //private static final IMobileCompanyController mobileController = MobileCompanyControllerImpl.getInstance();
-    
     private static final WrapperPojoMobilesCompaniesMapper wrapperCompaniesMapper = WrapperPojoMobilesCompaniesMapper.getInstance();
     
     private static final PojoMobileCompanyMapper companyMapper = PojoMobileCompanyMapper.getInstance();

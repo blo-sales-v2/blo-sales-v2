@@ -14,25 +14,8 @@ public class SalesProductControllerImpl implements ISalesProductController {
     
     private static final GUILogger logger = GUILogger.getLogger(SalesProductControllerImpl.class.getName());
     
-    private final ISaleProductModel model;
-
     @Inject
-    public SalesProductControllerImpl(ISaleProductModel model) {
-        this.model = model;
-    }
-    
-    /*private static SalesProductControllerImpl instance;
-    
-    private static final ISaleProductModel model = SaleProductModelImpl.getInstance();
-    
-    private SalesProductControllerImpl() { }
-
-    public static SalesProductControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new SalesProductControllerImpl();
-        }
-        return instance;
-    }*/
+    private ISaleProductModel model;
     
     @Override
     public PojoIntSaleProduct addSalesProduct(PojoIntSaleProduct salesProduct) throws BloSalesV2Exception {

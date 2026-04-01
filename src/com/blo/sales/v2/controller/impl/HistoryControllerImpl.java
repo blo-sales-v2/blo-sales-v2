@@ -14,25 +14,8 @@ public class HistoryControllerImpl implements IHistoryController {
     
     private static final GUILogger logger = GUILogger.getLogger(HistoryControllerImpl.class.getName());
     
-    private final IHistoryModel model;
-
     @Inject
-    public HistoryControllerImpl(IHistoryModel model) {
-        this.model = model;
-    }
-    
-    /*private static final IHistoryModel model = HistoryModelImpl.getInstance();
-    
-    private static HistoryControllerImpl instance;
-    
-    private HistoryControllerImpl() { }
-    
-    public static HistoryControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new HistoryControllerImpl();
-        }
-        return instance;
-    }*/
+    private IHistoryModel model;
 
     @Override
     public PojoIntMovement registerMovement(PojoIntMovement movement) throws BloSalesV2Exception {

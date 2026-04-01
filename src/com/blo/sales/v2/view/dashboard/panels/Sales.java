@@ -42,13 +42,7 @@ public final class Sales extends AbstractDashboardBase {
     @Inject
     private IDebtorsController debtorsController;
     
-   // private static final IProductsController productsController = ProductsControllerImpl.getInstance();
-    
     private static final WrapperPojoProductsMapper mapperProducts = WrapperPojoProductsMapper.getInstance();
-    
-    //private static final ISalesController salesController = SalesControllerImpl.getInstance();
-    
-    //private static final IDebtorsController debtorsController = DebtorsControllerImpl.getInstance();
     
     private static final PojoSaleProductDataMapper saleProductMapper = PojoSaleProductDataMapper.getInstance();
     

@@ -24,7 +24,6 @@ public final class Notes extends AbstractDashboardBase {
     
     @Inject
     private IUserController controller;
-    //private static final IUserController controller = UserControllerImpl.getInstance();
     
     private static final PojoNoteMapper noteMapper = PojoNoteMapper.getInstance();
     

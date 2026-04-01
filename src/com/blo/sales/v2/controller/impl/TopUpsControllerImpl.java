@@ -18,35 +18,14 @@ public class TopUpsControllerImpl implements ITopUpsController {
     
     private static final GUILogger logger = GUILogger.getLogger(TopUpsControllerImpl.class.getName());
     
-    private final ITopUpModel model;
-    
-    private final IMobileCompanyController mobileCompanyController;
-    
-    private final ISalesController salesController;
-
     @Inject
-    public TopUpsControllerImpl(ITopUpModel model, IMobileCompanyController mobileCompanyController, ISalesController salesController) {
-        this.model = model;
-        this.mobileCompanyController = mobileCompanyController;
-        this.salesController = salesController;
-    }
+    private ITopUpModel model;
     
-    /*private static final ITopUpModel model = TopUpModelImpl.getInstance();
+    @Inject
+    private IMobileCompanyController mobileCompanyController;
     
-    private static final IMobileCompanyController mobileCompanyController = MobileCompanyControllerImpl.getInstance();
-    
-    private static final ISalesController salesController = SalesControllerImpl.getInstance();
-    
-    private static TopUpsControllerImpl instance;
-    
-    private TopUpsControllerImpl() { }
-    
-    public static TopUpsControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new TopUpsControllerImpl();
-        }
-        return instance;
-    }*/
+    @Inject
+    private ISalesController salesController;
 
     @Override
     public PojoIntTopUp addTopUp(PojoIntTopUp data, long idCompany) throws BloSalesV2Exception {

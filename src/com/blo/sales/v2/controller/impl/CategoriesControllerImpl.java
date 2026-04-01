@@ -15,25 +15,8 @@ public class CategoriesControllerImpl implements ICategoriesController {
     
     private static final GUILogger logger = GUILogger.getLogger(CategoriesControllerImpl.class.getName());
     
-    private final ICategoriesModel categoriesModel;
-    
     @Inject
-    public CategoriesControllerImpl(ICategoriesModel categoriesModel) {
-        this.categoriesModel = categoriesModel;
-    }
-    
-    //private static final ICategoriesModel categoriesModel = CategoriesModelImpl.getInstance();
-    
-   /* private static CategoriesControllerImpl instance;
-    
-    private CategoriesControllerImpl() { }
-    
-    public static CategoriesControllerImpl getInstance() {
-        if (instance == null) {
-            instance = new CategoriesControllerImpl();
-        }
-        return instance;
-    }*/
+    private ICategoriesModel categoriesModel;
     
     @Override
     public PojoIntCategory registerCategory(PojoIntCategory category) throws BloSalesV2Exception {
