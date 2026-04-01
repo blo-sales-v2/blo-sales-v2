@@ -1,7 +1,7 @@
 package com.blo.sales.v2;
 
 import com.blo.sales.v2.view.LoginFrm;
-import com.blo.sales.v2.view.commons.GuiceConfig;
+import com.blo.sales.v2.config.BloSalesV2SingletonConfig;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -9,7 +9,7 @@ public class AppMain {
     
     public static void main(String[] args) {
         try {
-        Injector injector = Guice.createInjector(new GuiceConfig());
+        Injector injector = Guice.createInjector(new BloSalesV2SingletonConfig());
         java.awt.EventQueue.invokeLater(() -> {
             LoginFrm login = injector.getInstance(LoginFrm.class);
             login.setVisible(true);

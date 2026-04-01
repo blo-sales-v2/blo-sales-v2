@@ -41,6 +41,10 @@ public final class AllCashboxes extends AbstractDashboardBase {
 
     public AllCashboxes(String key) {
         super(key);
+    }
+    
+    @Override
+    public void init() {
         initComponents();
         loadCashboxData();
         loadTargets();

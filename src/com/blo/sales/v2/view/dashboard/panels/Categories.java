@@ -1,7 +1,6 @@
 package com.blo.sales.v2.view.dashboard.panels;
 
 import com.blo.sales.v2.controller.ICategoriesController;
-import com.blo.sales.v2.controller.impl.CategoriesControllerImpl;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
@@ -36,6 +35,7 @@ public final class Categories extends AbstractDashboardBase {
         super(key);
     }
     
+    @Override
     public void init() {
         initComponents();
         loadTargets();

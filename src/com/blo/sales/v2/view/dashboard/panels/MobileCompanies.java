@@ -31,11 +31,6 @@ public final class MobileCompanies extends AbstractDashboardBase {
     
     public MobileCompanies(String key) {
         super(key);
-        initComponents();
-        loadTargets();
-        handlerLockButtons(true);
-        loadDataOnTable();
-        GUICommons.addDoubleClickOnTable(tblCompanies, id -> setDataToForm((long) id));
     }
 
     @SuppressWarnings("unchecked")
@@ -254,5 +249,14 @@ public final class MobileCompanies extends AbstractDashboardBase {
     private javax.swing.JTable tblCompanies;
     private javax.swing.JTextField txtCompanyName;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void init() {
+        initComponents();
+        loadTargets();
+        handlerLockButtons(true);
+        loadDataOnTable();
+        GUICommons.addDoubleClickOnTable(tblCompanies, id -> setDataToForm((long) id));
+    }
 
 }

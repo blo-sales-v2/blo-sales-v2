@@ -142,13 +142,10 @@ public final class LoginFrm extends AbstractFrameBase {
             if (userResponse.getRole().equals(RolesEnum.ROOT)) {
                 final var dash = injector.getInstance(DashboardRootFrm.class);
                 dash.setUserData(userResponse);
+                dash.init();
                 dash.setVisible(true);
                 dash.setLocationRelativeTo(null);
                 this.dispose();
-               /* final var dashboard = new DashboardRootFrm(userResponse);
-                dashboard.setVisible(true);
-                dashboard.setLocationRelativeTo(null);
-                this.dispose();*/
             }
 
         } catch (BloSalesV2Exception ex) {
@@ -173,6 +170,11 @@ public final class LoginFrm extends AbstractFrameBase {
         GUICommons.setTextToButton(btnLogin, getTranslateBy(KeysEnum.LOGIN_BTN_LOGN.getKey()));
         GUICommons.setTextToField(lblPassword, getTranslateBy(KeysEnum.LOGIN_LBL_PASSWROD.getKey()));
         GUICommons.setTextToField(lblUsername, getTranslateBy(KeysEnum.LOGIN_LBL_USERNAME.getKey()));
+    }
+
+    @Override
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

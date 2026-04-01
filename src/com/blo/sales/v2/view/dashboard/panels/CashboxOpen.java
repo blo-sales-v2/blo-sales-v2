@@ -182,4 +182,9 @@ public final class CashboxOpen extends AbstractDashboardBase {
     public void loadTargets() {
         GUICommons.setTextToButton(btnCloseNow, getTranslateBy(KeysEnum.CASHBOX_BTN_CLOSE_NOW.getKey()));
     }
+
+    @Override
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

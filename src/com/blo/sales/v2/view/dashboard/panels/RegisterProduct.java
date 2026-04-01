@@ -33,15 +33,6 @@ public final class RegisterProduct extends AbstractDashboardBase {
 
     public RegisterProduct(String key) {
         super(key);
-        try {
-            initComponents();
-            loadDataForm();
-            loadTargets();
-            loadCategories();
-        } catch (BloSalesV2Exception ex) {
-            logger.error(ex.getMessage());
-            CommonAlerts.openError(ex.getMessage(), getTranslateBy(KeysEnum.COMMON_ALERT_ERROR.getKey()));
-        }
     }
     
     @SuppressWarnings("unchecked")
@@ -293,5 +284,18 @@ public final class RegisterProduct extends AbstractDashboardBase {
         GUICommons.setTextToField(lblSaleCost, getTranslateBy(KeysEnum.REGISTER_PRODUCT_LBL_COST_OF_SALE.getKey()));
         GUICommons.setTextToButton(btnSave, getTranslateBy(KeysEnum.COMMON_BTN_SAVE.getKey()));
         GUICommons.setTextToCheckbox(chkbxItsKg, getTranslateBy(KeysEnum.REGISTER_PRODUCT_BY_KG.getKey()));
+    }
+
+    @Override
+    public void init() {
+        try {
+            initComponents();
+            loadDataForm();
+            loadTargets();
+            loadCategories();
+        } catch (BloSalesV2Exception ex) {
+            logger.error(ex.getMessage());
+            CommonAlerts.openError(ex.getMessage(), getTranslateBy(KeysEnum.COMMON_ALERT_ERROR.getKey()));
+        }
     }
 }

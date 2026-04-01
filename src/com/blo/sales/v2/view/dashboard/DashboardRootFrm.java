@@ -2,7 +2,9 @@ package com.blo.sales.v2.view.dashboard;
 
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
+import com.blo.sales.v2.view.commons.AbstractDashboardBase;
 import com.blo.sales.v2.view.commons.AbstractFrameBase;
+import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.dashboard.panels.AllCashboxes;
 import com.blo.sales.v2.view.dashboard.panels.AllProducts;
@@ -58,18 +60,8 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     @Inject
     public DashboardRootFrm() {
         initComponents();
-        
-        
     }
     
-    public void init() {
-        content.setLayout(new BorderLayout());
-        setTitle(getTranslateBy(KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey()));
-        GUICommons.showPanel(this, content, new Sales(userData, KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey()));
-        GUICommons.allWindow(this);
-        GUICommons.setTextToField(lblVersion, BloSalesV2Utils.VERSION);
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -278,19 +270,13 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     }// </editor-fold>//GEN-END:initComponents
 
     private void optRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optRegisterActionPerformed
-      registerProduct = new RegisterProduct(KeysEnum.DASHBOARD_TITLES_REGISTER_PRODUCT.getKey());
-      GUICommons.showPanel(this, content, registerProduct);
+        registerProduct = new RegisterProduct(KeysEnum.DASHBOARD_TITLES_REGISTER_PRODUCT.getKey());
+        handlerDashboard(registerProduct);
     }//GEN-LAST:event_optRegisterActionPerformed
 
     private void optCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optCategoryActionPerformed
-//        categories = new Categories(KeysEnum.DASHBOARD_TITLES_CATEGORIES.getKey());
-  //      GUICommons.showPanel(this, content, categories);
-  if (injector != null) {
-  categories = new Categories(KeysEnum.DASHBOARD_TITLES_CATEGORIES.getKey());
-  injector.injectMembers(categories);
-  categories.init();
-  GUICommons.showPanel(this, content, categories);
-  }
+        categories = new Categories(KeysEnum.DASHBOARD_TITLES_CATEGORIES.getKey());
+        handlerDashboard(categories);
     }//GEN-LAST:event_optCategoryActionPerformed
 
     private void optStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optStockActionPerformed
@@ -305,7 +291,7 @@ public final class DashboardRootFrm extends AbstractFrameBase {
 
     private void optConsoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optConsoleActionPerformed
         console = new Console(KeysEnum.DASHBOARD_TITLES_CONSOLE.getKey());
-        GUICommons.showPanel(this, content, console);
+        handlerDashboard(console);
     }//GEN-LAST:event_optConsoleActionPerformed
 
     private void optDebtorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optDebtorsActionPerformed
@@ -325,7 +311,7 @@ public final class DashboardRootFrm extends AbstractFrameBase {
 
     private void optAllCashboxesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAllCashboxesActionPerformed
         allCashboxes = new AllCashboxes(KeysEnum.DASHBOARD_TITLES_ALL_CASHBOXES.getKey());
-        GUICommons.showPanel(this, content, allCashboxes);
+        handlerDashboard(allCashboxes);
     }//GEN-LAST:event_optAllCashboxesActionPerformed
 
     private void optNotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optNotesActionPerformed
@@ -335,12 +321,12 @@ public final class DashboardRootFrm extends AbstractFrameBase {
 
     private void optSalesReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optSalesReportActionPerformed
         salesReport = new SalesReport(KeysEnum.DASHBOARD_TITLES_ALL_SALES.getKey());
-        GUICommons.showPanel(this, content, salesReport);
+        handlerDashboard(salesReport);
     }//GEN-LAST:event_optSalesReportActionPerformed
 
     private void optMobileCompaniesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optMobileCompaniesActionPerformed
         mobileCompanies = new MobileCompanies(KeysEnum.DASHBOARD_TITLES_MOBILE_COMPANIES.getKey());
-        GUICommons.showPanel(this, content, mobileCompanies);
+        handlerDashboard(mobileCompanies);
     }//GEN-LAST:event_optMobileCompaniesActionPerformed
 
     private void optTopUpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optTopUpsActionPerformed
@@ -348,6 +334,15 @@ public final class DashboardRootFrm extends AbstractFrameBase {
         GUICommons.showPanel(this, content, topUps);
     }//GEN-LAST:event_optTopUpsActionPerformed
     
+    private void handlerDashboard(AbstractDashboardBase dashboard) {
+        if (injector == null) {
+            CommonAlerts.openError("Error en el injector", "¡Ups");
+            return;
+        }
+        injector.injectMembers(dashboard);
+        dashboard.init();
+        GUICommons.showPanel(this, content, dashboard);
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content;
@@ -377,6 +372,15 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     private javax.swing.JPopupMenu.Separator sprt01;
     // End of variables declaration//GEN-END:variables
 
+    @Override
+    public void init() {
+        content.setLayout(new BorderLayout());
+        setTitle(getTranslateBy(KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey()));
+        GUICommons.showPanel(this, content, new Sales(userData, KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey()));
+        GUICommons.allWindow(this);
+        GUICommons.setTextToField(lblVersion, BloSalesV2Utils.VERSION);
+    }
+    
     @Override
     public void loadTargets() {
         throw new UnsupportedOperationException("Not supported yet.");

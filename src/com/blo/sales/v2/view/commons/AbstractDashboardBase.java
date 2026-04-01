@@ -16,6 +16,8 @@ public abstract class AbstractDashboardBase extends javax.swing.JPanel {
     
     public abstract void loadTargets();
     
+    public abstract void init();
+    
     public AbstractDashboardBase(String title) {
         this.title = title;
     }

@@ -171,4 +171,9 @@ public final class SalesToday extends AbstractDashboardBase {
     public void loadTargets() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

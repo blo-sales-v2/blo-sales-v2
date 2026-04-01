@@ -265,4 +265,9 @@ public final class Notes extends AbstractDashboardBase {
         GUICommons.setTextToField(areaInstrc, getTranslateBy(KeysEnum.NOTES_LBL_INSTRUCTIONS.getKey()));
         GUICommons.setTextToButton(btnSaveNow, getTranslateBy(KeysEnum.NOTES_BTN_SAVE_NOTE.getKey()));
     }
+
+    @Override
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

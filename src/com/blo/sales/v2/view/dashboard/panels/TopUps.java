@@ -393,4 +393,9 @@ public final class TopUps extends AbstractDashboardBase {
         GUICommons.setTextToButton(btnCloseTopUps, getTranslateBy(KeysEnum.TOP_UPS_BTN_CLOSE_NOW.getKey()));
         GUICommons.setTextToField(lblTotalAmount, BloSalesV2Utils.EMPTY_STRING);
     }
+
+    @Override
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

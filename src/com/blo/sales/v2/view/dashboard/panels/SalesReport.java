@@ -31,9 +31,6 @@ public final class SalesReport extends AbstractDashboardBase {
 
     public SalesReport(String key) {
         super(key);
-        initComponents();
-        loadTargets();
-        retrieveData();
     }
     
     private void retrieveData() {
@@ -301,5 +298,12 @@ public final class SalesReport extends AbstractDashboardBase {
         GUICommons.setTextToField(lblEnd, getTranslateBy(KeysEnum.SALES_REPORT_LBL_END_DATE.getKey()));
         GUICommons.setTextToButton(btnFilterNow, getTranslateBy(KeysEnum.SALES_REPORT_BTN_FILTER_NOW.getKey()));
         GUICommons.setTextToButton(btnDownloadReport, getTranslateBy(KeysEnum.SALES_REPORT_BTN_DOWNLOAD_REPORT.getKey()));
+    }
+
+    @Override
+    public void init() {
+        initComponents();
+        loadTargets();
+        retrieveData();
     }
 }

@@ -1,23 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.blo.sales.v2.view.commons;
+package com.blo.sales.v2.config;
 
 import com.blo.sales.v2.controller.ICategoriesController;
 import com.blo.sales.v2.controller.impl.CategoriesControllerImpl;
 import com.blo.sales.v2.model.ICategoriesModel;
 import com.blo.sales.v2.model.impl.CategoriesModelImpl;
-import com.blo.sales.v2.view.dashboard.panels.Categories;
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
 import jakarta.inject.Singleton;
 
-/**
- *
- * @author orlndo
- */
-public class GuiceConfig extends AbstractModule {
+public class BloSalesV2SingletonConfig extends AbstractModule {
 
     @Override
     protected void configure() {

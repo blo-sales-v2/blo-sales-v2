@@ -606,4 +606,9 @@ public final class Sales extends AbstractDashboardBase {
         GUICommons.setTextToField(lblResult, BigDecimal.ZERO);
         GUICommons.setTextToField(lblFastRest, getTranslateBy(KeysEnum.SALES_LBL_FAST_REST.getKey()));
     }
+
+    @Override
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
