@@ -22,11 +22,13 @@ import com.blo.sales.v2.model.mapper.WrapperCashboxesSalesDetailEntityMapper;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
+import jakarta.inject.Singleton;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+@Singleton
 public class CashboxesSalesModelImpl implements ICashboxesSalesModel {
     
     private static final Connection conn = DBConnection.getConnection();
@@ -37,7 +39,7 @@ public class CashboxesSalesModelImpl implements ICashboxesSalesModel {
     
     private static final WrapperCashboxesSalesDetailEntityMapper wrapperCashboxesSalesDetailsMapper = WrapperCashboxesSalesDetailEntityMapper.getInstanace();
     
-    private static CashboxesSalesModelImpl instance;
+    /*private static CashboxesSalesModelImpl instance;
     
     private CashboxesSalesModelImpl() { }
     
@@ -46,7 +48,7 @@ public class CashboxesSalesModelImpl implements ICashboxesSalesModel {
             instance = new CashboxesSalesModelImpl();
         }
         return instance;
-    }
+    }*/
 
     @Override
     public PojoIntCashboxSale addCashboxSale(long idCashbox, long idSale) throws BloSalesV2Exception {

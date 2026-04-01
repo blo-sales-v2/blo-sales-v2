@@ -17,11 +17,13 @@ import com.blo.sales.v2.model.mapper.WrapperTopUpsEntityMapper;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
+import jakarta.inject.Singleton;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+@Singleton
 public class TopUpModelImpl implements ITopUpModel {
     
     private static final GUILogger logger = GUILogger.getLogger(TopUpModelImpl.class.getName());
@@ -32,7 +34,7 @@ public class TopUpModelImpl implements ITopUpModel {
     
     private static final WrapperTopUpsEntityMapper wrapperToUpsMapper = WrapperTopUpsEntityMapper.getInstance();
     
-    private static TopUpModelImpl instance;
+   /* private static TopUpModelImpl instance;
     
     private TopUpModelImpl() { }
     
@@ -41,7 +43,7 @@ public class TopUpModelImpl implements ITopUpModel {
             instance = new TopUpModelImpl();
         }
         return instance;
-    }
+    }*/
 
     @Override
     public PojoIntTopUp addTopUp(PojoIntTopUp data) throws BloSalesV2Exception {

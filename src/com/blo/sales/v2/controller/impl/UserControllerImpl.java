@@ -6,13 +6,15 @@ import com.blo.sales.v2.controller.pojos.PojoIntNote;
 import com.blo.sales.v2.controller.pojos.PojoIntUser;
 import com.blo.sales.v2.controller.pojos.WrapperPojoIntNotes;
 import com.blo.sales.v2.model.IUserModel;
-import com.blo.sales.v2.model.impl.UserModelImpl;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
+@Singleton
 public class UserControllerImpl implements IUserController {
     
-    private static final IUserModel userModel = UserModelImpl.getInstance();
+    /*private static final IUserModel userModel = UserModelImpl.getInstance();
     
     private static UserControllerImpl instance;
     
@@ -23,6 +25,13 @@ public class UserControllerImpl implements IUserController {
             instance = new UserControllerImpl();
         }
         return instance;
+    }*/
+    
+    private final IUserModel userModel;
+    
+    @Inject
+    public UserControllerImpl(final IUserModel userModel) {
+        this.userModel = userModel;
     }
     
     @Override

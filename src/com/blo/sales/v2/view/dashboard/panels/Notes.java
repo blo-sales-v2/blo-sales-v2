@@ -1,7 +1,6 @@
 package com.blo.sales.v2.view.dashboard.panels;
 
 import com.blo.sales.v2.controller.IUserController;
-import com.blo.sales.v2.controller.impl.UserControllerImpl;
 import com.blo.sales.v2.controller.pojos.WrapperPojoIntNotes;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
@@ -13,9 +12,9 @@ import com.blo.sales.v2.view.commons.GUILogger;
 import com.blo.sales.v2.view.dialogs.NoteDialog;
 import com.blo.sales.v2.view.mappers.PojoNoteMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoNotesMapper;
-import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
 import com.blo.sales.v2.view.pojos.PojoNote;
 import com.blo.sales.v2.view.pojos.enums.TypeNoteEnum;
+import jakarta.inject.Inject;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,7 +22,9 @@ public final class Notes extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(Notes.class.getName());
     
-    private static final IUserController controller = UserControllerImpl.getInstance();
+    @Inject
+    private IUserController controller;
+    //private static final IUserController controller = UserControllerImpl.getInstance();
     
     private static final PojoNoteMapper noteMapper = PojoNoteMapper.getInstance();
     
@@ -34,19 +35,9 @@ public final class Notes extends AbstractDashboardBase {
     private static final String[] types_note = {"ACTIVO", "PASIVO", "OTRO"};
     
     private WrapperPojoIntNotes notes;
-    
-    private final PojoLoggedInUser userData;
 
-    public Notes(PojoLoggedInUser userData, String key) {
+    public Notes(String key) {
         super(key);
-        this.userData = userData;
-        initComponents();
-        loadTargets();
-        GUICommons.disabledButton(btnSaveNow);
-        GUICommons.loadTitleOnTable(tblNotes, titles, false);
-        loadTypesNotes();
-        retrieveNotes();
-        GUICommons.addDoubleClickOnTable(tblNotes, item -> openNoteDialog((long) item));
     }
     
     private void openNoteDialog(long idNote) {
@@ -210,7 +201,7 @@ public final class Notes extends AbstractDashboardBase {
             );
             final var noteType = TypeNoteEnum.valueOf(itemSelected);
             final var data = new PojoNote();
-            data.setFkUser(userData.getIdUser());
+            data.setFkUser(getUserData().getIdUser());
             data.setNote(txt);
             data.setTimesamp(BloSalesV2Utils.getTimestamp());
             data.setTypeNote(noteType);
@@ -226,7 +217,7 @@ public final class Notes extends AbstractDashboardBase {
 
     private void retrieveNotes() {
         try {
-            notes = controller.getNotesByUserId(userData.getIdUser());
+            notes = controller.getNotesByUserId(getUserData().getIdUser());
             final var wrapper = notesMapper.toOuter(notes);
             if (wrapper.getNotes() != null && !wrapper.getNotes().isEmpty()) {
                 final var model = (DefaultTableModel) tblNotes.getModel();
@@ -268,6 +259,12 @@ public final class Notes extends AbstractDashboardBase {
 
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        initComponents();
+        loadTargets();
+        GUICommons.disabledButton(btnSaveNow);
+        GUICommons.loadTitleOnTable(tblNotes, titles, false);
+        loadTypesNotes();
+        retrieveNotes();
+        GUICommons.addDoubleClickOnTable(tblNotes, item -> openNoteDialog((long) item));
     }
 }

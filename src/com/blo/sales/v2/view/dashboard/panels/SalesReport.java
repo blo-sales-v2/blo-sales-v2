@@ -1,7 +1,6 @@
 package com.blo.sales.v2.view.dashboard.panels;
 
 import com.blo.sales.v2.controller.ISalesController;
-import com.blo.sales.v2.controller.impl.SalesControllerImpl;
 import com.blo.sales.v2.plugins.sales.report.BloSalesV2SalesReportPlugin;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
@@ -12,6 +11,7 @@ import com.blo.sales.v2.view.commons.GUILogger;
 import com.blo.sales.v2.view.mappers.WrapperPojoSalesAndStockMapper;
 import com.blo.sales.v2.view.pojos.PojoSaleAndProduct;
 import com.blo.sales.v2.view.pojos.WrapperPojoSalesAndStock;
+import jakarta.inject.Inject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -23,7 +23,10 @@ public final class SalesReport extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(SalesReport.class.getName());
     
-    private static final ISalesController salesController = SalesControllerImpl.getInstance();
+    @Inject
+    private ISalesController salesController;
+    
+    //private static final ISalesController salesController = SalesControllerImpl.getInstance();
     
     private static final WrapperPojoSalesAndStockMapper mapper = WrapperPojoSalesAndStockMapper.getInstance();
     

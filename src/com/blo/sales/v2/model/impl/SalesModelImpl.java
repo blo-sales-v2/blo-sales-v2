@@ -19,11 +19,13 @@ import com.blo.sales.v2.model.mapper.WrapperSalesEntityMapper;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
+import jakarta.inject.Singleton;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+@Singleton
 public class SalesModelImpl implements ISalesModel {
     
     private static final Connection conn = DBConnection.getConnection();
@@ -36,7 +38,7 @@ public class SalesModelImpl implements ISalesModel {
     
     private static final WrapperSalesEntityMapper salesEntityMapper = WrapperSalesEntityMapper.getInstance();
             
-    private static SalesModelImpl instance;
+    /*private static SalesModelImpl instance;
     
     private SalesModelImpl() { }
     
@@ -45,7 +47,7 @@ public class SalesModelImpl implements ISalesModel {
             instance = new SalesModelImpl();
         }
         return instance;
-    }
+    }*/
 
     @Override
     public PojoIntSale registerSale(PojoIntSale sale) throws BloSalesV2Exception {

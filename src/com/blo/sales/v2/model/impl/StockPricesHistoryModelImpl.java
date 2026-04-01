@@ -13,11 +13,13 @@ import com.blo.sales.v2.model.mapper.WrapperStockPricesHistoryEntityMapper;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
+import jakarta.inject.Singleton;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+@Singleton
 public class StockPricesHistoryModelImpl implements IStockPricesHistoryModel {
     
     private static final Connection conn = DBConnection.getConnection();
@@ -28,7 +30,7 @@ public class StockPricesHistoryModelImpl implements IStockPricesHistoryModel {
     
     private static final WrapperStockPricesHistoryEntityMapper wrapperMapper = WrapperStockPricesHistoryEntityMapper.getInstance();
     
-    private static StockPricesHistoryModelImpl instance;
+   /* private static StockPricesHistoryModelImpl instance;
     
     private StockPricesHistoryModelImpl() { }
     
@@ -37,7 +39,7 @@ public class StockPricesHistoryModelImpl implements IStockPricesHistoryModel {
             instance = new StockPricesHistoryModelImpl();
         }
         return instance;
-    }
+    }*/
 
     @Override
     public PojoIntStockPricesHistory addPriceOnHistory(PojoIntStockPricesHistory item) throws BloSalesV2Exception {

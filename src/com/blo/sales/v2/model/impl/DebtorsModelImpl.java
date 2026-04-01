@@ -17,18 +17,20 @@ import com.blo.sales.v2.model.mapper.WrapperDebtorsEntityMapper;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
+import jakarta.inject.Singleton;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+@Singleton
 public class DebtorsModelImpl implements IDebtorsModel {
     
     private static final GUILogger logger = GUILogger.getLogger(DebtorsModelImpl.class.getName());
     
     private static final Connection conn = DBConnection.getConnection();
     
-    private static DebtorsModelImpl instance;
+    //private static DebtorsModelImpl instance;
     
     private static final DebtorEntityMapper mapper = DebtorEntityMapper.getInstance();
     
@@ -36,14 +38,14 @@ public class DebtorsModelImpl implements IDebtorsModel {
     
     private static final WrapperDebtorsDetailsEntityMapper debtorsDetailsMapper = WrapperDebtorsDetailsEntityMapper.getInstance();
     
-    private DebtorsModelImpl() { }
+    /*private DebtorsModelImpl() { }
     
     public static DebtorsModelImpl getInstance() {
         if (instance == null) {
             instance = new DebtorsModelImpl();
         }
         return instance;
-    }
+    }*/
 
     @Override
     public PojoIntDebtor saveDebtor(PojoIntDebtor debtor) throws BloSalesV2Exception {

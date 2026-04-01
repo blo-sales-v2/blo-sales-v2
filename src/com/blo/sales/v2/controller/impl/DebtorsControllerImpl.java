@@ -9,18 +9,36 @@ import com.blo.sales.v2.controller.pojos.PojoIntSaleProductData;
 import com.blo.sales.v2.controller.pojos.WrapperPojoIntDebtors;
 import com.blo.sales.v2.controller.pojos.WrapperPojoIntDebtorsDetails;
 import com.blo.sales.v2.model.IDebtorsModel;
-import com.blo.sales.v2.model.impl.DebtorsModelImpl;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+@Singleton
 public class DebtorsControllerImpl implements IDebtorsController {
     
     private static final GUILogger logger = GUILogger.getLogger(DebtorsControllerImpl.class.getName());
+    
+    private final IDebtorsModel model;
+    
+    private final IProductsController productsController;
+    
+    private final ISalesController salesController;
+    
+    private final IDebtorsSalesController debtorsSales;
+
+    @Inject
+    public DebtorsControllerImpl(IDebtorsModel model, IProductsController productsController, ISalesController salesController, IDebtorsSalesController debtorsSales) {
+        this.model = model;
+        this.productsController = productsController;
+        this.salesController = salesController;
+        this.debtorsSales = debtorsSales;
+    }
         
-    private static final IDebtorsModel model = DebtorsModelImpl.getInstance();
+    /*private static final IDebtorsModel model = DebtorsModelImpl.getInstance();
     
     private static final IProductsController productsController = ProductsControllerImpl.getInstance();
     
@@ -37,7 +55,7 @@ public class DebtorsControllerImpl implements IDebtorsController {
             instance = new DebtorsControllerImpl();
         }
         return instance;
-    }
+    }*/
 
     @Override
     public WrapperPojoIntDebtors getAllDebtors() throws BloSalesV2Exception {

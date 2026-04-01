@@ -4,15 +4,24 @@ import com.blo.sales.v2.controller.ICashboxesSalesController;
 import com.blo.sales.v2.controller.pojos.PojoIntCashboxSale;
 import com.blo.sales.v2.controller.pojos.WrapperPojoIntCashboxesSalesDetails;
 import com.blo.sales.v2.model.ICashboxesSalesModel;
-import com.blo.sales.v2.model.impl.CashboxesSalesModelImpl;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.view.commons.GUILogger;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
+@Singleton
 public class CashboxesSalesControllerImpl implements ICashboxesSalesController {
     
     private static final GUILogger logger = GUILogger.getLogger(CashboxesSalesControllerImpl.class.getName());
     
-    private static final ICashboxesSalesModel cashboxSalesModel = CashboxesSalesModelImpl.getInstance();
+    private final ICashboxesSalesModel cashboxSalesModel;
+
+    @Inject
+    public CashboxesSalesControllerImpl(ICashboxesSalesModel cashboxSalesModel) {
+        this.cashboxSalesModel = cashboxSalesModel;
+    }
+    
+    /*private static final ICashboxesSalesModel cashboxSalesModel = CashboxesSalesModelImpl.getInstance();
     
     private static CashboxesSalesControllerImpl instance;
     
@@ -23,7 +32,7 @@ public class CashboxesSalesControllerImpl implements ICashboxesSalesController {
             instance = new CashboxesSalesControllerImpl();
         }
         return instance;
-    }
+    }*/
 
     @Override
     public PojoIntCashboxSale addCashboxSale(long idCashbox, long idSale) throws BloSalesV2Exception {

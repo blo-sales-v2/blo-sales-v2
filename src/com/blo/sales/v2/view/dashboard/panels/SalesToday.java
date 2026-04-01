@@ -1,7 +1,6 @@
 package com.blo.sales.v2.view.dashboard.panels;
 
 import com.blo.sales.v2.controller.ISalesController;
-import com.blo.sales.v2.controller.impl.SalesControllerImpl;
 import com.blo.sales.v2.controller.pojos.enums.SalesStatusIntEnum;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
@@ -10,9 +9,9 @@ import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
 import com.blo.sales.v2.view.mappers.WrapperPojoSalesAndStockMapper;
-import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
 import com.blo.sales.v2.view.pojos.PojoSaleAndProduct;
 import com.blo.sales.v2.view.pojos.WrapperPojoSalesAndStock;
+import jakarta.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -22,20 +21,16 @@ public final class SalesToday extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(SalesToday.class.getName());
     
-    private static final ISalesController salesController = SalesControllerImpl.getInstance();
+    @Inject
+    private ISalesController salesController;
+   // private static final ISalesController salesController = SalesControllerImpl.getInstance();
     
     private static final WrapperPojoSalesAndStockMapper mapper = WrapperPojoSalesAndStockMapper.getInstance();
 
     private static final String[] titles = {"ID de venta", "ID producto", "Producto", "Precio o comprado", "Cantidad en venta", "Total de venta", "Timestamp"};
     
-    private final PojoLoggedInUser userData;
-    
-    public SalesToday(PojoLoggedInUser userData, String key) {
+    public SalesToday(String key) {
         super(key);
-        this.userData = userData;
-        initComponents();
-        loadData();
-        GUICommons.addDoubleClickOnTable(tblSummary, id -> removeSale(Long.parseLong(String.valueOf(id))));
     }
     
     private void loadData() {
@@ -104,7 +99,7 @@ public final class SalesToday extends AbstractDashboardBase {
                     final var model = tblSummary.getModel();
                     final var idProduct = Long.parseLong(model.getValueAt(rowSelected, 1).toString());
                     final var message = CommonAlerts.showMessageDialog(getTranslateBy(KeysEnum.SALES_TD_DLG_REASON_CANCEL.getKey()));
-                    salesController.deleteSaleProduct(this.userData.getIdUser(), idSale, idProduct, message);
+                    salesController.deleteSaleProduct(getUserData().getIdUser(), idSale, idProduct, message);
                     loadData();
                 } catch (BloSalesV2Exception ex) {
                     logger.error(ex.getMessage());
@@ -174,6 +169,8 @@ public final class SalesToday extends AbstractDashboardBase {
 
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        initComponents();
+        loadData();
+        GUICommons.addDoubleClickOnTable(tblSummary, id -> removeSale(Long.parseLong(String.valueOf(id))));
     }
 }

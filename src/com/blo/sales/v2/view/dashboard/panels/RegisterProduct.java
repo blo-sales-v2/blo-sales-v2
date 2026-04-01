@@ -2,8 +2,6 @@ package com.blo.sales.v2.view.dashboard.panels;
 
 import com.blo.sales.v2.controller.ICategoriesController;
 import com.blo.sales.v2.controller.IProductsController;
-import com.blo.sales.v2.controller.impl.CategoriesControllerImpl;
-import com.blo.sales.v2.controller.impl.ProductsControllerImpl;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
@@ -16,6 +14,7 @@ import com.blo.sales.v2.view.mappers.WrapperPojoCategoriesMapper;
 import com.blo.sales.v2.view.pojos.PojoProduct;
 import com.blo.sales.v2.view.utils.GUIStore;
 import com.blo.sales.v2.view.utils.handler.ManagementProductStoreHandler;
+import jakarta.inject.Inject;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 
@@ -23,11 +22,17 @@ public final class RegisterProduct extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(RegisterProduct.class.getName());
     
-    private static final ICategoriesController categories = null;
+    @Inject
+    private IProductsController productsController;
+    
+    @Inject
+    private ICategoriesController categories;
+    
+    //private static final ICategoriesController categories = null;
     
     private static final ProductMapper productMapper = ProductMapper.getInstance();
     
-    private static final IProductsController productsController = ProductsControllerImpl.getInstance();
+    //private static final IProductsController productsController = ProductsControllerImpl.getInstance();
     
     private static final WrapperPojoCategoriesMapper categoriesMapper = WrapperPojoCategoriesMapper.getInstance();
 

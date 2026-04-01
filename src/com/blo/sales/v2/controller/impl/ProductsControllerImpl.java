@@ -14,16 +14,38 @@ import com.blo.sales.v2.controller.pojos.enums.TypesIntEnum;
 import com.blo.sales.v2.model.IProductsModel;
 import com.blo.sales.v2.model.entities.enums.ReasonsEntityEnum;
 import com.blo.sales.v2.model.entities.enums.TypesEntityEnum;
-import com.blo.sales.v2.model.impl.ProductsModelImpl;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
+@Singleton
 public class ProductsControllerImpl implements IProductsController {
     
     private static final GUILogger logger = GUILogger.getLogger(ProductsControllerImpl.class.getName());
     
-    private static final ICategoriesController categoriesController = null;
+    private final ICategoriesController categoriesController;
+    
+    private final IProductsModel model;
+    
+    private final IUserController user;
+    
+    private final IHistoryController historyController;
+    
+    private final IStockPricesHistoryController historyPrices;
+
+    @Inject
+    public ProductsControllerImpl(ICategoriesController categoriesController, IProductsModel model, IUserController user, IHistoryController historyController, IStockPricesHistoryController historyPrices) {
+        this.categoriesController = categoriesController;
+        this.model = model;
+        this.user = user;
+        this.historyController = historyController;
+        this.historyPrices = historyPrices;
+    }
+    
+    
+    /*private static final ICategoriesController categoriesController = null;
     
     private static final IProductsModel model = ProductsModelImpl.getInstance();
     
@@ -43,7 +65,7 @@ public class ProductsControllerImpl implements IProductsController {
             instance = new ProductsControllerImpl();
         }
         return instance;
-    }
+    }*/
 
     @Override
     public PojoIntProduct registerProduct(PojoIntProduct product) throws BloSalesV2Exception {

@@ -2,8 +2,6 @@ package com.blo.sales.v2.view.dashboard.panels;
 
 import com.blo.sales.v2.controller.ICashboxController;
 import com.blo.sales.v2.controller.IUserController;
-import com.blo.sales.v2.controller.impl.CashboxControllerImpl;
-import com.blo.sales.v2.controller.impl.UserControllerImpl;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.view.commons.AbstractDashboardBase;
@@ -16,11 +14,11 @@ import com.blo.sales.v2.view.mappers.WrapperPojoActivesCostsMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoNotesMapper;
 import com.blo.sales.v2.view.pojos.PojoCashbox;
 import com.blo.sales.v2.view.pojos.PojoDialogCashboxData;
-import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
 import com.blo.sales.v2.view.pojos.WrapperPojoActivesCosts;
 import com.blo.sales.v2.view.pojos.WrapperPojoNotes;
 import com.blo.sales.v2.view.pojos.enums.CashboxStatusEnum;
 import com.blo.sales.v2.view.pojos.enums.TypeNoteEnum;
+import jakarta.inject.Inject;
 import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,9 +26,15 @@ public final class CashboxOpen extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(CashboxOpen.class.getName());
     
-    private static final ICashboxController cashboxController = CashboxControllerImpl.getInstance();
+    @Inject
+    private ICashboxController cashboxController;
     
-    private static final IUserController userController = UserControllerImpl.getInstance();
+    @Inject
+    private IUserController userController;
+    
+    //private static final ICashboxController cashboxController = CashboxControllerImpl.getInstance();
+    
+    //private static final IUserController userController = UserControllerImpl.getInstance();
     
     private static final WrapperPojoActivesCostsMapper activesCostMapper = WrapperPojoActivesCostsMapper.getInstance();
     
@@ -38,24 +42,12 @@ public final class CashboxOpen extends AbstractDashboardBase {
     
     private static final WrapperPojoNotesMapper mapperNotes = WrapperPojoNotesMapper.getInstance();
     
-    private PojoLoggedInUser userData;
-    
     private PojoCashbox openCashbox;
     
     private WrapperPojoNotes notes;
     
-    public CashboxOpen(PojoLoggedInUser userData, String key) {
+    public CashboxOpen(String key) {
         super(key);
-        try {
-            this.userData = userData;
-            initComponents();
-            loadTargets();
-            loadDataAndCashbox();
-            this.notes = mapperNotes.toOuter(userController.getNotesByUserId(userData.getIdUser()));
-        } catch (BloSalesV2Exception ex) {
-            logger.error(ex.getMessage());
-            CommonAlerts.openError(ex.getMessage(), getTranslateBy(KeysEnum.COMMON_ALERT_ERROR.getKey()));
-        }
     }
         
     @SuppressWarnings("unchecked")
@@ -185,6 +177,14 @@ public final class CashboxOpen extends AbstractDashboardBase {
 
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            initComponents();
+            loadTargets();
+            loadDataAndCashbox();
+            this.notes = mapperNotes.toOuter(userController.getNotesByUserId(getUserData().getIdUser()));
+        } catch (BloSalesV2Exception ex) {
+            logger.error(ex.getMessage());
+            CommonAlerts.openError(ex.getMessage(), getTranslateBy(KeysEnum.COMMON_ALERT_ERROR.getKey()));
+        }
     }
 }

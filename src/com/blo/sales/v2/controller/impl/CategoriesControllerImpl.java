@@ -18,7 +18,7 @@ public class CategoriesControllerImpl implements ICategoriesController {
     private final ICategoriesModel categoriesModel;
     
     @Inject
-    public CategoriesControllerImpl(final ICategoriesModel categoriesModel) {
+    public CategoriesControllerImpl(ICategoriesModel categoriesModel) {
         this.categoriesModel = categoriesModel;
     }
     

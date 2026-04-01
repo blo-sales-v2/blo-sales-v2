@@ -27,20 +27,53 @@ import com.blo.sales.v2.controller.pojos.enums.TypesIntEnum;
 import com.blo.sales.v2.model.ISalesModel;
 import com.blo.sales.v2.model.entities.enums.ReasonsEntityEnum;
 import com.blo.sales.v2.model.entities.enums.TypesEntityEnum;
-import com.blo.sales.v2.model.impl.SalesModelImpl;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Singleton
 public class SalesControllerImpl implements ISalesController {
     
     private static final GUILogger logger = GUILogger.getLogger(SalesControllerImpl.class.getName());
     
-    private static SalesControllerImpl instance;
+    private final ISalesModel saleModel;
+    
+    private final IUserController userController;
+    
+    private final IHistoryController historyController;
+    
+    private final IProductsController productsController;
+    
+    private final ISalesProductController salesProductsController;
+    
+    private final ICashboxController cashboxController;
+    
+    private final IDebtorsController debtorsController;
+    
+    private final ISaleDeletedDetailController salesDeletedController;
+    
+    private final IDebtorsSalesController debtorsSalesController;
+
+    @Inject
+    public SalesControllerImpl(ISalesModel saleModel, IUserController userController, IHistoryController historyController, IProductsController productsController, ISalesProductController salesProductsController, ICashboxController cashboxController, IDebtorsController debtorsController, ISaleDeletedDetailController salesDeletedController, IDebtorsSalesController debtorsSalesController) {
+        this.saleModel = saleModel;
+        this.userController = userController;
+        this.historyController = historyController;
+        this.productsController = productsController;
+        this.salesProductsController = salesProductsController;
+        this.cashboxController = cashboxController;
+        this.debtorsController = debtorsController;
+        this.salesDeletedController = salesDeletedController;
+        this.debtorsSalesController = debtorsSalesController;
+    }
+    
+    /*//private static SalesControllerImpl instance;
     
     private static final ISalesModel saleModel = SalesModelImpl.getInstance();
     
@@ -60,14 +93,21 @@ public class SalesControllerImpl implements ISalesController {
     
     private static final ISaleDeletedDetailController salesDeletedController = SaleDeletedDetailControllerImpl.getInstance();
     
-    private SalesControllerImpl() { }
+    private final IUserController userController;
+    
+    @Inject
+    public SalesControllerImpl(final IUserController userController) {
+        this.userController = userController;
+    }
+    
+   /* private SalesControllerImpl() { }
     
     public static SalesControllerImpl getInstance() {
         if (instance == null) {
             instance = new SalesControllerImpl();
         }
         return instance;
-    }
+    }*/
 
     @Override
     public PojoIntSale registerSale(BigDecimal totalSale, List<PojoIntSaleProductData> products, long idUser) throws BloSalesV2Exception {

@@ -13,15 +13,37 @@ import com.blo.sales.v2.controller.pojos.WrapperPojoIntCashboxesDetails;
 import com.blo.sales.v2.controller.pojos.enums.CashboxStatusIntEnum;
 import com.blo.sales.v2.controller.pojos.enums.SalesStatusIntEnum;
 import com.blo.sales.v2.model.ICashboxModel;
-import com.blo.sales.v2.model.impl.CashboxModelImpl;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.view.commons.GUILogger;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
+@Singleton
 public class CashboxControllerImpl implements ICashboxController {
     
     private static final GUILogger logger = GUILogger.getLogger(CashboxControllerImpl.class.getName());
     
-    private static final ICashboxModel model = CashboxModelImpl.getInstance();
+    private final IActivesCostsController activesCostsController;
+    
+    private final ICashboxModel model;
+    
+    private final ICashboxesActivesCostsController cashboxesAactivesCostsController;
+    
+    private final ISalesController salesController;
+    
+    private final ICashboxesSalesController cashboxesSalesController;
+
+    @Inject
+    public CashboxControllerImpl(IActivesCostsController activesCostsController, ICashboxModel model, ICashboxesActivesCostsController cashboxesAactivesCostsController, ISalesController salesController, ICashboxesSalesController cashboxesSalesController) {
+        this.activesCostsController = activesCostsController;
+        this.model = model;
+        this.cashboxesAactivesCostsController = cashboxesAactivesCostsController;
+        this.salesController = salesController;
+        this.cashboxesSalesController = cashboxesSalesController;
+    }
+    
+    
+    /*private static final ICashboxModel model = CashboxModelImpl.getInstance();
     
     private static final ICashboxesActivesCostsController cashboxesAactivesCostsController = CashboxesActivesCostsControllerImpl.getInstance();
     
@@ -40,7 +62,7 @@ public class CashboxControllerImpl implements ICashboxController {
             instance = new CashboxControllerImpl();
         }
         return instance;
-    }
+    }*/
     
     @Override
     public PojoIntCashbox addCashbox(PojoIntCashbox cashbox) throws BloSalesV2Exception {

@@ -2,8 +2,6 @@ package com.blo.sales.v2.view.dashboard.panels;
 
 import com.blo.sales.v2.controller.ICashboxController;
 import com.blo.sales.v2.controller.ICashboxesSalesController;
-import com.blo.sales.v2.controller.impl.CashboxControllerImpl;
-import com.blo.sales.v2.controller.impl.CashboxesSalesControllerImpl;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.view.commons.AbstractDashboardBase;
@@ -17,6 +15,7 @@ import com.blo.sales.v2.view.pojos.PojoCashboxDetail;
 import com.blo.sales.v2.view.pojos.WrapperPojoCashboxesDetails;
 import com.blo.sales.v2.view.pojos.WrapperPojoCashboxesSalesDetailMapper;
 import com.blo.sales.v2.view.pojos.enums.ActivesCostsEnum;
+import jakarta.inject.Inject;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,14 +26,21 @@ public final class AllCashboxes extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(AllCashboxes.class.getName());
     
-    private static final ICashboxController controller = CashboxControllerImpl.getInstance();
-    
-    private static final ICashboxesSalesController cashboxesSales = CashboxesSalesControllerImpl.getInstance();
-    
     private static final WrapperPojoCashboxesDetailsMapper mapper = WrapperPojoCashboxesDetailsMapper.getInstance();
     
     private static final WrapperPojoCashboxesSalesDetailMapper salesDetailsMapper = WrapperPojoCashboxesSalesDetailMapper.getInstanace();
     
+    @Inject
+    private ICashboxController controller;
+    
+    @Inject
+    private ICashboxesSalesController cashboxesSales;
+    /*private static final ICashboxController controller = CashboxControllerImpl.getInstance();
+    
+    private static final ICashboxesSalesController cashboxesSales = CashboxesSalesControllerImpl.getInstance();
+    
+    
+    */
     private long idCashbox;
     
     private WrapperPojoCashboxesDetails cashboxesDetails;

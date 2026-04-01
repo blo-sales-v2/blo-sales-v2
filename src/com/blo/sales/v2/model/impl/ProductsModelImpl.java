@@ -16,8 +16,10 @@ import com.blo.sales.v2.model.entities.WrapperProductsEntity;
 import com.blo.sales.v2.model.mapper.WrapperProductsEntityMapper;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
+import jakarta.inject.Singleton;
 import java.util.ArrayList;
 
+@Singleton
 public class ProductsModelImpl implements IProductsModel {
     
     private static final GUILogger logger = GUILogger.getLogger(ProductsModelImpl.class.getName());
@@ -28,7 +30,7 @@ public class ProductsModelImpl implements IProductsModel {
     
     private static final WrapperProductsEntityMapper wrapperMapper = WrapperProductsEntityMapper.getInstance();
     
-    private static ProductsModelImpl instance;
+   /* private static ProductsModelImpl instance;
     
     private ProductsModelImpl() { }
     
@@ -37,7 +39,7 @@ public class ProductsModelImpl implements IProductsModel {
             instance = new ProductsModelImpl();
         }
         return instance;
-    }
+    }*/
 
     @Override
     public PojoIntProduct registerProduct(PojoIntProduct product) throws BloSalesV2Exception {

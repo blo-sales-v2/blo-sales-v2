@@ -4,7 +4,6 @@ import com.blo.sales.v2.controller.ICategoriesController;
 import com.blo.sales.v2.controller.IHistoryController;
 import com.blo.sales.v2.controller.IProductsController;
 import com.blo.sales.v2.controller.IStockPricesHistoryController;
-import com.blo.sales.v2.controller.impl.CategoriesControllerImpl;
 import com.blo.sales.v2.controller.impl.HistoryControllerImpl;
 import com.blo.sales.v2.controller.impl.ProductsControllerImpl;
 import com.blo.sales.v2.controller.impl.StockPricesHistoryControllerImpl;
@@ -27,12 +26,12 @@ import com.blo.sales.v2.view.mappers.WrapperPojoCategoriesMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoMovementsDetailMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoProductsMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoStockPriceHistoryMapper;
-import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
 import com.blo.sales.v2.view.pojos.PojoPriceHistory;
 import com.blo.sales.v2.view.pojos.PojoProduct;
 import com.blo.sales.v2.view.pojos.enums.ReasonsEnum;
 import com.blo.sales.v2.view.pojos.enums.RolesEnum;
 import com.blo.sales.v2.view.pojos.enums.TypesEnum;
+import jakarta.inject.Inject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,13 +43,22 @@ public final class AllProducts extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(AllProducts.class.getName());
 
-    private static final IProductsController productsController = ProductsControllerImpl.getInstance();
+    @Inject
+    private IProductsController productsController;
     
-    private static final IStockPricesHistoryController stockPricesHistoryController = StockPricesHistoryControllerImpl.getInstance();
+    @Inject
+    private IStockPricesHistoryController stockPricesHistoryController;
     
-    private static final ICategoriesController categoriesController = null;
+    @Inject
+    private IHistoryController historyController;
     
-    private static final IHistoryController historyController = HistoryControllerImpl.getInstance();
+    //private static final IProductsController productsController = ProductsControllerImpl.getInstance();
+    
+    //private static final IStockPricesHistoryController stockPricesHistoryController = StockPricesHistoryControllerImpl.getInstance();
+     @Inject
+    private ICategoriesController categoriesController;
+    
+    //private static final IHistoryController historyController = HistoryControllerImpl.getInstance();
     
     private static final WrapperPojoProductsMapper productsMapper = WrapperPojoProductsMapper.getInstance();
     
@@ -68,17 +76,8 @@ public final class AllProducts extends AbstractDashboardBase {
     
     private BigDecimal currentQuantity;
     
-    private final PojoLoggedInUser userData;
-    
-    public AllProducts(PojoLoggedInUser userData, String key) {
+    public AllProducts(String key) {
         super(key);
-        this.userData = userData;
-        initComponents();
-        initComboBox();
-        loadTargets();
-        lblIdProduct.setVisible(false);
-        loadTitlesAndData();
-        initPanelManagement();
     }
     
     @SuppressWarnings("unchecked")
@@ -327,7 +326,7 @@ public final class AllProducts extends AbstractDashboardBase {
             productsController.updateProductInfo(
                 productMapper.toInner(newData),
                 ReasonsIntEnum.valueOf(reasonEnum.name()),
-                userData.getIdUser(),
+                getUserData().getIdUser(),
                 TypesIntEnum.valueOf(type.name()));
             GUICommons.addFilter(tblProducts, "", "");
             GUICommons.setTextToField(txtSearcher, BloSalesV2Utils.EMPTY_STRING);
@@ -440,7 +439,7 @@ public final class AllProducts extends AbstractDashboardBase {
         try {
             final var productsData = productsMapper.toOuter(productsController.getAllProducts());
             final var categories = categoriesMapper.toOuter(categoriesController.getAllCategories());
-            if (userData.getRole().equals(RolesEnum.ROOT)) {
+            if (getUserData().getRole().equals(RolesEnum.ROOT)) {
                 GUICommons.loadTitleOnTable(tblProducts, titles, false);
                 final var model = (DefaultTableModel) tblProducts.getModel();
                 model.setRowCount(0);
@@ -547,6 +546,11 @@ public final class AllProducts extends AbstractDashboardBase {
 
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        initComponents();
+        initComboBox();
+        loadTargets();
+        lblIdProduct.setVisible(false);
+        loadTitlesAndData();
+        initPanelManagement();
     }
 }

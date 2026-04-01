@@ -280,13 +280,13 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     }//GEN-LAST:event_optCategoryActionPerformed
 
     private void optStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optStockActionPerformed
-        allProducts = new AllProducts(userData, KeysEnum.DASHBOARD_TITLES_VIEW_ALL_PRODUCTS.getKey());
-        GUICommons.showPanel(this, content, allProducts);
+        allProducts = new AllProducts(KeysEnum.DASHBOARD_TITLES_VIEW_ALL_PRODUCTS.getKey());
+        handlerDashboard(allProducts);
     }//GEN-LAST:event_optStockActionPerformed
 
     private void optAddSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAddSaleActionPerformed
-        sales = new Sales(userData, KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey());
-        GUICommons.showPanel(this, content, sales);
+        sales = new Sales(KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey());
+        handlerDashboard(sales);
     }//GEN-LAST:event_optAddSaleActionPerformed
 
     private void optConsoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optConsoleActionPerformed
@@ -295,18 +295,18 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     }//GEN-LAST:event_optConsoleActionPerformed
 
     private void optDebtorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optDebtorsActionPerformed
-        debtors = new Debtors(userData, KeysEnum.DASHBOARD_TITLES_DEBTORS.getKey());
-        GUICommons.showPanel(this, content, debtors);
+        debtors = new Debtors(KeysEnum.DASHBOARD_TITLES_DEBTORS.getKey());
+        handlerDashboard(debtors);
     }//GEN-LAST:event_optDebtorsActionPerformed
 
     private void optOpoenCashboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optOpoenCashboxActionPerformed
-        cashboxOpen = new CashboxOpen(userData, KeysEnum.DASHBOARD_TITLES_OPEN_CASHBOX.getKey());
-        GUICommons.showPanel(this, content, cashboxOpen);
+        cashboxOpen = new CashboxOpen(KeysEnum.DASHBOARD_TITLES_OPEN_CASHBOX.getKey());
+        handlerDashboard(cashboxOpen);
     }//GEN-LAST:event_optOpoenCashboxActionPerformed
 
     private void optViewSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optViewSalesActionPerformed
-        salesToday = new SalesToday(userData, KeysEnum.DASHBOARD_TITLES_VIEW_SALES_TODAY.getKey());
-        GUICommons.showPanel(this, content, salesToday);
+        salesToday = new SalesToday(KeysEnum.DASHBOARD_TITLES_VIEW_SALES_TODAY.getKey());
+        handlerDashboard(salesToday);
     }//GEN-LAST:event_optViewSalesActionPerformed
 
     private void optAllCashboxesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAllCashboxesActionPerformed
@@ -315,8 +315,8 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     }//GEN-LAST:event_optAllCashboxesActionPerformed
 
     private void optNotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optNotesActionPerformed
-        notes = new Notes(userData, KeysEnum.DASHBOARD_TITLES_FAST_NOTES.getKey());
-        GUICommons.showPanel(this, content, notes);
+        notes = new Notes(KeysEnum.DASHBOARD_TITLES_FAST_NOTES.getKey());
+        handlerDashboard(notes);
     }//GEN-LAST:event_optNotesActionPerformed
 
     private void optSalesReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optSalesReportActionPerformed
@@ -340,6 +340,7 @@ public final class DashboardRootFrm extends AbstractFrameBase {
             return;
         }
         injector.injectMembers(dashboard);
+        dashboard.setUserData(userData);
         dashboard.init();
         GUICommons.showPanel(this, content, dashboard);
     }
@@ -376,7 +377,8 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     public void init() {
         content.setLayout(new BorderLayout());
         setTitle(getTranslateBy(KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey()));
-        GUICommons.showPanel(this, content, new Sales(userData, KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey()));
+        //sales.init();
+        GUICommons.showPanel(this, content, new Sales(KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey()));
         GUICommons.allWindow(this);
         GUICommons.setTextToField(lblVersion, BloSalesV2Utils.VERSION);
     }

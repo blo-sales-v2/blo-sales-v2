@@ -1,10 +1,8 @@
 package com.blo.sales.v2.view.dashboard.panels;
 
 import com.blo.sales.v2.controller.ISalesController;
-import com.blo.sales.v2.controller.impl.SalesControllerImpl;
 import com.blo.sales.v2.controller.pojos.enums.SalesStatusIntEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
-import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.mappers.WrapperPojoSalesAndStockMapper;
 import com.blo.sales.v2.view.pojos.PojoSaleAndProduct;
@@ -22,7 +20,7 @@ import javax.swing.table.TableRowSorter;
 @Deprecated
 public class SalesViewer extends javax.swing.JPanel {
 
-    private static final ISalesController salesController = SalesControllerImpl.getInstance();
+    private static final ISalesController salesController = null;
     
     private static final WrapperPojoSalesAndStockMapper mapper = WrapperPojoSalesAndStockMapper.getInstance();
     

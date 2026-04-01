@@ -4,15 +4,24 @@ import com.blo.sales.v2.controller.ISalesProductController;
 import com.blo.sales.v2.controller.pojos.PojoIntSaleProduct;
 import com.blo.sales.v2.controller.pojos.WrapperPojoIntSaleStock;
 import com.blo.sales.v2.model.ISaleProductModel;
-import com.blo.sales.v2.model.impl.SaleProductModelImpl;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.view.commons.GUILogger;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
+@Singleton
 public class SalesProductControllerImpl implements ISalesProductController {
     
     private static final GUILogger logger = GUILogger.getLogger(SalesProductControllerImpl.class.getName());
     
-    private static SalesProductControllerImpl instance;
+    private final ISaleProductModel model;
+
+    @Inject
+    public SalesProductControllerImpl(ISaleProductModel model) {
+        this.model = model;
+    }
+    
+    /*private static SalesProductControllerImpl instance;
     
     private static final ISaleProductModel model = SaleProductModelImpl.getInstance();
     
@@ -23,7 +32,7 @@ public class SalesProductControllerImpl implements ISalesProductController {
             instance = new SalesProductControllerImpl();
         }
         return instance;
-    }
+    }*/
     
     @Override
     public PojoIntSaleProduct addSalesProduct(PojoIntSaleProduct salesProduct) throws BloSalesV2Exception {

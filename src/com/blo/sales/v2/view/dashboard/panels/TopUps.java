@@ -18,6 +18,7 @@ import com.blo.sales.v2.view.mappers.WrapperPojoTopUpsMapper;
 import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
 import com.blo.sales.v2.view.pojos.PojoTopUp;
 import com.blo.sales.v2.view.pojos.enums.TopUpSearchStatusEnum;
+import jakarta.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
@@ -29,9 +30,14 @@ public final class TopUps extends AbstractDashboardBase {
     
     private static final String[] titles = {"ID", "Número telefónico", "Compañía", "Monto", "Usuario", "Timestamp"};
     
-    private static final IMobileCompanyController mobileController = MobileCompanyControllerImpl.getInstance();
+    @Inject
+    private IMobileCompanyController mobileController;
     
-    private static final ITopUpsController topUpsController = TopUpsControllerImpl.getInstance();
+    @Inject
+    private ITopUpsController topUpsController;
+    //private static final IMobileCompanyController mobileController = MobileCompanyControllerImpl.getInstance();
+    
+    //private static final ITopUpsController topUpsController = TopUpsControllerImpl.getInstance();
     
     private static final PojoTopUpMapper topUpMapper = PojoTopUpMapper.getInstance();
     

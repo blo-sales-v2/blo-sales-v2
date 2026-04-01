@@ -3,9 +3,6 @@ package com.blo.sales.v2.view.dashboard.panels;
 import com.blo.sales.v2.controller.IDebtorsController;
 import com.blo.sales.v2.controller.IProductsController;
 import com.blo.sales.v2.controller.ISalesController;
-import com.blo.sales.v2.controller.impl.DebtorsControllerImpl;
-import com.blo.sales.v2.controller.impl.ProductsControllerImpl;
-import com.blo.sales.v2.controller.impl.SalesControllerImpl;
 import com.blo.sales.v2.controller.pojos.PojoIntSaleProductData;
 import com.blo.sales.v2.translate.KeysEnum;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
@@ -21,9 +18,9 @@ import com.blo.sales.v2.view.mappers.DebtorMapper;
 import com.blo.sales.v2.view.mappers.PojoSaleProductDataMapper;
 import com.blo.sales.v2.view.mappers.WrapperDebtorsMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoProductsMapper;
-import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
 import com.blo.sales.v2.view.pojos.PojoProduct;
 import com.blo.sales.v2.view.pojos.PojoSaleProductData;
+import jakarta.inject.Inject;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -36,13 +33,22 @@ public final class Sales extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(Sales.class.getName());
     
-    private static final IProductsController productsController = ProductsControllerImpl.getInstance();
+    @Inject
+    private IProductsController productsController;
+    
+    @Inject
+    private ISalesController salesController;
+    
+    @Inject
+    private IDebtorsController debtorsController;
+    
+   // private static final IProductsController productsController = ProductsControllerImpl.getInstance();
     
     private static final WrapperPojoProductsMapper mapperProducts = WrapperPojoProductsMapper.getInstance();
     
-    private static final ISalesController salesController = SalesControllerImpl.getInstance();
+    //private static final ISalesController salesController = SalesControllerImpl.getInstance();
     
-    private static final IDebtorsController debtorsController = DebtorsControllerImpl.getInstance();
+    //private static final IDebtorsController debtorsController = DebtorsControllerImpl.getInstance();
     
     private static final PojoSaleProductDataMapper saleProductMapper = PojoSaleProductDataMapper.getInstance();
     
@@ -55,28 +61,9 @@ public final class Sales extends AbstractDashboardBase {
     private BigDecimal totalSale;
     
     private PojoProduct productFound;
-    
-    private PojoLoggedInUser userData;
         
-    public Sales(PojoLoggedInUser userData, String title) {
+    public Sales(String title) {
         super(title);
-        try {
-            initComponents();
-            loadTargets();
-            this.userData = userData;
-            totalSale = BigDecimal.ZERO;
-            resetFields();
-            disableButtons();
-            retrieveProducts();
-            final String[] titles = {"ID", "Producto", "Cantidad comprada", "Precio", "Total"};
-            GUICommons.loadTitleOnTable(tblProductsSales, titles, false);
-            GUICommons.addDoubleClickOnTable(tblProductsSales, id -> removeItemFromSale(Long.parseLong(String.format("%s", id))));
-            GUICommons.addKeyEventOnTable(tblProductsSales, GUICommons.ENTER_KEY, id -> addElementByKeyEnter());
-        } catch (BloSalesV2Exception ex) {
-            logger.error(ex.getMessage());
-            CommonAlerts.openError(ex.getMessage(), getTranslateBy(KeysEnum.COMMON_ALERT_ERROR.getKey()));
-        }
-        txtSearch.requestFocusInWindow();
     }
 
     @SuppressWarnings("unchecked")
@@ -300,7 +287,7 @@ public final class Sales extends AbstractDashboardBase {
     /** ajustar para reiniciar lista */
     private void btnCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteActionPerformed
         try {
-            salesController.registerSale(totalSale, getProductData(), this.userData.getIdUser());
+            salesController.registerSale(totalSale, getProductData(), getUserData().getIdUser());
             disableButtons();
             GUICommons.setTextToField(lblTotal, String.format(getTranslateBy(KeysEnum.COMMON_TOTAL.getKey()), "0"));
             totalSale = BigDecimal.ZERO;
@@ -330,7 +317,7 @@ public final class Sales extends AbstractDashboardBase {
                             salesController.registerSaleWithNewDebtor(
                                 pay,
                                 getProductData(),
-                                userData.getIdUser(),
+                                getUserData().getIdUser(),
                                 debtorMapper.toInner(item)
                             );
                         } else {
@@ -347,7 +334,7 @@ public final class Sales extends AbstractDashboardBase {
                                 getProductData(),
                                 pay,
                                 item.getPayments(),
-                                userData.getIdUser(),
+                                getUserData().getIdUser(),
                                 item.getIdDebtor());
                         }
                         resetFields();
@@ -609,6 +596,21 @@ public final class Sales extends AbstractDashboardBase {
 
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            initComponents();
+            loadTargets();
+            totalSale = BigDecimal.ZERO;
+            resetFields();
+            disableButtons();
+            retrieveProducts();
+            final String[] titles = {"ID", "Producto", "Cantidad comprada", "Precio", "Total"};
+            GUICommons.loadTitleOnTable(tblProductsSales, titles, false);
+            GUICommons.addDoubleClickOnTable(tblProductsSales, id -> removeItemFromSale(Long.parseLong(String.format("%s", id))));
+            GUICommons.addKeyEventOnTable(tblProductsSales, GUICommons.ENTER_KEY, id -> addElementByKeyEnter());
+        } catch (BloSalesV2Exception ex) {
+            logger.error(ex.getMessage());
+            CommonAlerts.openError(ex.getMessage(), getTranslateBy(KeysEnum.COMMON_ALERT_ERROR.getKey()));
+        }
+        txtSearch.requestFocusInWindow();
     }
 }
