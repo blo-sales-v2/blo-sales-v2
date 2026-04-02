@@ -102,8 +102,7 @@ public final class CashboxDetailDialog extends AbstractDialogBase {
                 String.valueOf(model.getValueAt(i, 7)),
                 String.valueOf(model.getValueAt(i, 8)),
                 String.valueOf(model.getValueAt(i, 9)),
-                String.valueOf(model.getValueAt(i, 10)),
-                String.valueOf(model.getValueAt(i, 11))
+                String.valueOf(model.getValueAt(i, 10))
             };
             r.add(row);
         }
