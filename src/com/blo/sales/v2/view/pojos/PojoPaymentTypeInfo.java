@@ -3,6 +3,11 @@ package com.blo.sales.v2.view.pojos;
 import com.blo.sales.v2.view.pojos.enums.PaymentTypeEnum;
 import java.math.BigDecimal;
 
+/**
+ * clase utilizada como wrapper para los detalles de una venta.
+ * 
+ * Vive todo en la clase sale / se agrego para no mover flujos completos
+ */
 public class PojoPaymentTypeInfo {
     
     private long idSale;

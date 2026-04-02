@@ -13,6 +13,7 @@ import com.blo.sales.v2.model.entities.SaleAndProductEntity;
 import com.blo.sales.v2.model.entities.SaleEntity;
 import com.blo.sales.v2.model.entities.WrapperSalesAndStockEntity;
 import com.blo.sales.v2.model.entities.WrapperSalesEntity;
+import com.blo.sales.v2.model.entities.enums.PaymentTypeEntityEnum;
 import com.blo.sales.v2.model.entities.enums.SaleStatusEntityEnum;
 import com.blo.sales.v2.model.mapper.PaymentTypeInfoEntityMapper;
 import com.blo.sales.v2.model.mapper.SaleEntityMapper;
@@ -166,6 +167,7 @@ public class SalesModelImpl implements ISalesModel {
                 saleDetail.setTotal_on_sale(data.getBigDecimal(BloSalesV2Columns.TOTAL_ON_SALE));
                 saleDetail.setTimestamp(data.getString(BloSalesV2Columns.TIMESTAMP));
                 saleDetail.setProduct_total_on_sale(data.getBigDecimal(BloSalesV2Columns.PRODUCT_TOTAL_ON_SALE));
+                saleDetail.setPayment_type(PaymentTypeEntityEnum.valueOf(data.getString(BloSalesV2Columns.PAYMENT_TYPE)));
                 details.add(saleDetail);
             }
             wrapper.setSalesDetail(details);
