@@ -20,11 +20,12 @@ import com.blo.sales.v2.view.dialogs.DebtorsDialog;
 import com.blo.sales.v2.view.dialogs.PaymentCardDialog;
 import com.blo.sales.v2.view.dialogs.SelectorDialog;
 import com.blo.sales.v2.view.mappers.DebtorMapper;
+import com.blo.sales.v2.view.mappers.PojoPaymentTypeInfoMapper;
 import com.blo.sales.v2.view.mappers.PojoSaleProductDataMapper;
 import com.blo.sales.v2.view.mappers.WrapperDebtorsMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoProductsMapper;
 import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
-import com.blo.sales.v2.view.pojos.PojoPaymentTypeAux;
+import com.blo.sales.v2.view.pojos.PojoPaymentTypeInfo;
 import com.blo.sales.v2.view.pojos.PojoProduct;
 import com.blo.sales.v2.view.pojos.PojoSaleProductData;
 import com.blo.sales.v2.view.pojos.enums.PaymentTypeEnum;
@@ -65,6 +66,9 @@ public final class Sales extends AbstractDashboardBase {
 
     @Inject
     private DebtorMapper debtorMapper;
+    
+    @Inject
+    private PojoPaymentTypeInfoMapper paymentTypeInfoMapper;
     
     private List<PojoProduct> products;
 
@@ -409,21 +413,38 @@ public final class Sales extends AbstractDashboardBase {
                 "Pago por tarjeta",
                 totalSale,
                 (Map<String, Object> infoPay) -> {
-                    infoPay.values().removeIf(Objects::isNull);
-                    if (infoPay.isEmpty() || infoPay.size() != 4) {
-                        // error
+                    try {
+                        infoPay.values().removeIf(Objects::isNull);
+                        if (infoPay.isEmpty() || infoPay.size() != 4) {
+                            throw new BloSalesV2Exception(BloSalesV2Utils.COMMON_RULE_CODE, BloSalesV2Utils.COMMON_RULE);
+                        }
+                        final var cardPay = new BigDecimal(String.valueOf(infoPay.get(PaymentCardDialog.CARD_PAY)));
+                        var cash = new BigDecimal(String.valueOf(infoPay.get(PaymentCardDialog.CASH)));
+                        final var reference = String.valueOf(infoPay.get(PaymentCardDialog.REFERENCE));
+                        final var type = PaymentTypeEnum.getByIndex(
+                            Integer.parseInt(String.valueOf(infoPay.get(PaymentCardDialog.TYPE)))
+                        );
+                        final var paysAdded = cardPay.add(cash);
+                        if (paysAdded.compareTo(totalSale) < 0) {
+                            throw new BloSalesV2Exception(BloSalesV2Utils.CODE_PAYMENT_CARD_NOT_COMPLETE, BloSalesV2Utils.ERROR_PAYMENT_CARD_NOT_COMPLETE);
+                        }
+                        if (type.compareTo(PaymentTypeEnum.BOTH) == 0) {
+                            cash = totalSale.subtract(cardPay);
+                        }
+                        final var registeredSale = salesController.registerSale(totalSale, getProductData(), getUserData().getIdUser());
+                        /** se arma pago */
+                        final var paymentTypeAux = new PojoPaymentTypeInfo();
+                        paymentTypeAux.setCardPay(cardPay);
+                        paymentTypeAux.setCash(cash);
+                        paymentTypeAux.setReference(reference);
+                        paymentTypeAux.setPaymentType(type);
+                        paymentTypeAux.setTotalToPay(totalSale);
+                        paymentTypeAux.setIdSale(registeredSale.getIdSale());
+                        salesController.registerPaymentTypeData(paymentTypeInfoMapper.toInner(paymentTypeAux));
+                    } catch (BloSalesV2Exception ex) {
+                        logger.error(ex.getMessage());
+                        CommonAlerts.openError(ex.getMessage(), "¡Error!");
                     }
-                    final var cardPay = new BigDecimal(String.valueOf(infoPay.get(PaymentCardDialog.CARD_PAY)));
-                    final var cash = new BigDecimal(String.valueOf(infoPay.get(PaymentCardDialog.CASH)));
-                    final var reference = String.valueOf(infoPay.get(PaymentCardDialog.REFERENCE));
-                    final var type = PaymentTypeEnum.getByIndex(
-                        Integer.parseInt(String.valueOf(infoPay.get(PaymentCardDialog.TYPE)))
-                    );
-                    final var paymentTypeAux = new PojoPaymentTypeAux();
-                    paymentTypeAux.setCardpay(cardPay);
-                    paymentTypeAux.setCash(cash);
-                    paymentTypeAux.setReference(reference);
-                    paymentTypeAux.setPaymentType(type);
                 }
             );
             payment.setVisible(true);

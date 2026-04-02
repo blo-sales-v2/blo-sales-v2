@@ -2,6 +2,7 @@ package com.blo.sales.v2.view.dialogs;
 
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.view.commons.AbstractDialogBase;
+import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import java.awt.Component;
 import java.math.BigDecimal;
@@ -27,6 +28,7 @@ public final class PaymentCardDialog<T> extends AbstractDialogBase {
     public PaymentCardDialog(Component parent, String title, BigDecimal pay, Consumer<T> callback) {
         super(SwingUtilities.getWindowAncestor(parent), title, ModalityType.APPLICATION_MODAL, false);
         initComponents();
+        dialogSizeHandler();
         this.callback = callback;
         this.pay = pay;
         init();
@@ -140,7 +142,6 @@ public final class PaymentCardDialog<T> extends AbstractDialogBase {
             final Map<String, Object> paymentData = new HashMap<>();
             paymentData.put(CARD_PAY, cardPay);
             paymentData.put(REFERENCE, reference);
-            //var paymentData = String.format("cardPay=%s&reference=%s", cardPay, reference);
             var cash = BigDecimal.ZERO;
             var type = 1;
             if (!checkboxStatus) {
@@ -156,7 +157,10 @@ public final class PaymentCardDialog<T> extends AbstractDialogBase {
     }//GEN-LAST:event_btnDoPayActionPerformed
 
     private void chcbkxCompleteStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chcbkxCompleteStateChanged
-        nmbCash.setEnabled(true);
+        nmbCash.setEnabled(!nmbCash.isEnabled());
+        if (!nmbCash.isEnabled()) {
+            GUICommons.setTextToField(nmbCash, 0);
+        }
     }//GEN-LAST:event_chcbkxCompleteStateChanged
 
     @Override

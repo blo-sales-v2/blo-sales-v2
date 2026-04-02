@@ -3,10 +3,12 @@ package com.blo.sales.v2.view.pojos;
 import com.blo.sales.v2.view.pojos.enums.PaymentTypeEnum;
 import java.math.BigDecimal;
 
-public class PojoPaymentTypeAux {
+public class PojoPaymentTypeInfo {
+    
+    private long idSale;
     
     /** cantidad a pagar con tarjeta */
-    private BigDecimal cardpay;
+    private BigDecimal cardPay;
     
     /** cantidad pagada con efectivo */
     private BigDecimal cash;
@@ -15,13 +17,23 @@ public class PojoPaymentTypeAux {
     private String reference;
     
     private PaymentTypeEnum paymentType;
+    
+    private BigDecimal totalToPay;
 
-    public BigDecimal getCardpay() {
-        return cardpay;
+    public long getIdSale() {
+        return idSale;
     }
 
-    public void setCardpay(BigDecimal cardpay) {
-        this.cardpay = cardpay;
+    public void setIdSale(long idSale) {
+        this.idSale = idSale;
+    }
+
+    public BigDecimal getCardPay() {
+        return cardPay;
+    }
+
+    public void setCardPay(BigDecimal cardPay) {
+        this.cardPay = cardPay;
     }
 
     public BigDecimal getCash() {
@@ -48,16 +60,25 @@ public class PojoPaymentTypeAux {
         this.paymentType = paymentType;
     }
 
+    public BigDecimal getTotalToPay() {
+        return totalToPay;
+    }
+
+    public void setTotalToPay(BigDecimal totalToPay) {
+        this.totalToPay = totalToPay;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("PojoPaymentTypeAux{");
-        sb.append("cardpay=").append(cardpay);
+        sb.append("PojoPaymentTypeInfo{");
+        sb.append("idSale=").append(idSale);
+        sb.append(", cardPay=").append(cardPay);
         sb.append(", cash=").append(cash);
         sb.append(", reference=").append(reference);
         sb.append(", paymentType=").append(paymentType);
+        sb.append(", totalToPay=").append(totalToPay);
         sb.append('}');
         return sb.toString();
     }
-    
 }

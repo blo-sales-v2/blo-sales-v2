@@ -37,11 +37,13 @@ public final class BloSalesV2Queries {
     public static final String SELECT_MOVEMENTS_DETAIL = "SELECT h.id_movement, h.type, h.reason, st.id_product, st.product, h.timestamp, u.username, h.quantity FROM history h INNER JOIN stock st ON h.fk_product = st.id_product INNER JOIN users u ON h.fk_user = u.id_user WHERE st.id_product = ?";
     
     /** ventas */
-    public static final String INSERT_SALE = "INSERT INTO sales(total, sale_status, timestamp) VALUES (?, ?, ?)";
+    public static final String INSERT_SALE = "INSERT INTO sales(total, sale_status, timestamp, total_cash, total_card, payment_type, authorization) VALUES (?, ?, ?, ?, 0, 'CASH', 'N/A')";
     
     public static final String SELECT_SALE_BY_STATUS = "SELECT id_sale, total, sale_status, timestamp FROM sales WHERE sale_status = ?";
     
     public static final String SET_ON_CASHBOX = "UPDATE sales SET sale_status = 'ON_CASHBOX' WHERE id_sale = ?";
+    
+    public static final String ADD_PAYMENT_BY_CARD = "UPDATE sales SET payment_type = ?, authorization = ?, total_cash = ?, total_card = ? WHERE id_sale = ?";
     
     /** ventas product */
     public static final String INSERT_SALE_PRODUCT = "INSERT INTO sale_product(fk_sale, fk_product, quantity_sale, total_on_sale, product_total_on_sale, timestamp, is_live) VALUES (?, ?, ?, ?, ?, ?, true)";

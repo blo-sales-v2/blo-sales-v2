@@ -1,10 +1,11 @@
 package com.blo.sales.v2.controller.pojos;
 
 import com.blo.sales.v2.controller.pojos.enums.PaymentTypeIntEnum;
-import com.blo.sales.v2.view.pojos.enums.PaymentTypeEnum;
 import java.math.BigDecimal;
 
-public class PojoIntPaymentAux {
+public class PojoIntPaymentTypeInfo {
+    
+    private long idSale;
     
     /** monto del pago con tarjeta*/
     private BigDecimal cardPay;
@@ -14,7 +15,17 @@ public class PojoIntPaymentAux {
     
     private BigDecimal cash;
     
-    private PaymentTypeIntEnum type;
+    private BigDecimal totalToPay;
+    
+    private PaymentTypeIntEnum paymentType;
+
+    public long getIdSale() {
+        return idSale;
+    }
+
+    public void setIdSale(long idSale) {
+        this.idSale = idSale;
+    }
 
     public BigDecimal getCardPay() {
         return cardPay;
@@ -40,22 +51,32 @@ public class PojoIntPaymentAux {
         this.cash = cash;
     }
 
-    public PaymentTypeIntEnum getType() {
-        return type;
+    public BigDecimal getTotalToPay() {
+        return totalToPay;
     }
 
-    public void setType(PaymentTypeIntEnum type) {
-        this.type = type;
+    public void setTotalToPay(BigDecimal totalToPay) {
+        this.totalToPay = totalToPay;
+    }
+
+    public PaymentTypeIntEnum getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentTypeIntEnum paymentType) {
+        this.paymentType = paymentType;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("PojoIntPaymentAux{");
-        sb.append("cardPay=").append(cardPay);
+        sb.append("PojoIntPaymentTypeInfo{");
+        sb.append("idSale=").append(idSale);
+        sb.append(", cardPay=").append(cardPay);
         sb.append(", reference=").append(reference);
         sb.append(", cash=").append(cash);
-        sb.append(", type=").append(type);
+        sb.append(", totalToPay=").append(totalToPay);
+        sb.append(", paymentType=").append(paymentType);
         sb.append('}');
         return sb.toString();
     }
