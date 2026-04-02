@@ -308,6 +308,14 @@ public final class GUICommons {
         btn.setEnabled(false);
     }
     
+    public static void disabledComponent(JComboBox box) {
+        box.setEnabled(false);
+    }
+    
+    public static void enabledComponent(JComboBox box) {
+        box.setEnabled(true);
+    }
+    
     /**
      * Habilita un boton
      * @param btn 

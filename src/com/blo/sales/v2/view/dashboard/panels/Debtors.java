@@ -291,6 +291,7 @@ public final class Debtors extends AbstractDashboardBase {
         storeTotalSale = BigDecimal.ZERO;
         GUICommons.disabledButton(btnSave);
         GUICommons.disabledButton(btnPayall);
+        GUICommons.disabledComponent(cmbxPaymentType);
         GUICommons.setTextToField(txtName, BloSalesV2Utils.EMPTY_STRING);
         GUICommons.setTextToField(nmbPay, BloSalesV2Utils.EMPTY_STRING);
         GUICommons.setTextToField(areaPayments, BloSalesV2Utils.EMPTY_STRING);
@@ -301,6 +302,7 @@ public final class Debtors extends AbstractDashboardBase {
     private void enabledButtons() {
         GUICommons.enabledButton(btnSave);
         GUICommons.enabledButton(btnPayall);
+        GUICommons.enabledComponent(cmbxPaymentType);
     }
     
     private void selectADebtor(long idDebtor) {
