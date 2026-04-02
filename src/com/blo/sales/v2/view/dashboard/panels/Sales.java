@@ -24,7 +24,6 @@ import com.blo.sales.v2.view.mappers.PojoPaymentTypeInfoMapper;
 import com.blo.sales.v2.view.mappers.PojoSaleProductDataMapper;
 import com.blo.sales.v2.view.mappers.WrapperDebtorsMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoProductsMapper;
-import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
 import com.blo.sales.v2.view.pojos.PojoPaymentTypeInfo;
 import com.blo.sales.v2.view.pojos.PojoProduct;
 import com.blo.sales.v2.view.pojos.PojoSaleProductData;
@@ -79,8 +78,6 @@ public final class Sales extends AbstractDashboardBase {
     
     private PojoProduct productFound;
     
-    private PaymentTypeEnum paymentType;
-        
     public Sales(String title) {
         super(title);
     }
@@ -402,7 +399,6 @@ public final class Sales extends AbstractDashboardBase {
     
     /** abre la ventana para pagos por tarjeta */
     private void openPaymentCard(int item) {
-        paymentType = getPaymentsTypeArray().get(item);
         if (item == 1) {
             totalSale = totalSale.
                     multiply(new BigDecimal("1.05")).
@@ -651,14 +647,10 @@ public final class Sales extends AbstractDashboardBase {
     
     private void loadPaymentsType() {
         final var paymentsTypeModel = new DefaultComboBoxModel<String>();
-        getPaymentsTypeArray().forEach(c -> paymentsTypeModel.addElement(c.getPaymentTypeTarget()));
+        PaymentTypeEnum.getVisiblesTypes().forEach(c -> paymentsTypeModel.addElement(c.getPaymentTypeTarget()));
         cmnbxPaymentType.setModel(paymentsTypeModel);
     }
     
-    private List<PaymentTypeEnum> getPaymentsTypeArray() {
-        return Arrays.asList(PaymentTypeEnum.values()).subList(0, 2);
-    }
-
     private void disableButtons() {
         GUICommons.disabledButton(btnComplete);
         GUICommons.disabledButton(btnDebtors);

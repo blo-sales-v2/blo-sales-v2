@@ -1,6 +1,7 @@
 package com.blo.sales.v2.view.pojos.enums;
 
 import java.util.Arrays;
+import java.util.List;
 
 public enum PaymentTypeEnum {
     
@@ -21,6 +22,10 @@ public enum PaymentTypeEnum {
 
     public int getIndex() {
         return index;
+    }
+    
+    public static List<PaymentTypeEnum> getVisiblesTypes() {
+         return Arrays.asList(PaymentTypeEnum.values()).subList(0, 2);
     }
     
     public static PaymentTypeEnum getByIndex(int index) {
