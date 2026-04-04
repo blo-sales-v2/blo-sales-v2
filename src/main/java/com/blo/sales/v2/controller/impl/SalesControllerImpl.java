@@ -176,12 +176,22 @@ public @Singleton class SalesControllerImpl implements ISalesController {
     
     @Override
     public PojoIntPaymentTypeInfo registerPaymentTypeData(PojoIntPaymentTypeInfo paymentData) throws BloSalesV2Exception {
-        logger.info("registrando datos de pago [%s]", String.valueOf(paymentData));
-        final var paysAdded = paymentData.getCardPay().add(paymentData.getCash());
-        if (paysAdded.compareTo(paymentData.getTotalToPay()) < 0) {
-            throw new BloSalesV2Exception(BloSalesV2Utils.CODE_PAYMENT_CARD_NOT_COMPLETE, BloSalesV2Utils.ERROR_PAYMENT_CARD_NOT_COMPLETE);
+        try {
+            managerController.disableAutocommit();
+            logger.info("registrando datos de pago [%s]", String.valueOf(paymentData));
+            final var paysAdded = paymentData.getCardPay().add(paymentData.getCash());
+            if (paysAdded.compareTo(paymentData.getTotalToPay()) < 0) {
+                throw new BloSalesV2Exception(BloSalesV2Utils.CODE_PAYMENT_CARD_NOT_COMPLETE, BloSalesV2Utils.ERROR_PAYMENT_CARD_NOT_COMPLETE);
+            }
+            final var saleUpdated = saleModel.registerPaymentTypeData(paymentData);
+            managerController.doCommit();
+            return saleUpdated;
+        } catch (BloSalesV2Exception ex) {
+            logger.error(ex.getMessage());
+            throw new BloSalesV2Exception(ex.getCode(), ex.getMessage());
+        } finally {
+            managerController.enableAutocommit();
         }
-        return saleModel.registerPaymentTypeData(paymentData);
     }
     
     @Override
@@ -353,21 +363,14 @@ public @Singleton class SalesControllerImpl implements ISalesController {
         return debtorsSalesController.addRelationship(debtorSale);
     }
 
-    /**
-     * Metodo copia de registro de venta, no se guarda automaticamente, auxiliar para registro de flujos alternos
-     * <b>ESTA FUNCION NO GUARDA CAMBIOS EN LA BD</b>
-     * @param totalSale
-     * @param products
-     * @param idUser
-     * @return venta registrada
-     * @throws BloSalesV2Exception 
-     */
-    private PojoIntSale registerSaleCommitNotEnabled(
+    @Override
+    public PojoIntSale registerSaleCommitNotEnabled(
         BigDecimal totalSale,
         List<PojoIntSaleProductData> products,
         long idUser
     ) throws BloSalesV2Exception {
         /** validaciones */
+        managerController.disableAutocommit();
         final var productsFound = productsController.getAllProducts().getProducts();
         for (final var product: products) {
             final var productFound = filterProductById(productsFound, product.getIdProduct());

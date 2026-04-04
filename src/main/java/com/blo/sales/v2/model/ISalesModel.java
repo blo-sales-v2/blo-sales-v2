@@ -14,6 +14,12 @@ import com.blo.sales.v2.utils.BloSalesV2Exception;
  */
 public interface ISalesModel {
     
+    /**
+     * Metodo que complementa una venta con los datos de pago
+     * @param paymentData
+     * @return datos de pago
+     * @throws BloSalesV2Exception 
+     */
     PojoIntPaymentTypeInfo registerPaymentTypeData(PojoIntPaymentTypeInfo paymentData) throws BloSalesV2Exception;
     
     /**

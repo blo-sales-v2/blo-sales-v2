@@ -19,6 +19,12 @@ import java.util.List;
  */
 public interface ISalesController {
     
+    /**
+     * Metodo auxiliar que actualiza el registro de de una venta, para completar los datos de una venta
+     * @param paymentData
+     * @return datos guardados
+     * @throws BloSalesV2Exception 
+     */
     PojoIntPaymentTypeInfo registerPaymentTypeData(PojoIntPaymentTypeInfo paymentData) throws BloSalesV2Exception;
 
     /**
@@ -46,6 +52,21 @@ public interface ISalesController {
     
     PojoIntDebtor registerSaleWithDebtor(BigDecimal totalSale, List<PojoIntSaleProductData> productsInfo, BigDecimal partialPay, String partialPayments, long idUser, long idDebtor) throws BloSalesV2Exception;
     
+    /**
+     * Metodo copia de registro de venta, no se guarda automaticamente, auxiliar para registro de flujos alternos
+     * <b>ESTA FUNCION NO GUARDA CAMBIOS EN LA BD</b>
+     * @param totalSale
+     * @param products
+     * @param idUser
+     * @return venta registrada
+     * @throws BloSalesV2Exception 
+     */
+    PojoIntSale registerSaleCommitNotEnabled(
+        BigDecimal totalSale,
+        List<PojoIntSaleProductData> products,
+        long idUser
+    ) throws BloSalesV2Exception;
+            
     WrapperPojoIntSalesAndStock retrieveAllSalesDetail() throws BloSalesV2Exception;
     
     WrapperPojoIntSalesAndStock retrieveSalesByStatus(SalesStatusIntEnum saleStatus) throws BloSalesV2Exception;

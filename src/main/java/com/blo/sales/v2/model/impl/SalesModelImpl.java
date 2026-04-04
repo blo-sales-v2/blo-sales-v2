@@ -77,7 +77,6 @@ public @Singleton class SalesModelImpl implements ISalesModel {
             final var conn = DBConnection.getConnection();
             logger.info("se comienza a registrar datos del tipo de pago %s", String.valueOf(paymentData));
             final var inner = paymentTypeInfoMapper.toInner(paymentData);
-            DBConnection.disableAutocommit();
             final var ps = conn.prepareStatement(BloSalesV2Queries.ADD_PAYMENT_BY_CARD, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, inner.getPayment_type().name());
             ps.setString(2, inner.getReference());
@@ -93,13 +92,6 @@ public @Singleton class SalesModelImpl implements ISalesModel {
         } catch (SQLException ex) {
             logger.error(ex.getMessage());
             throw new BloSalesV2Exception(BloSalesV2Utils.SQL_EXCEPTION_CODE, BloSalesV2Utils.SQL_EXCEPTION_MESSAGE);
-        } finally {
-            try {
-                DBConnection.enableAutocommit();
-            } catch (SQLException ex) {
-                logger.error(ex.getMessage());
-                throw new BloSalesV2Exception(BloSalesV2Utils.SQL_EXCEPTION_CODE, BloSalesV2Utils.SQL_EXCEPTION_MESSAGE);
-            }
         }
     }
 
