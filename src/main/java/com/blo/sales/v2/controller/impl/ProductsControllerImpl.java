@@ -41,6 +41,9 @@ public class ProductsControllerImpl implements IProductsController {
     private IStockPricesHistoryController historyPrices;
 
     @Inject
+    private IStockPricesHistoryController stockPricesHistoryController;
+    
+    @Inject
     private DBTransactionManagerControllerImpl dbTransactionManager;
     
     @Override
@@ -94,6 +97,7 @@ public class ProductsControllerImpl implements IProductsController {
         logger.info("validando informacion de producto");
         /** validaciones */
         final var productFound = getProductById(product.getIdProduct());
+        BloSalesV2Utils.validateRule(productFound == null, BloSalesV2Utils.CODE_PRODUCT_NOT_FOUND, BloSalesV2Utils.ERROR_PRODUCT_NOT_FOUND);
         user.getUserById(idUser);
         final var timestamp = BloSalesV2Utils.getTimestamp();
         logger.info("producto encontrado %s", String.valueOf(productFound));
@@ -124,5 +128,26 @@ public class ProductsControllerImpl implements IProductsController {
     public PojoIntProduct getProductById(long idProduct) throws BloSalesV2Exception {
         logger.info("recuperando producto por id=%s", idProduct);
         return model.getProductById(idProduct);
+    }
+
+    @Override
+    public PojoIntProduct updateProductInfoSavingPriceOnHistory(PojoIntProduct product, ReasonsIntEnum reasons, long idUser, TypesIntEnum type) throws BloSalesV2Exception {
+        try {
+            dbTransactionManager.disableAutocommit();
+            logger.info("guardando informacion del producto %s", String.valueOf(product));
+            final var productUpdated = updateProductInfo(product, reasons, idUser, type);
+            final var itemHistory = new PojoIntPriceHistory();
+            itemHistory.setCostOfSale(productUpdated.getCostOfSale());
+            itemHistory.setPrice(productUpdated.getPrice());
+            logger.info("guardando precio en historial %s", String.valueOf(itemHistory));
+            stockPricesHistoryController.addPriceOnHistory(itemHistory, product.getIdProduct());
+            dbTransactionManager.doCommit();
+            return productUpdated;
+        } catch(BloSalesV2Exception ex) {
+            logger.error(ex.getMessage());
+            throw new BloSalesV2Exception(ex.getCode(), ex.getMessage());
+        } finally {
+            dbTransactionManager.enableAutocommit();
+        }
     }
 }

@@ -48,4 +48,14 @@ public interface IProductsController {
      */
     PojoIntProduct getProductById(long idProduct) throws BloSalesV2Exception;
        
+    /**
+     * Actualiza la informacion de un producto guardando el cambio de precio en el historial
+     * @param product
+     * @param reasons
+     * @param idUser
+     * @param type
+     * @return producto actualizado
+     * @throws BloSalesV2Exception 
+     */
+    PojoIntProduct updateProductInfoSavingPriceOnHistory(PojoIntProduct product, ReasonsIntEnum reasons, long idUser, TypesIntEnum type) throws BloSalesV2Exception;
 }
