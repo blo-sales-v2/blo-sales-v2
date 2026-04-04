@@ -21,6 +21,12 @@ public interface IDebtorsModel {
      */
     PojoIntDebtor saveDebtor(PojoIntDebtor debtor) throws BloSalesV2Exception;
     
+    /**
+     * Metodo que recupera a un deudor por id
+     * @param idDebtor
+     * @return deudor encontrado
+     * @throws BloSalesV2Exception 
+     */
     PojoIntDebtor getDebtorById(long idDebtor) throws BloSalesV2Exception;
     
     PojoIntDebtor updateDebtor(PojoIntDebtor debtor, long idDebtor) throws BloSalesV2Exception;

@@ -211,41 +211,51 @@ public @Singleton class SalesControllerImpl implements ISalesController {
             long idUser,
             long idDebtor
     ) throws BloSalesV2Exception {
-        /** validaciones */
-        final var debtorFound = debtorsController.getDebtorById(idDebtor);
-        // se guarda deuda original
-        BloSalesV2Utils.validateRule(debtorFound == null, BloSalesV2Utils.CODE_DEBTOR_NOT_FOUND, BloSalesV2Utils.DEBTOR_NOT_FOUND);
-        final var currentDebt = debtorFound.getDebt();
-        logger.info("Deudor encontrado %s", String.valueOf(debtorFound));
-        debtorFound.setDebt(totalSale);
-        /** se actualiza deudor */
-        if (partialPay.compareTo(BigDecimal.ZERO) == 0) {
-            // el deudor no ha abonado
-            logger.info("sin pago parcial");
-            // se guarda relacion
-            final var resiteredSale = registerSale(BigDecimal.ZERO, productsInfo, idUser);
-            registereRelationship(idDebtor, resiteredSale.getIdSale(), resiteredSale.getTimestamp());
-            return debtorsController.updateDebtor(debtorFound, idDebtor);
+        try {
+            /** validaciones */
+            managerController.disableAutocommit();
+            final var debtorFound = debtorsController.getDebtorById(idDebtor);
+            // se guarda deuda original
+            BloSalesV2Utils.validateRule(debtorFound == null, BloSalesV2Utils.CODE_DEBTOR_NOT_FOUND, BloSalesV2Utils.DEBTOR_NOT_FOUND);
+            final var currentDebt = debtorFound.getDebt();
+            logger.info("Deudor encontrado %s", String.valueOf(debtorFound));
+            debtorFound.setDebt(totalSale);
+            /** se actualiza deudor */
+            if (partialPay.compareTo(BigDecimal.ZERO) == 0) {
+                // el deudor no ha abonado
+                logger.info("sin pago parcial");
+                // se guarda relacion
+                final var resiteredSale = registerSaleCommitNotEnabled(BigDecimal.ZERO, productsInfo, idUser);
+                registereRelationship(idDebtor, resiteredSale.getIdSale(), resiteredSale.getTimestamp());
+                final var debtorUpdated = debtorsController.updateDebtor(debtorFound, idDebtor);
+                managerController.doCommit();
+                return debtorUpdated;
+            }
+            final var allProductsSum = productsInfo.stream().
+                    map(PojoIntSaleProductData::getProductBuyTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+            final var newDebt = currentDebt.add(allProductsSum).subtract(partialPay);
+            logger.info("nueva deuda (%s + %s - %s = %s)", currentDebt, allProductsSum, partialPay, newDebt);
+            if (newDebt.compareTo(BigDecimal.ZERO) > 0) {
+                logger.info("aun hay deuda");
+                registerSale(partialPay, productsInfo, idUser);
+                debtorFound.setPayments(partialPayments);
+                logger.info("debtor found actualizado %s", String.valueOf(debtorFound));
+                // se guarda relacion
+                final var regiteredSale = registerSale(BigDecimal.ZERO, productsInfo, idUser);
+                registereRelationship(idDebtor, regiteredSale.getIdSale(), regiteredSale.getTimestamp());
+                return debtorsController.updateDebtor(debtorFound, idDebtor);
+            }
+            logger.info("se ha pagado toda la deuda");
+            registerSale(totalSale, productsInfo, idUser);
+            debtorsSalesController.deleteRelationhip(idDebtor);
+            debtorsController.deleteDebtor(idDebtor);
+            return null;
+        } catch (BloSalesV2Exception ex) {
+            logger.error(ex.getMessage());
+            throw new BloSalesV2Exception(ex.getCode(), ex.getMessage());
+        } finally {
+            managerController.enableAutocommit();
         }
-        final var allProductsSum = productsInfo.stream().
-                map(PojoIntSaleProductData::getProductBuyTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
-        final var newDebt = currentDebt.add(allProductsSum).subtract(partialPay);
-        logger.info("nueva deuda (%s + %s - %s = %s)", currentDebt, allProductsSum, partialPay, newDebt);
-        if (newDebt.compareTo(BigDecimal.ZERO) > 0) {
-            logger.info("aun hay deuda");
-            registerSale(partialPay, productsInfo, idUser);
-            debtorFound.setPayments(partialPayments);
-            logger.info("debtor found actualizado %s", String.valueOf(debtorFound));
-            // se guarda relacion
-            final var regiteredSale = registerSale(BigDecimal.ZERO, productsInfo, idUser);
-            registereRelationship(idDebtor, regiteredSale.getIdSale(), regiteredSale.getTimestamp());
-            return debtorsController.updateDebtor(debtorFound, idDebtor);
-        }
-        logger.info("se ha pagado toda la deuda");
-        registerSale(totalSale, productsInfo, idUser);
-        debtorsSalesController.deleteRelationhip(idDebtor);
-        debtorsController.deleteDebtor(idDebtor);
-        return null;
     }
     
     @Override
