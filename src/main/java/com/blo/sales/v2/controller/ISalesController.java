@@ -33,6 +33,15 @@ public interface ISalesController {
     
     PojoIntSale registerTopUpComission(long idUser) throws BloSalesV2Exception;
     
+    /**
+     * Flujo que registra una venta con un nuevo deudor
+     * @param totalSale
+     * @param productsInfo
+     * @param idUser
+     * @param debtorData
+     * @return Deudor registrado
+     * @throws BloSalesV2Exception 
+     */
     PojoIntDebtor registerSaleWithNewDebtor(BigDecimal totalSale, List<PojoIntSaleProductData> productsInfo,long idUser, PojoIntDebtor debtorData) throws BloSalesV2Exception;
     
     PojoIntDebtor registerSaleWithDebtor(BigDecimal totalSale, List<PojoIntSaleProductData> productsInfo, BigDecimal partialPay, String partialPayments, long idUser, long idDebtor) throws BloSalesV2Exception;
