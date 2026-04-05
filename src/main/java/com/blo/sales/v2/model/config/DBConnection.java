@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnection {
+public final class DBConnection {
     
     private static Connection connection = null;
     
@@ -17,6 +17,8 @@ public class DBConnection {
     private static final String USER = BloSalesV2Utils.getProp(PropsKeysEnum.DB_USERNAME.getKey());
     
     private static final String PASSWORD = BloSalesV2Utils.getProp(PropsKeysEnum.DB_PASSWORD.getKey());
+    
+    private DBConnection() { }
     
     public static Connection getConnection() {
         try {
