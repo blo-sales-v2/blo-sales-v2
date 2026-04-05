@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnection {
+public final class DBConnection {
     
     private static Connection connection = null;
     
@@ -17,6 +17,8 @@ public class DBConnection {
     private static final String USER = BloSalesV2Utils.getProp(PropsKeysEnum.DB_USERNAME.getKey());
     
     private static final String PASSWORD = BloSalesV2Utils.getProp(PropsKeysEnum.DB_PASSWORD.getKey());
+    
+    private DBConnection() { }
     
     public static Connection getConnection() {
         try {
@@ -42,32 +44,4 @@ public class DBConnection {
         }
         return URL.concat(subfijo);
     }
-    
-    /**
-     * privene un guardado de cambios en la base de datos
-     * @throws SQLException 
-     */
-    @Deprecated(forRemoval = true)
-    public static void disableAutocommit() throws SQLException {
-        connection.setAutoCommit(false);
-    }
-    
-    /**
-     * realiza commit
-     * @throws SQLException 
-     */
-    @Deprecated(forRemoval = true)
-    public static void doCommit() throws SQLException {
-        connection.commit();
-    }
-    
-    /**
-     * Activa autocommit
-     * @throws SQLException 
-     */
-    @Deprecated(forRemoval = true)
-    public static void enableAutocommit() throws SQLException {
-        connection.setAutoCommit(true);
-    }
-    
 }
