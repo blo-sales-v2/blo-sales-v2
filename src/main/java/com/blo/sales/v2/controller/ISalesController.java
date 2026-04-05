@@ -20,13 +20,16 @@ import java.util.List;
 public interface ISalesController {
     
     /**
-     * Metodo auxiliar que actualiza el registro de de una venta, para completar los datos de una venta
+     * Metodo que registra una venta por pago con tarjeta
      * @param paymentData
-     * @return datos guardados
+     * @param totalSale
+     * @param productsInfo
+     * @param idUser
+     * @return datos de venta
      * @throws BloSalesV2Exception 
      */
-    PojoIntPaymentTypeInfo registerPaymentTypeData(PojoIntPaymentTypeInfo paymentData) throws BloSalesV2Exception;
-
+    PojoIntPaymentTypeInfo registerPaymentTypeData(PojoIntPaymentTypeInfo paymentData, BigDecimal totalSale, List<PojoIntSaleProductData> productsInfo, long idUser) throws BloSalesV2Exception;
+    
     /**
      * Flujo que registra una venta, reduce unidades de stock, agrega dinero en cashbox
      * @param totalSale
@@ -50,6 +53,17 @@ public interface ISalesController {
      */
     PojoIntDebtor registerSaleWithNewDebtor(BigDecimal totalSale, List<PojoIntSaleProductData> productsInfo,long idUser, PojoIntDebtor debtorData) throws BloSalesV2Exception;
     
+    /**
+     * Registra una venta con deudor existente
+     * @param totalSale
+     * @param productsInfo
+     * @param partialPay
+     * @param partialPayments
+     * @param idUser
+     * @param idDebtor
+     * @return
+     * @throws BloSalesV2Exception 
+     */
     PojoIntDebtor registerSaleWithDebtor(BigDecimal totalSale, List<PojoIntSaleProductData> productsInfo, BigDecimal partialPay, String partialPayments, long idUser, long idDebtor) throws BloSalesV2Exception;
     
     /**

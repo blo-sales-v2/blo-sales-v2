@@ -381,7 +381,7 @@ public final class Debtors extends AbstractDashboardBase {
                             cash = totalDebt.subtract(cardPay);
                         }
                         
-                        final var registeredSale = debtors.addPayment(paysAdded, getUserData().getIdUser(), debtorSelected.getIdDebtor());
+                        /*final var registeredSale = debtors.addPayment(paysAdded, getUserData().getIdUser(), debtorSelected.getIdDebtor());
                         final var paymentTypeAux = new PojoPaymentTypeInfo();
                         paymentTypeAux.setCardPay(cardPay);
                         paymentTypeAux.setCash(cash);
@@ -389,7 +389,7 @@ public final class Debtors extends AbstractDashboardBase {
                         paymentTypeAux.setPaymentType(type);
                         paymentTypeAux.setTotalToPay(paysAdded);
                         paymentTypeAux.setIdSale(registeredSale.getIdSale());
-                        salesController.registerPaymentTypeData(paymentTypeInfoMapper.toInner(paymentTypeAux));
+                        salesController.registerPaymentTypeData(paymentTypeInfoMapper.toInner(paymentTypeAux));*/
                         
                         loadDataAndTitles();
                         disabledButtons();

@@ -25,6 +25,7 @@ public interface IDebtorsController {
     
     /**
      * Metodo que guarda un deudor
+     * <br>
      * <b>ESTA FUNCION NO GUARDA CAMBIOS EN LA BD</b>
      * @param debtor
      * @return deudor guardado
@@ -32,6 +33,15 @@ public interface IDebtorsController {
      */
     PojoIntDebtor saveDebtor(PojoIntDebtor debtor) throws BloSalesV2Exception;
     
+    /**
+     * Metodo que actualiza la informacion de un deudor
+     * <br>
+     * <b>ESTA FUNCION NO GUARDA CAMBIOS EN LA BD</b>
+     * @param debtor
+     * @param idDebtor
+     * @return deudor actualizado
+     * @throws BloSalesV2Exception 
+     */
     PojoIntDebtor updateDebtor(PojoIntDebtor debtor, long idDebtor) throws BloSalesV2Exception;
     
     PojoIntDebtor addPayment(BigDecimal pay, long idUser, long idDebtor) throws BloSalesV2Exception;

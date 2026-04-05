@@ -24,6 +24,7 @@ public interface ICashboxController {
     
     /**
      * Crea una nueva cashbox abierta
+     * <br>
      * <b>ESTA FUNCION NO GUARDA CAMBIOS EN LA BD</b>
      * @param cashbox
      * @return cashbox
@@ -33,6 +34,7 @@ public interface ICashboxController {
     
     /**
      * Actualiza la informacion de una cashbox
+     * <br>
      * <b>ESTA FUNCION NO GUARDA CAMBIOS EN LA BD</b>
      * @param cashbox
      * @param idCashbox

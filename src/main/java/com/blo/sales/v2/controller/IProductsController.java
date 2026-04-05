@@ -23,6 +23,7 @@ public interface IProductsController {
     
     /**
      * Actualiza la informacion de un producto
+     * <br>
      * <b>ESTA FUNCION NO GUARDA CAMBIOS EN LA BD</b>
      * @param product
      * @param reasons

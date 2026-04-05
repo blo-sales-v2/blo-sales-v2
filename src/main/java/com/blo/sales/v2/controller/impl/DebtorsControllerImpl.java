@@ -1,5 +1,6 @@
 package com.blo.sales.v2.controller.impl;
 
+import com.blo.sales.v2.controller.IDBTransactionManagerController;
 import com.blo.sales.v2.controller.IDebtorsController;
 import com.blo.sales.v2.controller.IDebtorsSalesController;
 import com.blo.sales.v2.controller.IProductsController;
@@ -17,7 +18,8 @@ import jakarta.inject.Singleton;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public @Singleton class DebtorsControllerImpl implements IDebtorsController {
+@Singleton
+public class DebtorsControllerImpl implements IDebtorsController {
     
     private static final GUILogger logger = GUILogger.getLogger(DebtorsControllerImpl.class.getName());
     
@@ -33,6 +35,9 @@ public @Singleton class DebtorsControllerImpl implements IDebtorsController {
     @Inject
     private IDebtorsSalesController debtorsSales;
 
+    @Inject
+    private IDBTransactionManagerController transactionManager;
+    
     @Override
     public WrapperPojoIntDebtors getAllDebtors() throws BloSalesV2Exception {
         return model.getAllDebtors();
@@ -40,6 +45,7 @@ public @Singleton class DebtorsControllerImpl implements IDebtorsController {
     
     @Override
     public PojoIntDebtor saveDebtor(PojoIntDebtor debtor) throws BloSalesV2Exception {
+        transactionManager.disableAutocommit();
         return model.saveDebtor(debtor);
     }
 
@@ -52,6 +58,7 @@ public @Singleton class DebtorsControllerImpl implements IDebtorsController {
     @Override
     public PojoIntDebtor updateDebtor(PojoIntDebtor debtor, long idDebtor) throws BloSalesV2Exception {
         logger.info("actualizando deudor %s", String.valueOf(debtor));
+        transactionManager.disableAutocommit();
         return model.updateDebtor(debtor, idDebtor);
     }
 

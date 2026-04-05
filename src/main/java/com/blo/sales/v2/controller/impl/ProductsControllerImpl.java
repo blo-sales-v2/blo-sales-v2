@@ -95,6 +95,7 @@ public class ProductsControllerImpl implements IProductsController {
     @Override
     public PojoIntProduct updateProductInfo(PojoIntProduct product, ReasonsIntEnum reasons, long idUser, TypesIntEnum type) throws BloSalesV2Exception {
         logger.info("validando informacion de producto");
+        dbTransactionManager.disableAutocommit();
         /** validaciones */
         final var productFound = getProductById(product.getIdProduct());
         BloSalesV2Utils.validateRule(productFound == null, BloSalesV2Utils.CODE_PRODUCT_NOT_FOUND, BloSalesV2Utils.ERROR_PRODUCT_NOT_FOUND);
