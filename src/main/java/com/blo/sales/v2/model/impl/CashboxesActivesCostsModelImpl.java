@@ -11,13 +11,10 @@ import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public @Singleton class CashboxesActivesCostsModelImpl implements ICashboxesActivesCostsModel {
-    
-    private static final Connection conn = DBConnection.getConnection();
     
     private static final GUILogger logger = GUILogger.getLogger(CashboxesActivesCostsModelImpl.class.getName());
     
@@ -27,10 +24,14 @@ public @Singleton class CashboxesActivesCostsModelImpl implements ICashboxesActi
     @Inject
     private IDBTransactionManagerModel transactionModel;
 
+    @Inject
+    private IDBTransactionManagerModel dbTransactionManager;
+    
     @Override
     public PojoIntCashboxesActivesCosts addRelationship(PojoIntCashboxesActivesCosts data) throws BloSalesV2Exception {
         try {
-            transactionModel.disableAutocommit();
+            final var conn = DBConnection.getConnection();
+            dbTransactionManager.disableAutocommit();
             logger.info("guardando %s", String.valueOf(data));
             final var dataInner = mapper.toInner(data);
             // 2. Usar prepareStatement con RETURN_GENERATED_KEYS (Más estándar que prepareCall para INSERT)

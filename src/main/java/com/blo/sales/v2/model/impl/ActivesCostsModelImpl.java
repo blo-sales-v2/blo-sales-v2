@@ -5,7 +5,6 @@ import com.blo.sales.v2.model.config.DBConnection;
 import com.blo.sales.v2.model.constants.BloSalesV2Queries;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.view.commons.GUILogger;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import com.blo.sales.v2.model.IActivesCostsModel;
@@ -18,8 +17,6 @@ import jakarta.inject.Singleton;
 @Singleton
 public class ActivesCostsModelImpl implements IActivesCostsModel {
 
-    private static final Connection conn = DBConnection.getConnection();
-    
     private static final GUILogger logger = GUILogger.getLogger(ActivesCostsModelImpl.class.getName());
     
     @Inject
@@ -31,6 +28,7 @@ public class ActivesCostsModelImpl implements IActivesCostsModel {
     @Override
     public WrapperPojoIntActivesCosts addActiveCost(WrapperPojoIntActivesCosts activesCosts) throws BloSalesV2Exception {
         try {
+            final var conn = DBConnection.getConnection();
             transactionManager.disableAutocommit();
             logger.info("guardando registros %s", activesCosts.getActivesCosts().size());
             final var activesCostsInner = mapper.toInner(activesCosts);

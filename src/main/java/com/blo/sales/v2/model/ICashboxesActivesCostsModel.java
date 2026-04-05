@@ -11,11 +11,12 @@ import com.blo.sales.v2.utils.BloSalesV2Exception;
 public interface ICashboxesActivesCostsModel {
     
     /**
-     * Metodo que guarda la relacion cashbox-actives/costs en la bd
+     * Metodo que guarda la relacion cashbox-actives/costs
+     * <br>
      * <b>ESTA FUNCION NO GUARDA CAMBIOS EN LA BD</b>
      * @param data
-     * @return
-     * @throws BloSalesV2Exception 
+     * @return relacion guardada 
+     * @throws BloSalesV2Exception
      */
     PojoIntCashboxesActivesCosts addRelationship(PojoIntCashboxesActivesCosts data) throws BloSalesV2Exception;
     
