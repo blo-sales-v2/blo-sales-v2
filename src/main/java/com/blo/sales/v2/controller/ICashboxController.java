@@ -13,6 +13,13 @@ import com.blo.sales.v2.utils.BloSalesV2Exception;
  */
 public interface ICashboxController {
     
+    /**
+     * Metodo que registra una cashbox en la db
+     * @param cashbox
+     * @param activesCosts
+     * @return cashsbox registrada
+     * @throws BloSalesV2Exception 
+     */
     PojoIntCashbox closeCashbox(PojoIntCashbox cashbox, WrapperPojoIntActivesCosts activesCosts) throws BloSalesV2Exception;
     
     /**

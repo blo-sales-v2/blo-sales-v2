@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import com.blo.sales.v2.model.IActivesCostsModel;
+import com.blo.sales.v2.model.IDBTransactionManagerModel;
 import com.blo.sales.v2.model.mapper.WrapperActivesCostsEntityMapper;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import jakarta.inject.Inject;
@@ -24,10 +25,13 @@ public class ActivesCostsModelImpl implements IActivesCostsModel {
     @Inject
     private WrapperActivesCostsEntityMapper mapper;
     
+    @Inject
+    private IDBTransactionManagerModel transactionManager;
+    
     @Override
     public WrapperPojoIntActivesCosts addActiveCost(WrapperPojoIntActivesCosts activesCosts) throws BloSalesV2Exception {
         try {
-            DBConnection.disableAutocommit();
+            transactionManager.disableAutocommit();
             logger.info("guardando registros %s", activesCosts.getActivesCosts().size());
             final var activesCostsInner = mapper.toInner(activesCosts);
             // 2. Usar prepareStatement con RETURN_GENERATED_KEYS (Más estándar que prepareCall para INSERT)
@@ -41,7 +45,6 @@ public class ActivesCostsModelImpl implements IActivesCostsModel {
             }
             // ejecuta la pila
             ps.executeBatch();
-            DBConnection.doCommit();
             // se guardan keys
             var i = 0;
             final var rsKeys = ps.getGeneratedKeys();
@@ -54,13 +57,6 @@ public class ActivesCostsModelImpl implements IActivesCostsModel {
         } catch (SQLException ex) {
             logger.error(ex.getMessage());
             throw new BloSalesV2Exception(BloSalesV2Utils.SQL_EXCEPTION_CODE, BloSalesV2Utils.SQL_EXCEPTION_MESSAGE);
-        } finally {
-            try {
-                DBConnection.enableAutocommit();
-            } catch (SQLException ex) {
-                logger.error(ex.getMessage());
-                throw new BloSalesV2Exception(BloSalesV2Utils.SQL_EXCEPTION_CODE, BloSalesV2Utils.SQL_EXCEPTION_MESSAGE);
-            }
         }
     }
     
