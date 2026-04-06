@@ -123,13 +123,13 @@ public final class BloSalesV2Queries {
     public static final String UPDATE_MOBILE_COMPANY = "UPDATE mobile_company SET company = ? WHERE id_mobile_company = ?";
     
     /** recargas telefonicas */
-    public static final String INSERT_TOP_UP = "INSERT INTO top_up(fk_user, fk_mobile_company, amount, checked, phone_number, timestamp) VALUES (?, ?, ?, ?, ?, ?)";
+    public static final String INSERT_TOP_UP = "INSERT INTO top_up(fk_user, fk_mobile_company, amount, checked, phone_number, timestamp, authorization) VALUES (?, ?, ?, ?, ?, ?, ?)";
     
-    public static final String UPDATE_TP_UP = "UPDATE top_up SET fk_user = ?, fk_mobile_company = ?, amount = ?, checked = ?, phone_number = ?, timestamp = ? WHERE id_top_up = ?";
+    public static final String UPDATE_TP_UP = "UPDATE top_up SET fk_user = ?, fk_mobile_company = ?, amount = ?, checked = ?, phone_number = ?, timestamp = ?, authorization = ? WHERE id_top_up = ?";
     
-    public static final String SELECT_TOP_UPS_BY_STATUS = "SELECT id_top_up, fk_user, fk_mobile_company, amount, checked, phone_number, timestamp, username, id_user, rol, id_mobile_company, company FROM top_up INNER JOIN users ON top_up.fk_user = users.id_user INNER JOIN mobile_company ON mobile_company.id_mobile_company = top_up.fk_mobile_company WHERE top_up.checked = ?";
+    public static final String SELECT_TOP_UPS_BY_STATUS = "SELECT id_top_up, fk_user, fk_mobile_company, amount, checked, phone_number, timestamp, username, id_user, rol, id_mobile_company, company, authorization FROM top_up INNER JOIN users ON top_up.fk_user = users.id_user INNER JOIN mobile_company ON mobile_company.id_mobile_company = top_up.fk_mobile_company WHERE top_up.checked = ?";
     
-    public static final String SELECT_ALL_TOP_UP = "SELECT id_top_up, fk_user, fk_mobile_company, amount, checked, phone_number, timestamp, username, id_user, rol, id_mobile_company, company FROM top_up INNER JOIN users ON top_up.fk_user = users.id_user INNER JOIN mobile_company ON mobile_company.id_mobile_company = top_up.fk_mobile_company";
+    public static final String SELECT_ALL_TOP_UP = "SELECT id_top_up, fk_user, fk_mobile_company, amount, checked, phone_number, timestamp, username, id_user, rol, id_mobile_company, company, authorization FROM top_up INNER JOIN users ON top_up.fk_user = users.id_user INNER JOIN mobile_company ON mobile_company.id_mobile_company = top_up.fk_mobile_company";
     
     /** sales-cashboxes */
     public static final String INSERT_CASHBOX_SALE_RELATIONSHIP = "INSERT INTO cashboxes_sales(fk_cashbox, fk_sale) VALUES(?,?)";

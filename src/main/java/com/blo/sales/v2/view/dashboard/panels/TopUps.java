@@ -13,7 +13,6 @@ import com.blo.sales.v2.view.commons.GUILogger;
 import com.blo.sales.v2.view.mappers.PojoTopUpMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoMobilesCompaniesMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoTopUpsMapper;
-import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
 import com.blo.sales.v2.view.pojos.PojoTopUp;
 import com.blo.sales.v2.view.pojos.enums.TopUpSearchStatusEnum;
 import jakarta.inject.Inject;
@@ -26,7 +25,7 @@ public final class TopUps extends AbstractDashboardBase {
     
     private static final GUILogger logger = GUILogger.getLogger(TopUps.class.getName());
     
-    private static final String[] titles = {"ID", "Número telefónico", "Compañía", "Monto", "Usuario", "Timestamp"};
+    private static final String[] titles = {"ID", "Número telefónico", "Compañía", "Monto", "Usuario", "Referencia", "Timestamp"};
     
     @Inject
     private IMobileCompanyController mobileController;
@@ -62,6 +61,8 @@ public final class TopUps extends AbstractDashboardBase {
         btnSave = new javax.swing.JButton();
         nmbAmount = new javax.swing.JTextField();
         lblAmount = new javax.swing.JLabel();
+        txtReference = new javax.swing.JTextField();
+        lblNumReference = new javax.swing.JLabel();
         pnlShowToUp = new javax.swing.JPanel();
         cmbxFilter = new javax.swing.JComboBox<>();
         btnFilterApply = new javax.swing.JButton();
@@ -96,6 +97,8 @@ public final class TopUps extends AbstractDashboardBase {
 
         lblAmount.setText("monto_recarga");
 
+        lblNumReference.setText("numero_de_referencia");
+
         javax.swing.GroupLayout pnlDoToUpLayout = new javax.swing.GroupLayout(pnlDoToUp);
         pnlDoToUp.setLayout(pnlDoToUpLayout);
         pnlDoToUpLayout.setHorizontalGroup(
@@ -114,8 +117,12 @@ public final class TopUps extends AbstractDashboardBase {
                     .addComponent(nmbAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAmount))
                 .addGap(18, 18, 18)
+                .addGroup(pnlDoToUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblNumReference, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtReference))
+                .addGap(18, 18, 18)
                 .addComponent(btnSave)
-                .addContainerGap(796, Short.MAX_VALUE))
+                .addContainerGap(638, Short.MAX_VALUE))
         );
         pnlDoToUpLayout.setVerticalGroup(
             pnlDoToUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,12 +134,14 @@ public final class TopUps extends AbstractDashboardBase {
                         .addGroup(pnlDoToUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblCompanyPhone)
                             .addComponent(lblPhoneNumber)
-                            .addComponent(lblAmount))
+                            .addComponent(lblAmount)
+                            .addComponent(lblNumReference))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlDoToUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbxCompanyPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nmbAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(nmbAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtReference, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(655, Short.MAX_VALUE))
         );
 
@@ -226,6 +235,7 @@ public final class TopUps extends AbstractDashboardBase {
                 BloSalesV2Utils.ERROR_INVALID_PHONE_NUMBER
             );
             final var companySelected = GUICommons.getValueFromComboBox(cmbxCompanyPhone);
+            final var reference = GUICommons.getTextFromField(txtReference, true);
             final var idCompany = companySelected.split("\\s+")[0];
             final var topUpData = new PojoTopUp();
             topUpData.setAmount(amount);
@@ -234,9 +244,11 @@ public final class TopUps extends AbstractDashboardBase {
             topUpData.setFkUser(getUserData());
             topUpData.setPhoneNumber(phoneNmb);
             topUpData.setTimestamp(BloSalesV2Utils.getTimestamp());
+            topUpData.setReference(reference);
             topUpsController.addTopUp(topUpMapper.toInner(topUpData), Long.parseLong(idCompany));
             GUICommons.setTextToField(nmbAmount, BloSalesV2Utils.EMPTY_STRING);
             GUICommons.setTextToField(txtPhoneNumber, BloSalesV2Utils.EMPTY_STRING);
+            GUICommons.setTextToField(txtReference, BloSalesV2Utils.EMPTY_STRING);
             GUICommons.disabledButton(btnSave);
         } catch (BloSalesV2Exception ex) {
             logger.error(ex.getMessage());
@@ -296,6 +308,7 @@ public final class TopUps extends AbstractDashboardBase {
                         top.getFkMobileCompany().getMobileCompany(),
                         top.getAmount(),
                         top.getFkUser().getUsername(),
+                        top.getReference(),
                         parserTimestamp(top.getTimestamp())
                     };
                     model.addRow(row);
@@ -321,6 +334,7 @@ public final class TopUps extends AbstractDashboardBase {
             if (topUpsFound.getTopUps() != null && !topUpsFound.getTopUps().isEmpty()) {
                 topUpsController.closeTopUps(topUpsFound);
                 getModel().setRowCount(0);
+                GUICommons.setTextToField(lblTotalAmount, BloSalesV2Utils.EMPTY_STRING);
                 GUICommons.hiddenElement(btnCloseTopUps);
             }
         } catch (BloSalesV2Exception ex) {
@@ -367,6 +381,7 @@ public final class TopUps extends AbstractDashboardBase {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAmount;
     private javax.swing.JLabel lblCompanyPhone;
+    private javax.swing.JLabel lblNumReference;
     private javax.swing.JLabel lblPhoneNumber;
     private javax.swing.JLabel lblTotalAmount;
     private javax.swing.JTextField nmbAmount;
@@ -375,6 +390,7 @@ public final class TopUps extends AbstractDashboardBase {
     private javax.swing.JTabbedPane tabTopUps;
     private javax.swing.JTable tblResults;
     private javax.swing.JTextField txtPhoneNumber;
+    private javax.swing.JTextField txtReference;
     // End of variables declaration//GEN-END:variables
 
     @Override

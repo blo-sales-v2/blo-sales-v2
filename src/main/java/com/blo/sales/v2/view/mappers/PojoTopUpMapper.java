@@ -29,6 +29,7 @@ public class PojoTopUpMapper implements IToInner<PojoIntTopUp, PojoTopUp>, IToOu
         inner.setIdTopUp(outer.getIdTopUp());
         inner.setPhoneNumber(outer.getPhoneNumber());
         inner.setTimestamp(outer.getTimestamp());
+        inner.setReference(outer.getReference());
         return inner;
         
     }
@@ -46,6 +47,7 @@ public class PojoTopUpMapper implements IToInner<PojoIntTopUp, PojoTopUp>, IToOu
         outer.setIdTopUp(inner.getIdTopUp());
         outer.setPhoneNumber(inner.getPhoneNumber());
         outer.setTimestamp(inner.getTimestamp());
+        outer.setReference(inner.getReference());
         return outer;
     }
     

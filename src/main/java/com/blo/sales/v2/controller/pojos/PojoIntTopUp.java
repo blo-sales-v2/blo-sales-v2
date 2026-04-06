@@ -22,5 +22,7 @@ public @ToString class PojoIntTopUp {
     private String phoneNumber;
     
     private String timestamp;
+    
+    private String reference;
 
 }

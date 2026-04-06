@@ -22,5 +22,7 @@ public @ToString class TopUpEntity {
     private String phone_number;
     
     private String timestamp;
+    
+    private String reference;
 
 }
