@@ -1,29 +1,29 @@
 package com.blo.sales.v2.view.commons;
 
 import com.blo.sales.v2.utils.BloSalesV2Utils;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class GUILogger {
-
-    private static StringBuilder row;
     
-    private static String className;
+    private static final Map<String, GUILogger> instances = new HashMap<>();
     
-    private static GUILogger instance;
+    private final StringBuilder row;
     
-    private GUILogger() {
-        if (row == null) {
-            row = new StringBuilder();
-        }
+    private final String className;
+    
+    private GUILogger(String className) {
+        this.className = className;
+        this.row = new StringBuilder();
     }
     
     public static GUILogger getLogger(String classFrom) {
-        if (instance == null) {
-            instance = new GUILogger();
+        if (!instances.containsKey(classFrom)) {
+            instances.put(classFrom, new GUILogger(classFrom));
         }
-        className = classFrom;
-        return instance;
+        return instances.get(classFrom);
     }
     
     public void error(String str) {
