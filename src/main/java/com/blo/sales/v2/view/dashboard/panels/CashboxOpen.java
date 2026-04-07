@@ -17,6 +17,7 @@ import com.blo.sales.v2.view.pojos.PojoDialogCashboxData;
 import com.blo.sales.v2.view.pojos.WrapperPojoActivesCosts;
 import com.blo.sales.v2.view.pojos.WrapperPojoNotes;
 import com.blo.sales.v2.view.pojos.enums.CashboxStatusEnum;
+import com.blo.sales.v2.view.pojos.enums.RolesEnum;
 import com.blo.sales.v2.view.pojos.enums.TypeNoteEnum;
 import jakarta.inject.Inject;
 import java.util.stream.Collectors;
@@ -111,6 +112,12 @@ public final class CashboxOpen extends AbstractDashboardBase {
     private void btnCloseNowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseNowActionPerformed
         if (openCashbox == null) {
             return;
+        }
+        if (getUserData().getRole().equals(RolesEnum.GUEST)) {
+            final var continueOperation = CommonAlerts.showConfirmDialog(getTranslateBy(KeysEnum.CASHBOX_DLG_CONTINUE.getKey()), getTranslateBy(KeysEnum.COMMON_ALERT_WARNING.getKey()));
+            if (!continueOperation) {
+                return;
+            }
         }
         final var resp = CommonAlerts.showConfirmDialog(getTranslateBy(KeysEnum.CASHBOX_DLG_IMPORT_FROM_NOTES.getKey()), getTranslateBy(KeysEnum.COMMON_ALERT_WARNING.getKey()));
         WrapperPojoNotes pasives = null;

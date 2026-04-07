@@ -23,4 +23,6 @@ public @ToString class PojoTopUp {
     
     private String timestamp;
     
+    private String reference;
+    
 }
