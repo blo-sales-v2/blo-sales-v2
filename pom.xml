@@ -6,7 +6,7 @@
     
     <groupId>com.blo.sales</groupId>
     <artifactId>BloSalesV2</artifactId>
-    <version>2.11.0-RELEASE</version>
+    <version>2.12.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -67,32 +67,66 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.3.0</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <mainClass>com.blo.sales.v2.AppMain</mainClass>
+                                <addClasspath>true</addClasspath>
+                            </manifest>
+                        </archive>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>make-assembly</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.blo.sales.v2.AppMain</mainClass>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <executions>
+                        <execution>
+                            <id>generar-script-fecha</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <target>
+                                    <echo file="${project.build.directory}/exe-linux.sh" append="false"><![CDATA[#!/bin/bash
+                                        # Script generado para BloSales v2
+                                        # Brindar permisos manualmente si es necesario: chmod +x exe-linux.sh
+                                        FECHA=$(date +"%Y-%m-%d_%H-%M")
+                                        java -jar ${project.build.finalName}-jar-with-dependencies.jar >> "log_$FECHA.txt" 2>&1]]></echo>
+
+                                    <chmod file="${project.build.directory}/exe-linux.sh" perm="755"/>
+
+                                    <echo file="${project.build.directory}/exe-windows.bat" append="false"><![CDATA[@echo off
+                                        :: Generar formato de fecha y hora para el nombre del archivo (YYYY-MM-DD_HH-mm)
+                                        set FECHA=%date:~10,4%-%date:~4,2%-%date:~7,2%_%time:~0,2%-%time:~3,2%
+                                        :: Eliminar espacios en blanco (por si la hora es menor a 10)
+                                        set FECHA=%FECHA: =0%
+
+                                        echo Iniciando BloSales v2...
+                                        java -jar ${project.build.finalName}-jar-with-dependencies.jar >> "log_%FECHA%.txt" 2>&1]]></echo>
+                                </target>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
         </plugins>
     </build>
 </project>

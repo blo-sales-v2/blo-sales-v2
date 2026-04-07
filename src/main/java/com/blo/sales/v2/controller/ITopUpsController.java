@@ -7,7 +7,7 @@ import com.blo.sales.v2.utils.BloSalesV2Exception;
 
 /**
  * Controlador para recargas telefonicas
- * @version 1.0.0
+ * @version 1.0.1
  * @author BLO
  */
 public interface ITopUpsController {

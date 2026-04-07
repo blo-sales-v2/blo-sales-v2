@@ -54,6 +54,7 @@ public class TopUpModelImpl implements ITopUpModel {
             ps.setBoolean(4, innerData.isChecked());
             ps.setString(5, innerData.getPhone_number());
             ps.setString(6, innerData.getTimestamp());
+            ps.setString(7, innerData.getReference());
             
             final var rowsAffected = ps.executeUpdate();
             
@@ -84,7 +85,8 @@ public class TopUpModelImpl implements ITopUpModel {
             ps.setBoolean(4, innerData.isChecked());
             ps.setString(5, innerData.getPhone_number());
             ps.setString(6, innerData.getTimestamp());
-            ps.setLong(7, idTopUp);
+            ps.setString(7, innerData.getReference());
+            ps.setLong(8, idTopUp);
             
             final var rowsAffected = ps.executeUpdate();
             
@@ -105,7 +107,7 @@ public class TopUpModelImpl implements ITopUpModel {
             logger.info("recuperando recargas por status [%s]", String.valueOf(status));
             var ps = conn.prepareStatement(BloSalesV2Queries.SELECT_ALL_TOP_UP);
             if (innerStatus != TopUpSearchStatusIntEnum.ALL) {
-                logger.info("query cambiada %s", BloSalesV2Queries.SELECT_ALL_TOP_UP);
+                logger.info("query cambiada %s", BloSalesV2Queries.SELECT_TOP_UPS_BY_STATUS);
                 ps = conn.prepareStatement(BloSalesV2Queries.SELECT_TOP_UPS_BY_STATUS);
                 ps.setBoolean(1, innerStatus.isValue());
             }
@@ -125,6 +127,7 @@ public class TopUpModelImpl implements ITopUpModel {
                 p.setId_top_up(rs.getLong(BloSalesV2Columns.ID_TOP_UP));
                 p.setPhone_number(rs.getString(BloSalesV2Columns.PHONE_NUMBER));
                 p.setTimestamp(rs.getString(BloSalesV2Columns.TIMESTAMP));
+                p.setReference(rs.getString(BloSalesV2Columns.REFERENCE));
                 
                 // user
                 final var u = new UserEntity();

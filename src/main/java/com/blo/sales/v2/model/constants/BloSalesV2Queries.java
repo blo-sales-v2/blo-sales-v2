@@ -48,7 +48,7 @@ public final class BloSalesV2Queries {
     /** ventas product */
     public static final String INSERT_SALE_PRODUCT = "INSERT INTO sale_product(fk_sale, fk_product, quantity_sale, total_on_sale, product_total_on_sale, timestamp, is_live) VALUES (?, ?, ?, ?, ?, ?, true)";
     
-    public static final String SELECT_SALES_DETAIL = "SELECT s.id_sale, st.id_product, st.product, ps.quantity_sale, st.price, st.cost_of_sale, ps.total_on_sale, ps.timestamp, st.is_kg, ps.product_total_on_sale FROM sales s INNER JOIN sale_product ps ON s.id_sale = ps.fk_sale INNER JOIN stock st ON ps.fk_product = st.id_product AND ps.is_live = true";
+    public static final String SELECT_SALES_DETAIL = "SELECT s.id_sale, st.id_product, st.product, ps.quantity_sale, st.price, st.cost_of_sale, ps.total_on_sale, ps.timestamp, st.is_kg, ps.product_total_on_sale, s.payment_type FROM sales s INNER JOIN sale_product ps ON s.id_sale = ps.fk_sale INNER JOIN stock st ON ps.fk_product = st.id_product AND ps.is_live = true";
     
     public static final String SELECT_SALE_CLOSED = "SELECT s.id_sale, st.id_product, st.product, ps.quantity_sale, st.price, st.cost_of_sale, ps.total_on_sale, ps.timestamp, ps.product_total_on_sale, s.payment_type FROM sales s INNER JOIN sale_product ps ON s.id_sale = ps.fk_sale INNER JOIN stock st ON ps.fk_product = st.id_product WHERE s.sale_status = ? AND ps.is_live = 1";
     
@@ -123,13 +123,13 @@ public final class BloSalesV2Queries {
     public static final String UPDATE_MOBILE_COMPANY = "UPDATE mobile_company SET company = ? WHERE id_mobile_company = ?";
     
     /** recargas telefonicas */
-    public static final String INSERT_TOP_UP = "INSERT INTO top_up(fk_user, fk_mobile_company, amount, checked, phone_number, timestamp) VALUES (?, ?, ?, ?, ?, ?)";
+    public static final String INSERT_TOP_UP = "INSERT INTO top_up(fk_user, fk_mobile_company, amount, checked, phone_number, timestamp, authorization) VALUES (?, ?, ?, ?, ?, ?, ?)";
     
-    public static final String UPDATE_TP_UP = "UPDATE top_up SET fk_user = ?, fk_mobile_company = ?, amount = ?, checked = ?, phone_number = ?, timestamp = ? WHERE id_top_up = ?";
+    public static final String UPDATE_TP_UP = "UPDATE top_up SET fk_user = ?, fk_mobile_company = ?, amount = ?, checked = ?, phone_number = ?, timestamp = ?, authorization = ? WHERE id_top_up = ?";
     
-    public static final String SELECT_TOP_UPS_BY_STATUS = "SELECT id_top_up, fk_user, fk_mobile_company, amount, checked, phone_number, timestamp, username, id_user, rol, id_mobile_company, company FROM top_up INNER JOIN users ON top_up.fk_user = users.id_user INNER JOIN mobile_company ON mobile_company.id_mobile_company = top_up.fk_mobile_company WHERE top_up.checked = ?";
+    public static final String SELECT_TOP_UPS_BY_STATUS = "SELECT id_top_up, fk_user, fk_mobile_company, amount, checked, phone_number, timestamp, username, id_user, rol, id_mobile_company, company, authorization FROM top_up INNER JOIN users ON top_up.fk_user = users.id_user INNER JOIN mobile_company ON mobile_company.id_mobile_company = top_up.fk_mobile_company WHERE top_up.checked = ?";
     
-    public static final String SELECT_ALL_TOP_UP = "SELECT id_top_up, fk_user, fk_mobile_company, amount, checked, phone_number, timestamp, username, id_user, rol, id_mobile_company, company FROM top_up INNER JOIN users ON top_up.fk_user = users.id_user INNER JOIN mobile_company ON mobile_company.id_mobile_company = top_up.fk_mobile_company";
+    public static final String SELECT_ALL_TOP_UP = "SELECT id_top_up, fk_user, fk_mobile_company, amount, checked, phone_number, timestamp, username, id_user, rol, id_mobile_company, company, authorization FROM top_up INNER JOIN users ON top_up.fk_user = users.id_user INNER JOIN mobile_company ON mobile_company.id_mobile_company = top_up.fk_mobile_company";
     
     /** sales-cashboxes */
     public static final String INSERT_CASHBOX_SALE_RELATIONSHIP = "INSERT INTO cashboxes_sales(fk_cashbox, fk_sale) VALUES(?,?)";

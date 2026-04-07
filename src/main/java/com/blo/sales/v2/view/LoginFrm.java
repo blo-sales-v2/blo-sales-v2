@@ -142,14 +142,15 @@ public final class LoginFrm extends AbstractFrameBase {
             final var userResponse = loggedInUserMapper.toOuter(
                 userController.doLogin(userDataIn)
             );
-            if (userResponse.getRole().equals(RolesEnum.ROOT)) {
-                final var dash = injector.getInstance(DashboardRootFrm.class);
-                dash.setUserData(userResponse);
-                dash.init();
-                dash.setVisible(true);
-                dash.setLocationRelativeTo(null);
-                this.dispose();
+            final var dash = injector.getInstance(DashboardRootFrm.class);
+            dash.setUserData(userResponse);
+            if (userResponse.getRole().equals(RolesEnum.GUEST)) {
+                dash.disabledOptsByGuestRol();
             }
+            dash.init();
+            dash.setVisible(true);
+            dash.setLocationRelativeTo(null);
+            this.dispose();
 
         } catch (BloSalesV2Exception ex) {
             logger.error(ex.getMessage());

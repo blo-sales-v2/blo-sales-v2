@@ -29,6 +29,7 @@ public class TopUpEntityMapper implements IToInner<TopUpEntity, PojoIntTopUp>, I
         inner.setChecked(outer.isChecked());
         inner.setPhone_number(outer.getPhoneNumber());
         inner.setTimestamp(outer.getTimestamp());
+        inner.setReference(outer.getReference());
         return inner;
         
     }
@@ -46,6 +47,7 @@ public class TopUpEntityMapper implements IToInner<TopUpEntity, PojoIntTopUp>, I
         outer.setChecked(inner.isChecked());
         outer.setPhoneNumber(inner.getPhone_number());
         outer.setTimestamp(inner.getTimestamp());
+        outer.setReference(inner.getReference());
         return outer;
     }
     

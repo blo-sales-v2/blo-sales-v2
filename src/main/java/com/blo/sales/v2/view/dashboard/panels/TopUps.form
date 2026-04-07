@@ -63,12 +63,17 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="nmbAmount" min="-2" pref="100" max="-2" attributes="0"/>
-                          <Component id="lblAmount" min="-2" max="-2" attributes="0"/>
+                          <Component id="nmbAmount" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="lblAmount" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lblNumReference" max="32767" attributes="0"/>
+                          <Component id="txtReference" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnSave" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="796" max="32767" attributes="0"/>
+                      <EmptySpace pref="638" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -83,12 +88,14 @@
                                   <Component id="lblCompanyPhone" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblAmount" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblNumReference" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="cmbxCompanyPhone" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="nmbAmount" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtReference" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -142,6 +149,13 @@
             <Component class="javax.swing.JLabel" name="lblAmount">
               <Properties>
                 <Property name="text" type="java.lang.String" value="monto_recarga"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtReference">
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblNumReference">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="numero_de_referencia"/>
               </Properties>
             </Component>
           </SubComponents>
