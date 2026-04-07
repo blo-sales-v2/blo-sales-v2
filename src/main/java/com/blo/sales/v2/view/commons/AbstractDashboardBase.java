@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Locale;
+import lombok.Getter;
 
 public abstract class AbstractDashboardBase extends javax.swing.JPanel {
     
@@ -13,6 +14,7 @@ public abstract class AbstractDashboardBase extends javax.swing.JPanel {
     
     private static final String DATE_FORMAT = "EEEE d 'de' MMMM 'del' uuuu 'a las' HH:mm";
     
+    @Getter
     private final String title;
     
     private PojoLoggedInUser userData;
@@ -64,10 +66,6 @@ public abstract class AbstractDashboardBase extends javax.swing.JPanel {
             return onText;
         }
         return String.format("%s%s", onText.substring(0, 1).toUpperCase(), onText.substring(1).toLowerCase());
-    }
-
-    public String getTitle() {
-        return title;
     }
     
     

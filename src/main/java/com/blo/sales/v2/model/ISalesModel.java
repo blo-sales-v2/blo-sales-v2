@@ -9,7 +9,7 @@ import com.blo.sales.v2.utils.BloSalesV2Exception;
 
 /**
  * Clase modelo para operaciones de venta sobre la db
- * @version 1.0.0
+ * @version 1.0.1
  * @author BLO
  */
 public interface ISalesModel {

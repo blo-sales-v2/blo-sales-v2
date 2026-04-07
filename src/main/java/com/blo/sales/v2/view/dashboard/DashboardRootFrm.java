@@ -10,7 +10,6 @@ import com.blo.sales.v2.view.dashboard.panels.AllCashboxes;
 import com.blo.sales.v2.view.dashboard.panels.AllProducts;
 import com.blo.sales.v2.view.dashboard.panels.CashboxOpen;
 import com.blo.sales.v2.view.dashboard.panels.Categories;
-import com.blo.sales.v2.view.dashboard.panels.Console;
 import com.blo.sales.v2.view.dashboard.panels.Debtors;
 import com.blo.sales.v2.view.dashboard.panels.MobileCompanies;
 import com.blo.sales.v2.view.dashboard.panels.Notes;
@@ -20,7 +19,7 @@ import com.blo.sales.v2.view.dashboard.panels.SalesCanceled;
 import com.blo.sales.v2.view.dashboard.panels.SalesReport;
 import com.blo.sales.v2.view.dashboard.panels.SalesToday;
 import com.blo.sales.v2.view.dashboard.panels.TopUps;
-import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
+import com.blo.sales.v2.view.pojos.enums.RolesEnum;
 import com.google.inject.Injector;
 import jakarta.inject.Inject;
 import java.awt.BorderLayout;
@@ -29,8 +28,6 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     
     @Inject
     private Injector injector;
-    
-    private PojoLoggedInUser userData;
     
     @Inject
     public DashboardRootFrm() {
@@ -65,8 +62,6 @@ public final class DashboardRootFrm extends AbstractFrameBase {
         jMenu1 = new javax.swing.JMenu();
         optTopUps = new javax.swing.JMenuItem();
         optMobileCompanies = new javax.swing.JMenuItem();
-        itmProg = new javax.swing.JMenu();
-        optConsole = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -213,18 +208,6 @@ public final class DashboardRootFrm extends AbstractFrameBase {
 
         mnuBar.add(itmTopUp);
 
-        itmProg.setText("Programacion");
-
-        optConsole.setText("Consola");
-        optConsole.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                optConsoleActionPerformed(evt);
-            }
-        });
-        itmProg.add(optConsole);
-
-        mnuBar.add(itmProg);
-
         setJMenuBar(mnuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -269,10 +252,6 @@ public final class DashboardRootFrm extends AbstractFrameBase {
         handlerDashboard(new Sales(KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey()));
     }//GEN-LAST:event_optAddSaleActionPerformed
 
-    private void optConsoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optConsoleActionPerformed
-        handlerDashboard(new Console(KeysEnum.DASHBOARD_TITLES_CONSOLE.getKey()));
-    }//GEN-LAST:event_optConsoleActionPerformed
-
     private void optDebtorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optDebtorsActionPerformed
         handlerDashboard(new Debtors(KeysEnum.DASHBOARD_TITLES_DEBTORS.getKey()));
     }//GEN-LAST:event_optDebtorsActionPerformed
@@ -306,7 +285,9 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     }//GEN-LAST:event_optTopUpsActionPerformed
 
     private void optCanceledSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optCanceledSalesActionPerformed
-        handlerDashboard(new SalesCanceled(KeysEnum.DASHBOARD_TITLES_CANCELED_SALES.getKey()));
+        if (getUserData().getRole().equals(RolesEnum.ROOT)) {
+            handlerDashboard(new SalesCanceled(KeysEnum.DASHBOARD_TITLES_CANCELED_SALES.getKey()));
+        }
     }//GEN-LAST:event_optCanceledSalesActionPerformed
     
     private void handlerDashboard(AbstractDashboardBase dashboard) {
@@ -315,16 +296,20 @@ public final class DashboardRootFrm extends AbstractFrameBase {
             return;
         }
         injector.injectMembers(dashboard);
-        dashboard.setUserData(userData);
+        dashboard.setUserData(getUserData());
         dashboard.init();
         GUICommons.showPanel(this, content, dashboard);
+    }
+    
+    public void disabledOptsByGuestRol() {
+        optCanceledSales.setVisible(false);
+        optAllCashboxes.setVisible(false);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content;
     private javax.swing.JMenu itmAdmon;
     private javax.swing.JMenu itmContability;
-    private javax.swing.JMenu itmProg;
     private javax.swing.JMenu itmSales;
     private javax.swing.JMenu itmStock;
     private javax.swing.JMenu itmTopUp;
@@ -336,7 +321,6 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     private javax.swing.JMenuItem optAllCashboxes;
     private javax.swing.JMenuItem optCanceledSales;
     private javax.swing.JMenuItem optCategory;
-    private javax.swing.JMenuItem optConsole;
     private javax.swing.JMenuItem optDebtors;
     private javax.swing.JMenuItem optMobileCompanies;
     private javax.swing.JMenuItem optNotes;
@@ -361,9 +345,5 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     @Override
     public void loadTargets() {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setUserData(PojoLoggedInUser userData) {
-        this.userData = userData;
     }
 }

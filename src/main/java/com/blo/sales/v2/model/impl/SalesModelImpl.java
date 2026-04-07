@@ -124,6 +124,7 @@ public class SalesModelImpl implements ISalesModel {
                 saleDetail.setCost_of_sale(data.getBigDecimal(BloSalesV2Columns.COST_OF_SALE));
                 saleDetail.setKg(data.getBoolean(BloSalesV2Columns.IS_KG));
                 saleDetail.setProduct_total_on_sale(data.getBigDecimal(BloSalesV2Columns.PRODUCT_TOTAL_ON_SALE));
+                saleDetail.setPayment_type(PaymentTypeEntityEnum.valueOf(data.getString(BloSalesV2Columns.PAYMENT_TYPE)));
                 details.add(saleDetail);
             }
             wrapper.setSalesDetail(details);
