@@ -6,6 +6,7 @@ import com.blo.sales.v2.controller.ICashboxesActivesCostsController;
 import com.blo.sales.v2.controller.ICashboxesSalesController;
 import com.blo.sales.v2.controller.ICategoriesController;
 import com.blo.sales.v2.controller.IDBTransactionManagerController;
+import com.blo.sales.v2.controller.IDebtorSettlementsController;
 import com.blo.sales.v2.controller.IDebtorsController;
 import com.blo.sales.v2.controller.IDebtorsSalesController;
 import com.blo.sales.v2.controller.IHistoryController;
@@ -24,6 +25,7 @@ import com.blo.sales.v2.controller.impl.CashboxesActivesCostsControllerImpl;
 import com.blo.sales.v2.controller.impl.CashboxesSalesControllerImpl;
 import com.blo.sales.v2.controller.impl.CategoriesControllerImpl;
 import com.blo.sales.v2.controller.impl.DBTransactionManagerControllerImpl;
+import com.blo.sales.v2.controller.impl.DebtorSettlementsControllerImpl;
 import com.blo.sales.v2.controller.impl.DebtorsControllerImpl;
 import com.blo.sales.v2.controller.impl.DebtorsSalesControllerImpl;
 import com.blo.sales.v2.controller.impl.HistoryControllerImpl;
@@ -154,7 +156,10 @@ import com.blo.sales.v2.view.mappers.WrapperPojoTopUpsMapper;
 import com.google.inject.AbstractModule;
 import jakarta.inject.Singleton;
 import com.blo.sales.v2.model.IDBTransactionManagerModel;
+import com.blo.sales.v2.model.IDebtorSettlementsModel;
+import com.blo.sales.v2.model.impl.DebtorSettlementsModelImpl;
 import com.blo.sales.v2.model.mapper.DebtorSaleProductInfoEntityMapper;
+import com.blo.sales.v2.model.mapper.DebtorSettlementEntityMapper;
 import com.blo.sales.v2.model.mapper.WrapperSalesDeletedDetailsEntityMapper;
 import com.blo.sales.v2.view.mappers.PojoSaleDeletedDetailMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoSalesDeletedDetailsMapper;
@@ -185,6 +190,7 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
         bind(ITopUpsController.class).to(TopUpsControllerImpl.class).in(Singleton.class);
         bind(IUserController.class).to(UserControllerImpl.class).in(Singleton.class);
         bind(IDBTransactionManagerController.class).to(DBTransactionManagerControllerImpl.class).in(Singleton.class);
+        bind(IDebtorSettlementsController.class).to(DebtorSettlementsControllerImpl.class).in(Singleton.class);
 
         /**
          * models
@@ -207,6 +213,7 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
         bind(ITopUpModel.class).to(TopUpModelImpl.class).in(Singleton.class);
         bind(IUserModel.class).to(UserModelImpl.class).in(Singleton.class);
         bind(IDBTransactionManagerModel.class).to(DBTransactionManagerModelImpl.class).in(Singleton.class);
+        bind(IDebtorSettlementsModel.class).to(DebtorSettlementsModelImpl.class).in(Singleton.class);
 
         bind(CategoryMapper.class).in(Singleton.class);
         bind(DebtorMapper.class).in(Singleton.class);
@@ -293,5 +300,6 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
         bind(PaymentTypeInfoEntityMapper.class).in(Singleton.class);
         bind(WrapperSalesDeletedDetailsEntityMapper.class).in(Singleton.class);
         bind(DebtorSaleProductInfoEntityMapper.class).in(Singleton.class);
+        bind(DebtorSettlementEntityMapper.class).in(Singleton.class);
     }
 }

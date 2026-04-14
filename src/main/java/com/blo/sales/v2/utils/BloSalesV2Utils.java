@@ -202,11 +202,6 @@ public final class BloSalesV2Utils {
         return LocalDateTime.now() + "";
     }
     
-    public static Timestamp getSQLTimestamp() {
-        final var now = Instant.now();
-        return Timestamp.from(now);
-    }
-    
     public static boolean validateTextWithPattern(String pattern, String txt) {
         final var patternCompile = Pattern.compile(pattern);
         final var matcher = patternCompile.matcher(txt);

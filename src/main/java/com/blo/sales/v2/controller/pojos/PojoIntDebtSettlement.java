@@ -1,6 +1,5 @@
 package com.blo.sales.v2.controller.pojos;
 
-import java.sql.Timestamp;
 import lombok.Data;
 
 public @Data class PojoIntDebtSettlement {
@@ -15,5 +14,5 @@ public @Data class PojoIntDebtSettlement {
     
     private String payments;
     
-    private Timestamp timestamp;
+    private String timestamp;
 }
