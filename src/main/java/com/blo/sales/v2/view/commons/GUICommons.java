@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.function.Consumer;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -485,4 +486,5 @@ public final class GUICommons {
         lbl.setBackground(bgColor);
         lbl.setForeground(txtColor);
     }
+    
 }

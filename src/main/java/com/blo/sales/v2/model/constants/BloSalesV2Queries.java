@@ -142,4 +142,6 @@ public final class BloSalesV2Queries {
     
     /** settlements (pagos) */
     public static final String INSERT_SETTLEMENT = "INSERT INTO debt_settlements(fk_sale, debtor, products_details, payments, timestamp) VALUES(?, ?, ?, ?, ?)";
+    
+    public static final String SELECT_SETTLEMENTS_INFO = "SELECT id_debt_settlement, fk_sale, debtor, products_details, payments, timestamp FROM debt_settlements";
 }

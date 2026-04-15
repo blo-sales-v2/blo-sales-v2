@@ -160,8 +160,11 @@ import com.blo.sales.v2.model.IDebtorSettlementsModel;
 import com.blo.sales.v2.model.impl.DebtorSettlementsModelImpl;
 import com.blo.sales.v2.model.mapper.DebtorSaleProductInfoEntityMapper;
 import com.blo.sales.v2.model.mapper.DebtorSettlementEntityMapper;
+import com.blo.sales.v2.model.mapper.WrapperDebtorSettlementEntityMapper;
 import com.blo.sales.v2.model.mapper.WrapperSalesDeletedDetailsEntityMapper;
+import com.blo.sales.v2.view.mappers.PojoDebtSettlementMapper;
 import com.blo.sales.v2.view.mappers.PojoSaleDeletedDetailMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoDebtorSettlementsMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoSalesDeletedDetailsMapper;
 
 public class BloSalesV2SingletonConfig extends AbstractModule {
@@ -253,6 +256,8 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
         bind(WrapperPojoTopUpsMapper.class).in(Singleton.class);
         bind(PojoSaleDeletedDetailMapper.class).in(Singleton.class);
         bind(WrapperPojoSalesDeletedDetailsMapper.class).in(Singleton.class);
+        bind(PojoDebtSettlementMapper.class).in(Singleton.class);
+        bind(WrapperPojoDebtorSettlementsMapper.class).in(Singleton.class);
         
         bind(ActiveCostEntityMapper.class).in(Singleton.class);
         bind(CashboxDetailEntityMapper.class).in(Singleton.class);
@@ -301,5 +306,6 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
         bind(WrapperSalesDeletedDetailsEntityMapper.class).in(Singleton.class);
         bind(DebtorSaleProductInfoEntityMapper.class).in(Singleton.class);
         bind(DebtorSettlementEntityMapper.class).in(Singleton.class);
+        bind(WrapperDebtorSettlementEntityMapper.class).in(Singleton.class);
     }
 }

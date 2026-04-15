@@ -3,6 +3,7 @@ package com.blo.sales.v2.controller.impl;
 import com.blo.sales.v2.controller.IDBTransactionManagerController;
 import com.blo.sales.v2.controller.IDebtorSettlementsController;
 import com.blo.sales.v2.controller.pojos.PojoIntDebtSettlement;
+import com.blo.sales.v2.controller.pojos.WrapperPojoIntDebtSettlement;
 import com.blo.sales.v2.model.IDebtorSettlementsModel;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 import com.blo.sales.v2.view.commons.GUILogger;
@@ -25,6 +26,12 @@ public class DebtorSettlementsControllerImpl implements IDebtorSettlementsContro
         logger.info("guardando informacion del pago");
         dbtm.disableAutocommit();
         return model.addSettlement(settlement);
+    }
+
+    @Override
+    public WrapperPojoIntDebtSettlement getDebtorsPaymentsHistory() throws BloSalesV2Exception {
+        logger.info("recuperando informacion de pagos");
+        return model.getDebtorsPaymentsHistory();
     }
     
 }

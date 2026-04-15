@@ -1,6 +1,7 @@
 package com.blo.sales.v2.controller;
 
 import com.blo.sales.v2.controller.pojos.PojoIntDebtSettlement;
+import com.blo.sales.v2.controller.pojos.WrapperPojoIntDebtSettlement;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
 
 /**
@@ -20,5 +21,13 @@ public interface IDebtorSettlementsController {
      * @throws BloSalesV2Exception 
      */
     PojoIntDebtSettlement addSettlement(PojoIntDebtSettlement settlement) throws BloSalesV2Exception;
+    
+    /**
+     * Recupera el historial de los deudores que han pagado
+     * 
+     * @return
+     * @throws BloSalesV2Exception 
+     */
+    WrapperPojoIntDebtSettlement getDebtorsPaymentsHistory() throws BloSalesV2Exception;
     
 }

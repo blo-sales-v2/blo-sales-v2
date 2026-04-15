@@ -127,4 +127,11 @@ public final class BloSalesV2Columns {
     public static final String ID_SALE_DELETED = "id_sale_deleted";
     
     public static final String FK_SALE_PRODUCT = "fk_sale_product";
+    
+    public static final String ID_DEBT_SETTLEMENT = "id_debt_settlement";
+    
+    public static final String PRODUCTS_DETAILS = "products_details";
+    
+    public static final String DEBTOR = "debtor";
+    
 }

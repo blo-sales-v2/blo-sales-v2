@@ -1,10 +1,12 @@
 package com.blo.sales.v2.view.commons;
 
 import com.blo.sales.v2.translate.Translate;
+import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.pojos.PojoLoggedInUser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.Arrays;
 import java.util.Locale;
 import lombok.Getter;
 
@@ -68,5 +70,21 @@ public abstract class AbstractDashboardBase extends javax.swing.JPanel {
         return String.format("%s%s", onText.substring(0, 1).toUpperCase(), onText.substring(1).toLowerCase());
     }
     
-    
+    public String formatPayments(String payments) {
+        final var paymentsSplit = Arrays.asList(payments.split(BloSalesV2Utils.SEPARATOR_PAYMENTS));
+        if (!payments.isEmpty()) {
+            final var sb = new StringBuilder();
+            final var baseStr = "%s - %s\n";
+            paymentsSplit.forEach(pay -> {
+                final var paymentSeparated = pay.split(BloSalesV2Utils.TIMESTAMP);
+                if (paymentSeparated.length == 2) {
+                    final var payed = paymentSeparated[0];
+                    final var timestamp = parserTimestamp(paymentSeparated[1]);
+                    sb.append(String.format(baseStr, payed, timestamp));
+                }
+            });
+            return sb.toString();
+        }
+        return BloSalesV2Utils.EMPTY_STRING;
+    }
 }
