@@ -106,20 +106,35 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <Menu class="javax.swing.JMenu" name="itmDebtors">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Deduores"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="optDebtors">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Deudores"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optDebtorsActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="optDebtorsHistory">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Historial de deudores"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optDebtorsHistoryActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="optNotes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Notas R&#xe1;pidas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optNotesActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="optDebtors">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Deudores"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optDebtorsActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

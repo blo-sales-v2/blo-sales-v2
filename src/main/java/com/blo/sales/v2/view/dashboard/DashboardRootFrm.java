@@ -11,6 +11,7 @@ import com.blo.sales.v2.view.dashboard.panels.AllProducts;
 import com.blo.sales.v2.view.dashboard.panels.CashboxOpen;
 import com.blo.sales.v2.view.dashboard.panels.Categories;
 import com.blo.sales.v2.view.dashboard.panels.Debtors;
+import com.blo.sales.v2.view.dashboard.panels.DebtorsSettlements;
 import com.blo.sales.v2.view.dashboard.panels.MobileCompanies;
 import com.blo.sales.v2.view.dashboard.panels.Notes;
 import com.blo.sales.v2.view.dashboard.panels.RegisterProduct;
@@ -56,8 +57,10 @@ public final class DashboardRootFrm extends AbstractFrameBase {
         sprt01 = new javax.swing.JPopupMenu.Separator();
         optSalesReport = new javax.swing.JMenuItem();
         optCanceledSales = new javax.swing.JMenuItem();
-        optNotes = new javax.swing.JMenuItem();
+        itmDebtors = new javax.swing.JMenu();
         optDebtors = new javax.swing.JMenuItem();
+        optDebtorsHistory = new javax.swing.JMenuItem();
+        optNotes = new javax.swing.JMenuItem();
         itmTopUp = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         optTopUps = new javax.swing.JMenuItem();
@@ -166,13 +169,7 @@ public final class DashboardRootFrm extends AbstractFrameBase {
 
         itmAdmon.add(itmContability);
 
-        optNotes.setText("Notas Rápidas");
-        optNotes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                optNotesActionPerformed(evt);
-            }
-        });
-        itmAdmon.add(optNotes);
+        itmDebtors.setText("Deduores");
 
         optDebtors.setText("Deudores");
         optDebtors.addActionListener(new java.awt.event.ActionListener() {
@@ -180,7 +177,25 @@ public final class DashboardRootFrm extends AbstractFrameBase {
                 optDebtorsActionPerformed(evt);
             }
         });
-        itmAdmon.add(optDebtors);
+        itmDebtors.add(optDebtors);
+
+        optDebtorsHistory.setText("Historial de deudores");
+        optDebtorsHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optDebtorsHistoryActionPerformed(evt);
+            }
+        });
+        itmDebtors.add(optDebtorsHistory);
+
+        itmAdmon.add(itmDebtors);
+
+        optNotes.setText("Notas Rápidas");
+        optNotes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optNotesActionPerformed(evt);
+            }
+        });
+        itmAdmon.add(optNotes);
 
         mnuBar.add(itmAdmon);
 
@@ -252,10 +267,6 @@ public final class DashboardRootFrm extends AbstractFrameBase {
         handlerDashboard(new Sales(KeysEnum.DASHBOARD_TITLES_REGISTER_SALE.getKey()));
     }//GEN-LAST:event_optAddSaleActionPerformed
 
-    private void optDebtorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optDebtorsActionPerformed
-        handlerDashboard(new Debtors(KeysEnum.DASHBOARD_TITLES_DEBTORS.getKey()));
-    }//GEN-LAST:event_optDebtorsActionPerformed
-
     private void optOpoenCashboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optOpoenCashboxActionPerformed
         handlerDashboard(new CashboxOpen(KeysEnum.DASHBOARD_TITLES_OPEN_CASHBOX.getKey()));
     }//GEN-LAST:event_optOpoenCashboxActionPerformed
@@ -289,6 +300,16 @@ public final class DashboardRootFrm extends AbstractFrameBase {
             handlerDashboard(new SalesCanceled(KeysEnum.DASHBOARD_TITLES_CANCELED_SALES.getKey()));
         }
     }//GEN-LAST:event_optCanceledSalesActionPerformed
+
+    private void optDebtorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optDebtorsActionPerformed
+        handlerDashboard(new Debtors(KeysEnum.DASHBOARD_TITLES_DEBTORS.getKey()));
+    }//GEN-LAST:event_optDebtorsActionPerformed
+
+    private void optDebtorsHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optDebtorsHistoryActionPerformed
+        if (getUserData().getRole().equals(RolesEnum.ROOT)) {
+            handlerDashboard(new DebtorsSettlements(KeysEnum.DASHBOARD_TITLES_DEBTOR_SETTLEMENTS.getKey()));
+        }
+    }//GEN-LAST:event_optDebtorsHistoryActionPerformed
     
     private void handlerDashboard(AbstractDashboardBase dashboard) {
         if (injector == null) {
@@ -304,12 +325,14 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     public void disabledOptsByGuestRol() {
         optCanceledSales.setVisible(false);
         optAllCashboxes.setVisible(false);
+        optDebtorsHistory.setVisible(false);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content;
     private javax.swing.JMenu itmAdmon;
     private javax.swing.JMenu itmContability;
+    private javax.swing.JMenu itmDebtors;
     private javax.swing.JMenu itmSales;
     private javax.swing.JMenu itmStock;
     private javax.swing.JMenu itmTopUp;
@@ -322,6 +345,7 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     private javax.swing.JMenuItem optCanceledSales;
     private javax.swing.JMenuItem optCategory;
     private javax.swing.JMenuItem optDebtors;
+    private javax.swing.JMenuItem optDebtorsHistory;
     private javax.swing.JMenuItem optMobileCompanies;
     private javax.swing.JMenuItem optNotes;
     private javax.swing.JMenuItem optOpoenCashbox;
