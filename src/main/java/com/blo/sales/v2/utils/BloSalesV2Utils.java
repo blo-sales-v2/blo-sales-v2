@@ -94,6 +94,8 @@ public final class BloSalesV2Utils {
     
     public static final String ERROR_AMOUNT_NO_EXISTS = "Cuenta inexistente";
     
+    public static final String ERROR_INSUFFICIENT_MONEY = "Saldo insuficiente";
+    
     public static final long DEBTORS_PAYMENTS = 1;
     
     public static final String ERROR_PRODUCT_IS_NOT_BY_KG = "Este producto no tiene la propiedad 'venta por kg' activada. \n Verifica el producto";
@@ -156,6 +158,8 @@ public final class BloSalesV2Utils {
     public static final String CODE_FORMAT_ACTIVE_COST = "023";
     
     public static final String CODE_AMOUNT_NO_EXISTS = "024";
+    
+    public static final String CODE_INSUFFICIENT_MONEY = "025";
     
     public static final String FORMAT_DATE = "yyyy-MM-dd";
     

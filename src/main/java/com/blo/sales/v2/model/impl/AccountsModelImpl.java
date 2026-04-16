@@ -13,9 +13,7 @@ import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 @Singleton
 public class AccountsModelImpl implements IAccountsModel {
@@ -27,16 +25,6 @@ public class AccountsModelImpl implements IAccountsModel {
     
     @Inject
     private IDBTransactionManagerModel transactionManager;
-
-    @Override
-    public PojoIntAccount addMoney(long idAccount, BigDecimal amount) throws BloSalesV2Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public PojoIntAccount substractMoney(long idAccount, BigDecimal amount) throws BloSalesV2Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public PojoIntAccount getAccountById(long id) throws BloSalesV2Exception {
@@ -57,6 +45,30 @@ public class AccountsModelImpl implements IAccountsModel {
             }
             logger.info("cuenta recuperada %s", String.valueOf(account));
             return accountEntityMapper.toOuter(account);
+        } catch (SQLException ex) {
+            logger.error(ex.getMessage());
+            throw new BloSalesV2Exception(BloSalesV2Utils.SQL_EXCEPTION_CODE, BloSalesV2Utils.SQL_EXCEPTION_MESSAGE);
+        }
+    }
+
+    @Override
+    public PojoIntAccount updateAccount(long idAccount, PojoIntAccount account) throws BloSalesV2Exception {
+        try {
+            final var conn = DBConnection.getConnection();
+            transactionManager.disableAutocommit();
+            final var ps = conn.prepareStatement(BloSalesV2Queries.UPDATE_ACCOUNT);
+            final var innerData = accountEntityMapper.toInner(account);
+            logger.info("actualizando informacion de la cuenta %s", String.valueOf(account));
+            ps.setString(1, innerData.getAccount());
+            ps.setBigDecimal(2, innerData.getControl_amount());
+            ps.setString(3, innerData.getTimestamp());
+            ps.setLong(4, idAccount);
+            final var rowsAffected = ps.executeUpdate();
+            
+            BloSalesV2Utils.validateRule(rowsAffected == 0, BloSalesV2Utils.SQL_UPDATE_EXCEPTION_CODE, BloSalesV2Utils.ERROR_UPDATING_ON_DATA_BASE);
+            
+            logger.info("cuenta actualizada %s", String.valueOf(innerData));
+            return accountEntityMapper.toOuter(innerData);
         } catch (SQLException ex) {
             logger.error(ex.getMessage());
             throw new BloSalesV2Exception(BloSalesV2Utils.SQL_EXCEPTION_CODE, BloSalesV2Utils.SQL_EXCEPTION_MESSAGE);

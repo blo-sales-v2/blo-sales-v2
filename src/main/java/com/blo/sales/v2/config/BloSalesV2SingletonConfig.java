@@ -1,5 +1,6 @@
 package com.blo.sales.v2.config;
 
+import com.blo.sales.v2.controller.IAccountsController;
 import com.blo.sales.v2.controller.IActivesCostsController;
 import com.blo.sales.v2.controller.ICashboxController;
 import com.blo.sales.v2.controller.ICashboxesActivesCostsController;
@@ -19,6 +20,7 @@ import com.blo.sales.v2.controller.ISalesProductController;
 import com.blo.sales.v2.controller.IStockPricesHistoryController;
 import com.blo.sales.v2.controller.ITopUpsController;
 import com.blo.sales.v2.controller.IUserController;
+import com.blo.sales.v2.controller.impl.AccountsControllerImpl;
 import com.blo.sales.v2.controller.impl.ActivesCostsControllerImpl;
 import com.blo.sales.v2.controller.impl.CashboxControllerImpl;
 import com.blo.sales.v2.controller.impl.CashboxesActivesCostsControllerImpl;
@@ -197,6 +199,7 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
         bind(IUserController.class).to(UserControllerImpl.class).in(Singleton.class);
         bind(IDBTransactionManagerController.class).to(DBTransactionManagerControllerImpl.class).in(Singleton.class);
         bind(IDebtorSettlementsController.class).to(DebtorSettlementsControllerImpl.class).in(Singleton.class);
+        bind(IAccountsController.class).to(AccountsControllerImpl.class).in(Singleton.class);
 
         /**
          * models

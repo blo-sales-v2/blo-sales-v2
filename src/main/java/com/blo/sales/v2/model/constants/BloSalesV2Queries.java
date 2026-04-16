@@ -147,4 +147,6 @@ public final class BloSalesV2Queries {
     
     /** accounts */
     public static final String SELECT_ACCOUNT = "SELECT id_account, account, control_amount, timestamp FROM accounts WHERE id_account = ? LIMIT 1";
+    
+    public static final String UPDATE_ACCOUNT = "UPDATE accounts SET account = ?, control_amount = ?, timestamp =? WHERE id_account = ?";
 }
