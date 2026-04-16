@@ -112,7 +112,6 @@ public class DebtorsSalesModelImpl implements IDebtorsSalesModel {
             }
             logger.info("detalles encontrados %s", lst.size());
             if (!lst.isEmpty()) {
-                final var gson = new Gson();
                 logger.info("parseando informacion");
                 final var firstDetail = lst.get(0);
                 final var output = debtorSaleProductInfoEntityMapper.toOuter(firstDetail);

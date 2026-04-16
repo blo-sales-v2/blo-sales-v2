@@ -38,6 +38,7 @@ import com.blo.sales.v2.controller.impl.SalesProductControllerImpl;
 import com.blo.sales.v2.controller.impl.StockPricesHistoryControllerImpl;
 import com.blo.sales.v2.controller.impl.TopUpsControllerImpl;
 import com.blo.sales.v2.controller.impl.UserControllerImpl;
+import com.blo.sales.v2.model.IAccountsModel;
 import com.blo.sales.v2.model.IActivesCostsModel;
 import com.blo.sales.v2.model.ICashboxModel;
 import com.blo.sales.v2.model.ICashboxesActivesCostsModel;
@@ -157,7 +158,9 @@ import com.google.inject.AbstractModule;
 import jakarta.inject.Singleton;
 import com.blo.sales.v2.model.IDBTransactionManagerModel;
 import com.blo.sales.v2.model.IDebtorSettlementsModel;
+import com.blo.sales.v2.model.impl.AccountsModelImpl;
 import com.blo.sales.v2.model.impl.DebtorSettlementsModelImpl;
+import com.blo.sales.v2.model.mapper.AccountEntityMapper;
 import com.blo.sales.v2.model.mapper.DebtorSaleProductInfoEntityMapper;
 import com.blo.sales.v2.model.mapper.DebtorSettlementEntityMapper;
 import com.blo.sales.v2.model.mapper.WrapperDebtorSettlementEntityMapper;
@@ -217,6 +220,7 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
         bind(IUserModel.class).to(UserModelImpl.class).in(Singleton.class);
         bind(IDBTransactionManagerModel.class).to(DBTransactionManagerModelImpl.class).in(Singleton.class);
         bind(IDebtorSettlementsModel.class).to(DebtorSettlementsModelImpl.class).in(Singleton.class);
+        bind(IAccountsModel.class).to(AccountsModelImpl.class).in(Singleton.class);
 
         bind(CategoryMapper.class).in(Singleton.class);
         bind(DebtorMapper.class).in(Singleton.class);
@@ -307,5 +311,6 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
         bind(DebtorSaleProductInfoEntityMapper.class).in(Singleton.class);
         bind(DebtorSettlementEntityMapper.class).in(Singleton.class);
         bind(WrapperDebtorSettlementEntityMapper.class).in(Singleton.class);
+        bind(AccountEntityMapper.class).in(Singleton.class);
     }
 }

@@ -2,8 +2,6 @@ package com.blo.sales.v2.utils;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Properties;
 import java.util.regex.Pattern;
@@ -94,6 +92,8 @@ public final class BloSalesV2Utils {
     
     public static final String ERROR_PAYMENTS_CARD_NOT_EQUALS = "La suma de los pagos no coinciden";
     
+    public static final String ERROR_AMOUNT_NO_EXISTS = "Cuenta inexistente";
+    
     public static final long DEBTORS_PAYMENTS = 1;
     
     public static final String ERROR_PRODUCT_IS_NOT_BY_KG = "Este producto no tiene la propiedad 'venta por kg' activada. \n Verifica el producto";
@@ -154,6 +154,8 @@ public final class BloSalesV2Utils {
     public static final String CODE_PRODUCT_IS_NOT_BY_KG = "022";
     
     public static final String CODE_FORMAT_ACTIVE_COST = "023";
+    
+    public static final String CODE_AMOUNT_NO_EXISTS = "024";
     
     public static final String FORMAT_DATE = "yyyy-MM-dd";
     

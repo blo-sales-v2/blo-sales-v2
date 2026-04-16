@@ -144,4 +144,7 @@ public final class BloSalesV2Queries {
     public static final String INSERT_SETTLEMENT = "INSERT INTO debt_settlements(fk_sale, debtor, products_details, payments, timestamp) VALUES(?, ?, ?, ?, ?)";
     
     public static final String SELECT_SETTLEMENTS_INFO = "SELECT id_debt_settlement, fk_sale, debtor, products_details, payments, timestamp FROM debt_settlements";
+    
+    /** accounts */
+    public static final String SELECT_ACCOUNT = "SELECT id_account, account, control_amount, timestamp FROM accounts WHERE id_account = ? LIMIT 1";
 }
