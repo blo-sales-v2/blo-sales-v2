@@ -48,7 +48,7 @@ public interface ISalesController {
      * @return
      * @throws BloSalesV2Exception 
      */
-    PojoIntSale registerTopUpComission(long idUser) throws BloSalesV2Exception;
+    PojoIntSale registerTopUpComission(long idUser, BigDecimal topUpAmount) throws BloSalesV2Exception;
     
     /**
      * Flujo que registra una venta con un nuevo deudor

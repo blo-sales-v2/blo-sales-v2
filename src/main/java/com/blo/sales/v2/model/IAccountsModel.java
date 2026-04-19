@@ -21,6 +21,12 @@ public interface IAccountsModel {
      */
     PojoIntAccount updateAccount(long idAccount, PojoIntAccount account) throws BloSalesV2Exception;
     
+    /**
+     * Recupera la informacion de una cuenta por id
+     * @param id
+     * @return
+     * @throws BloSalesV2Exception 
+     */
     PojoIntAccount getAccountById(long id) throws BloSalesV2Exception;
     
 }

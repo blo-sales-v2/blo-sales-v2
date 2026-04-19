@@ -92,7 +92,7 @@ public final class BloSalesV2Utils {
     
     public static final String ERROR_PAYMENTS_CARD_NOT_EQUALS = "La suma de los pagos no coinciden";
     
-    public static final String ERROR_AMOUNT_NO_EXISTS = "Cuenta inexistente";
+    public static final String ERROR_ACCOUNT_NO_EXISTS = "Cuenta inexistente";
     
     public static final String ERROR_INSUFFICIENT_MONEY = "Saldo insuficiente";
     
@@ -157,7 +157,7 @@ public final class BloSalesV2Utils {
     
     public static final String CODE_FORMAT_ACTIVE_COST = "023";
     
-    public static final String CODE_AMOUNT_NO_EXISTS = "024";
+    public static final String CODE_ACCOUNT_NO_EXISTS = "024";
     
     public static final String CODE_INSUFFICIENT_MONEY = "025";
     
@@ -253,11 +253,10 @@ public final class BloSalesV2Utils {
      * @return 
      */
     public static long getIdPaymentProduct() {
-        /*if (getVersion().lastIndexOf(RELEASE) == 7) {
+        if (getVersion().lastIndexOf(RELEASE) == 7) {
             return 1L;
         }
-        return 1000L;*/
-        return 1L;
+        return 1000L;
     }
     
     public static long getTopUpIdComission() {
@@ -265,5 +264,12 @@ public final class BloSalesV2Utils {
             return 494L;
         }
         return 1016L;
+    }
+    
+    public static long getIdTopUpsProduct() {
+        if (getVersion().lastIndexOf(RELEASE) == 7){
+            return 0L;
+        }
+        return 1019L;
     }
 }

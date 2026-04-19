@@ -29,7 +29,7 @@ public class AccountsControllerImpl implements IAccountsController {
             dbtm.disableAutocommit();
             logger.info("buscando cuenta %s", idAccount);
             final var account = getAccountById(idAccount);
-            BloSalesV2Utils.validateRule(account == null, BloSalesV2Utils.CODE_AMOUNT_NO_EXISTS, BloSalesV2Utils.ERROR_AMOUNT_NO_EXISTS);
+            BloSalesV2Utils.validateRule(account == null, BloSalesV2Utils.CODE_ACCOUNT_NO_EXISTS, BloSalesV2Utils.ERROR_ACCOUNT_NO_EXISTS);
             final var newAmount = account.getControlAmount().add(amount);
             logger.info("%s + %s = %s", account.getControlAmount(), amount, newAmount);
             account.setControlAmount(newAmount);
@@ -37,11 +37,8 @@ public class AccountsControllerImpl implements IAccountsController {
             logger.info("cuenta actualizada %s", String.valueOf(accountUpdated));
             return accountUpdated;
         } catch (BloSalesV2Exception ex) {
-            dbtm.doRollback();
             logger.error(ex.getMessage());
             throw new BloSalesV2Exception(ex.getCode(), ex.getMessage());
-        } finally {
-            dbtm.enableAutocommit();
         }
     }
 
@@ -52,23 +49,17 @@ public class AccountsControllerImpl implements IAccountsController {
             dbtm.disableAutocommit();
             logger.info("buscando cuenta %s", idAccount);
             final var account = getAccountById(idAccount);
-            BloSalesV2Utils.validateRule(account == null, BloSalesV2Utils.CODE_AMOUNT_NO_EXISTS, BloSalesV2Utils.ERROR_AMOUNT_NO_EXISTS);
+            BloSalesV2Utils.validateRule(account == null, BloSalesV2Utils.CODE_ACCOUNT_NO_EXISTS, BloSalesV2Utils.ERROR_ACCOUNT_NO_EXISTS);
             final var newAmount = account.getControlAmount().subtract(amount);
             logger.info("%s - %s = %s", account.getControlAmount(), amount, newAmount);
-            if (newAmount.compareTo(BigDecimal.ZERO) < 0) {
-                logger.error("Saldo insuficiente");
-                throw new BloSalesV2Exception(BloSalesV2Utils.CODE_INSUFFICIENT_MONEY, BloSalesV2Utils.ERROR_INSUFFICIENT_MONEY);
-            }
+            BloSalesV2Utils.validateRule(newAmount.compareTo(BigDecimal.ZERO) < 0, BloSalesV2Utils.CODE_INSUFFICIENT_MONEY, BloSalesV2Utils.ERROR_INSUFFICIENT_MONEY);
             account.setControlAmount(newAmount);
             final var accountUpdated = model.updateAccount(idAccount, account);
             logger.info("cuenta actualizada %s", String.valueOf(accountUpdated));
             return accountUpdated;
         } catch (BloSalesV2Exception ex) {
-            dbtm.doRollback();
             logger.error(ex.getMessage());
             throw new BloSalesV2Exception(ex.getCode(), ex.getMessage());
-        } finally {
-            dbtm.enableAutocommit();
         }
     }
 
