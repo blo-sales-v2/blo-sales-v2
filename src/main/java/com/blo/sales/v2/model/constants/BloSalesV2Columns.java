@@ -134,4 +134,10 @@ public final class BloSalesV2Columns {
     
     public static final String DEBTOR = "debtor";
     
+    public static final String ID_ACCOUNT = "id_account";
+    
+    public static final String ACCOUNT = "account";
+    
+    public static final String CONTROL_AMOUNT = "control_amount";
+    
 }

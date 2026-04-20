@@ -1,11 +1,13 @@
 package com.blo.sales.v2.controller.impl;
 
+import com.blo.sales.v2.controller.IAccountsController;
 import com.blo.sales.v2.controller.IDBTransactionManagerController;
 import com.blo.sales.v2.controller.IMobileCompanyController;
 import com.blo.sales.v2.controller.ISalesController;
 import com.blo.sales.v2.controller.ITopUpsController;
 import com.blo.sales.v2.controller.pojos.PojoIntTopUp;
 import com.blo.sales.v2.controller.pojos.WrapperPojoIntTopUp;
+import com.blo.sales.v2.controller.pojos.enums.AccountsIntEnum;
 import com.blo.sales.v2.controller.pojos.enums.TopUpSearchStatusIntEnum;
 import com.blo.sales.v2.model.ITopUpModel;
 import com.blo.sales.v2.utils.BloSalesV2Exception;
@@ -26,6 +28,9 @@ public class TopUpsControllerImpl implements ITopUpsController {
     private IMobileCompanyController mobileCompanyController;
     
     @Inject
+    private IAccountsController accountsController;
+    
+    @Inject
     private ISalesController salesController;
     
     @Inject
@@ -40,9 +45,14 @@ public class TopUpsControllerImpl implements ITopUpsController {
             logger.info("Compania encontrada %s", String.valueOf(companyFound));
             BloSalesV2Utils.validateRule(companyFound == null, BloSalesV2Utils.CODE_COMPANY_NOT_FOUND, BloSalesV2Utils.ERROR_COMPANY_NOT_FOUND);
             data.setFkMobileCompany(companyFound);
-            // guardando comision
-            salesController.registerTopUpComission(data.getFkUser().getIdUser());
+            // guardando comision + monto de recarga
+            salesController.registerTopUpComission(data.getFkUser().getIdUser(), data.getAmount());
             logger.info("comision guardada");
+            // restar dinero de cuenta digital
+            final var walletDigital = accountsController.getAccountById(AccountsIntEnum.DIGITAL_WALLET.getId());
+            logger.info("moviendo dinero digital a dinero fisico");
+            accountsController.substractMoney(walletDigital.getIdAccount(), data.getFkUser().getIdUser(), data.getAmount());
+            logger.info("se ha restado dinero de cuenta digital a cashbox");
             final var topUpSaved = model.addTopUp(data);
             dbtc.doCommit();
             logger.info("recarga guardada %s", String.valueOf(topUpSaved));
