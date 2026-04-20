@@ -129,6 +129,26 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <Menu class="javax.swing.JMenu" name="itmVendors">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Proveedores"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="optAddVendor">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Agregar proveedor"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optAddVendorActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="optViewProviders">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Ver proveedores"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="optNotes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Notas R&#xe1;pidas"/>

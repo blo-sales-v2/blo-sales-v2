@@ -6,6 +6,7 @@ import com.blo.sales.v2.view.commons.AbstractDashboardBase;
 import com.blo.sales.v2.view.commons.AbstractFrameBase;
 import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
+import com.blo.sales.v2.view.dashboard.panels.AddVendor;
 import com.blo.sales.v2.view.dashboard.panels.AllCashboxes;
 import com.blo.sales.v2.view.dashboard.panels.AllProducts;
 import com.blo.sales.v2.view.dashboard.panels.CashboxOpen;
@@ -60,6 +61,9 @@ public final class DashboardRootFrm extends AbstractFrameBase {
         itmDebtors = new javax.swing.JMenu();
         optDebtors = new javax.swing.JMenuItem();
         optDebtorsHistory = new javax.swing.JMenuItem();
+        itmVendors = new javax.swing.JMenu();
+        optAddVendor = new javax.swing.JMenuItem();
+        optViewProviders = new javax.swing.JMenuItem();
         optNotes = new javax.swing.JMenuItem();
         itmTopUp = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -189,6 +193,21 @@ public final class DashboardRootFrm extends AbstractFrameBase {
 
         itmAdmon.add(itmDebtors);
 
+        itmVendors.setText("Proveedores");
+
+        optAddVendor.setText("Agregar proveedor");
+        optAddVendor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optAddVendorActionPerformed(evt);
+            }
+        });
+        itmVendors.add(optAddVendor);
+
+        optViewProviders.setText("Ver proveedores");
+        itmVendors.add(optViewProviders);
+
+        itmAdmon.add(itmVendors);
+
         optNotes.setText("Notas Rápidas");
         optNotes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -310,6 +329,10 @@ public final class DashboardRootFrm extends AbstractFrameBase {
             handlerDashboard(new DebtorsSettlements(KeysEnum.DASHBOARD_TITLES_DEBTOR_SETTLEMENTS.getKey()));
         }
     }//GEN-LAST:event_optDebtorsHistoryActionPerformed
+
+    private void optAddVendorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAddVendorActionPerformed
+        handlerDashboard(new AddVendor(KeysEnum.DASHBOARD_TITLES_ADD_VENDOR.getKey()));
+    }//GEN-LAST:event_optAddVendorActionPerformed
     
     private void handlerDashboard(AbstractDashboardBase dashboard) {
         if (injector == null) {
@@ -336,11 +359,13 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     private javax.swing.JMenu itmSales;
     private javax.swing.JMenu itmStock;
     private javax.swing.JMenu itmTopUp;
+    private javax.swing.JMenu itmVendors;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblVersion;
     private javax.swing.JMenuBar mnuBar;
     private javax.swing.JMenuItem optAddSale;
+    private javax.swing.JMenuItem optAddVendor;
     private javax.swing.JMenuItem optAllCashboxes;
     private javax.swing.JMenuItem optCanceledSales;
     private javax.swing.JMenuItem optCategory;
@@ -353,6 +378,7 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     private javax.swing.JMenuItem optSalesReport;
     private javax.swing.JMenuItem optStock;
     private javax.swing.JMenuItem optTopUps;
+    private javax.swing.JMenuItem optViewProviders;
     private javax.swing.JMenuItem optViewSales;
     private javax.swing.JPopupMenu.Separator sprt01;
     // End of variables declaration//GEN-END:variables

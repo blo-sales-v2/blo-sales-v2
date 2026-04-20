@@ -26,6 +26,10 @@ public class VendorsControllerImpl implements IVendorsController {
     public PojoIntVendor addVendor(PojoIntVendor vendor) throws BloSalesV2Exception {
         try {
             logger.info("guardando proveedor %s", String.valueOf(vendor));
+            if (vendor.getVisitDays().equals("[]")) {
+                logger.error("Dias de visita no deben estar vacios");
+                throw new BloSalesV2Exception(BloSalesV2Utils.CODE_VENDOR_VISIT_DAYS_NOT_EMPTY, BloSalesV2Utils.ERROR_VENDOR_VISIT_DAYS_NOT_EMPTY);
+            }
             dbt.disableAutocommit();
             final var contactVendor = getVendorByContact(vendor.getContact());
             BloSalesV2Utils.validateRule(contactVendor != null, BloSalesV2Utils.CODE_VENDOR_CONTACT_EXISTS, BloSalesV2Utils.ERROR_VENDOR_CONTACT_EXISTS);

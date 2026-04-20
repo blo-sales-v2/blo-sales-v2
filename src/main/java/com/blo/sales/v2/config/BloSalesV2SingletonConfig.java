@@ -168,6 +168,7 @@ import com.blo.sales.v2.model.mapper.VendorEntityMapper;
 import com.blo.sales.v2.model.mapper.WrapperDebtorSettlementEntityMapper;
 import com.blo.sales.v2.model.mapper.WrapperSalesDeletedDetailsEntityMapper;
 import com.blo.sales.v2.model.mapper.WrapperVendorsEntityMapper;
+import com.blo.sales.v2.view.components.CheckboxDays;
 import com.blo.sales.v2.view.mappers.PojoDebtSettlementMapper;
 import com.blo.sales.v2.view.mappers.PojoSaleDeletedDetailMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoDebtorSettlementsMapper;
@@ -324,5 +325,8 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
         bind(WrapperDebtorSettlementEntityMapper.class).in(Singleton.class);
         bind(VendorEntityMapper.class).in(Singleton.class);
         bind(WrapperVendorsEntityMapper.class).in(Singleton.class);
+        
+        /** components */
+        bind(CheckboxDays.class).in(Singleton.class);
     }
 }

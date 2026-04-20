@@ -98,6 +98,8 @@ public final class BloSalesV2Utils {
     
     public static final String ERROR_VENDOR_NOT_EXITS = "Este proveedor ya existe";
     
+    public static final String ERROR_VENDOR_VISIT_DAYS_NOT_EMPTY = "Los d\u00ed as de visita no pueden estar vac\u00ed os";
+    
     public static final long DEBTORS_PAYMENTS = 1;
     
     public static final String ERROR_PRODUCT_IS_NOT_BY_KG = "Este producto no tiene la propiedad 'venta por kg' activada. \n Verifica el producto";
@@ -162,6 +164,8 @@ public final class BloSalesV2Utils {
     public static final String CODE_VENDOR_CONTACT_EXISTS = "024";
     
     public static final String CODE_VENDOR_NOT_EXITS = "025";
+    
+    public static final String CODE_VENDOR_VISIT_DAYS_NOT_EMPTY = "026";
     
     public static final String FORMAT_DATE = "yyyy-MM-dd";
     
