@@ -27,11 +27,12 @@ public interface IAccountsController {
      * <br>
      * <b>ESTA FUNCION NO GUARDA CAMBIOS EN LA BD</b>
      * @param idAccount
+     * @param idUser
      * @param amount
      * @return
      * @throws BloSalesV2Exception 
      */
-    PojoIntAccount substractMoney(long idAccount, BigDecimal amount) throws BloSalesV2Exception;
+    PojoIntAccount substractMoney(long idAccount, long idUser, BigDecimal amount) throws BloSalesV2Exception;
     
     /**
      * Metodo que recupera una cuenta por id

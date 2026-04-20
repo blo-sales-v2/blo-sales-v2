@@ -51,7 +51,7 @@ public class TopUpsControllerImpl implements ITopUpsController {
             // restar dinero de cuenta digital
             final var walletDigital = accountsController.getAccountById(AccountsIntEnum.DIGITAL_WALLET.getId());
             logger.info("moviendo dinero digital a dinero fisico");
-            accountsController.substractMoney(walletDigital.getIdAccount(), data.getAmount());
+            accountsController.substractMoney(walletDigital.getIdAccount(), data.getFkUser().getIdUser(), data.getAmount());
             logger.info("se ha restado dinero de cuenta digital a cashbox");
             final var topUpSaved = model.addTopUp(data);
             dbtc.doCommit();
