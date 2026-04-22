@@ -129,8 +129,8 @@ public class DebtorsSalesModelImpl implements IDebtorsSalesModel {
                 output.setPaymentType(idsPaymentsType);
                 return output;
             }
-            logger.info("la lista viene vacia y debe lanzar un error");
-            throw new BloSalesV2Exception(BloSalesV2Utils.CODE_PRODUCT_NOT_FOUND, BloSalesV2Utils.ERROR_PRODUCT_NOT_FOUND);
+            logger.error("no hay datos sobre el deudor");
+            throw new BloSalesV2Exception(BloSalesV2Utils.CODE_DEBTOR_NOT_FOUND, BloSalesV2Utils.DEBTOR_NOT_FOUND);
         } catch (SQLException ex) {
             logger.error(ex.getMessage());
             throw new BloSalesV2Exception(BloSalesV2Utils.SQL_EXCEPTION_CODE, BloSalesV2Utils.SQL_EXCEPTION_MESSAGE);
