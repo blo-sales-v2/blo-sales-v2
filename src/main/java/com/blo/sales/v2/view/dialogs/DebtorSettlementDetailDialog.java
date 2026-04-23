@@ -5,6 +5,7 @@ import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.AbstractDialogBase;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.pojos.PojoDebtSettlement;
+import com.google.gson.Gson;
 import java.awt.Component;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -49,6 +50,11 @@ public class DebtorSettlementDetailDialog extends AbstractDialogBase {
         jScrollPane2.setViewportView(lstPayments);
 
         btnClose.setText("cerrar");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,6 +97,10 @@ public class DebtorSettlementDetailDialog extends AbstractDialogBase {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
+
     @Override
     public void loadTargets() {
         GUICommons.setTextToButton(btnClose, getTranslateBy(KeysEnum.COMMON_BTN_CLOSE.getKey()));
@@ -99,16 +109,21 @@ public class DebtorSettlementDetailDialog extends AbstractDialogBase {
     }
     
     private void loadDataOnLists() {
-        final var productsDetails = settlementData.getProductsDetails().split(BloSalesV2Utils.SEPARATOR_PAYMENTS);
-        loadData(lstProducts, productsDetails);
+        final var gson = new Gson();
         final var paymentsDetails = settlementData.getPayments().split(BloSalesV2Utils.SEPARATOR_PAYMENTS);
         loadData(lstPayments, paymentsDetails);
+        final var productsDetails = gson.fromJson(settlementData.getProductsDetails(), String[].class);
+        loadData(lstProducts, productsDetails);
     }
     
     private void loadData(JList<String> lst, String[] items) {
         final var model = new DefaultListModel<String>();
         for (final var item: items) {
-            model.addElement(item.replace(BloSalesV2Utils.TIMESTAMP, " - "));
+            if (item.contains(BloSalesV2Utils.TIMESTAMP)) {
+                model.addElement(item.replace(BloSalesV2Utils.TIMESTAMP, " - "));
+                continue;
+            }
+            model.addElement(item);
         }
         lst.setModel(model);
     }

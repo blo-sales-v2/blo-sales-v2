@@ -115,9 +115,10 @@ public class DebtorsSalesModelImpl implements IDebtorsSalesModel {
                 final var firstDetail = lst.get(0);
                 final var output = debtorSaleProductInfoEntityMapper.toOuter(firstDetail);
                 // recupera el id de todos los productos del deudor, guarda la informacion en una lista y la guarda en una propiedad
+                final var gson = new Gson();
                 final var products = lst.stream().
                         map(DebtorSaleProductInfoEntity::getProduct).collect(Collectors.toList());
-                output.setProducts(String.join(BloSalesV2Utils.SEPARATOR_PAYMENTS, products));
+                output.setProducts(gson.toJson(products));
                 // recupera el id de las ventas asociadas a ese deudor y la guarda en una propiedad del deudor
                 final var idSales = lst.stream().
                         map(DebtorSaleProductInfoEntity::getId_sale).collect(Collectors.toList());
