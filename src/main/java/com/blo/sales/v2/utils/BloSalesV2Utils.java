@@ -253,23 +253,14 @@ public final class BloSalesV2Utils {
      * @return 
      */
     public static long getIdPaymentProduct() {
-        if (getVersion().lastIndexOf(RELEASE) == 7) {
-            return 1L;
-        }
-        return 1000L;
+        return Long.parseLong(getProp(PropsKeysEnum.APP_PRODUCTS_ID_PAYMENTS_PRODUCT.getKey()));
     }
     
     public static long getTopUpIdComission() {
-        if (getVersion().lastIndexOf(RELEASE) == 7) {
-            return 494L;
-        }
-        return 1016L;
+        return Long.parseLong(getProp(PropsKeysEnum.APP_PRODUCTS_TOP_UP_COMISSION.getKey()));
     }
     
     public static long getIdTopUpsProduct() {
-        if (getVersion().lastIndexOf(RELEASE) == 7){
-            return 0L;
-        }
-        return 1019L;
+        return Long.parseLong(getProp(PropsKeysEnum.APP_PRODUCTS_TOP_UP_PRODUCT.getKey()));
     }
 }
