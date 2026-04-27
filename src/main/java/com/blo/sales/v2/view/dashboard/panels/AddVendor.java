@@ -125,18 +125,22 @@ public class AddVendor extends AbstractDashboardBase {
             final var contact = GUICommons.getTextFromField(txtContact, true);
             final var brand = GUICommons.getTextFromField(txtBrand, true);
             final var isPreSale = GUICommons.isCheckedCkeckBox(chbxPreSale);
+            
+            final var visitDays = week.getInfoSelected();
+            
             final var vendor = new PojoVendor();
             vendor.setBrand(brand);
             vendor.setContact(contact);
             vendor.setFkUser(getUserData().getIdUser());
             vendor.setPreSale(isPreSale);
-            vendor.setVisitDays(week.getJsonWithDaysSelected());
+            vendor.setVisitDays(visitDays.getDaysSelected());
+            vendor.setPerWeek(visitDays.isPerWeek());
             vendor.setName(vendorName);
             vendorController.addVendor(vendorMapper.toInner(vendor));
             resetFields();
         } catch (BloSalesV2Exception ex) {
             logger.error(ex.getMessage());
-            CommonAlerts.openError(ex.getMessage(), getTranslateBy(KeysEnum.COMMON_ALERT_ERROR.getKey()));
+            CommonAlerts.openError(ex.getMessage(), ex.getCode());
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 

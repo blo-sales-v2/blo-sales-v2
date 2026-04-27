@@ -23,6 +23,7 @@ public class PojoVendorMapper implements IToInner<PojoIntVendor, PojoVendor>, IT
         inner.setPreSale(outer.isPreSale());
         inner.setTimestamp(outer.getTimestamp());
         inner.setVisitDays(outer.getVisitDays());
+        inner.setPerWeek(outer.isPerWeek());
         return inner;
     }
 
@@ -40,6 +41,7 @@ public class PojoVendorMapper implements IToInner<PojoIntVendor, PojoVendor>, IT
         outer.setPreSale(inner.isPreSale());
         outer.setTimestamp(inner.getTimestamp());
         outer.setVisitDays(inner.getVisitDays());
+        outer.setPerWeek(inner.isPerWeek());
         return outer;
     }
     

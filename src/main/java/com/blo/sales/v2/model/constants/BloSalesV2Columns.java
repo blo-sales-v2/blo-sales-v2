@@ -144,4 +144,5 @@ public final class BloSalesV2Columns {
     
     public static final String PRE_SALE = "pre_sale";
     
+    public static final String PER_WEEK = "per_week";
 }

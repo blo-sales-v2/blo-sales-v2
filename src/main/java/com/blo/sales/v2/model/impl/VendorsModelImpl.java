@@ -49,6 +49,7 @@ public class VendorsModelImpl implements IVendorsModel {
             ps.setString(5, data.getVisit_days());
             ps.setBoolean(6, data.isPre_sale());
             ps.setString(7, data.getTimestamp());
+            ps.setBoolean(8, data.isPer_week());
             
             final var rowsAffected = ps.executeUpdate();
             
@@ -84,6 +85,7 @@ public class VendorsModelImpl implements IVendorsModel {
                 vendor.setVisit_days(data.getString(BloSalesV2Columns.VISIT_DAYS));
                 vendor.setPre_sale(data.getBoolean(BloSalesV2Columns.PRE_SALE));
                 vendor.setTimestamp(data.getString(BloSalesV2Columns.TIMESTAMP));
+                vendor.setPer_week(data.getBoolean(BloSalesV2Columns.PER_WEEK));
             }
             logger.info("proveedor encontrado %s", String.valueOf(vendor));
             return vendorMapper.toOuter(vendor);
@@ -111,6 +113,7 @@ public class VendorsModelImpl implements IVendorsModel {
                 vendor.setVisit_days(data.getString(BloSalesV2Columns.VISIT_DAYS));
                 vendor.setPre_sale(data.getBoolean(BloSalesV2Columns.PRE_SALE));
                 vendor.setTimestamp(data.getString(BloSalesV2Columns.TIMESTAMP));
+                vendor.setPer_week(data.getBoolean(BloSalesV2Columns.PER_WEEK));
             }
             logger.info("proveedor encontrado %s", String.valueOf(vendor));
             return vendorMapper.toOuter(vendor);
@@ -139,6 +142,7 @@ public class VendorsModelImpl implements IVendorsModel {
                 vendor.setVisit_days(data.getString(BloSalesV2Columns.VISIT_DAYS));
                 vendor.setPre_sale(data.getBoolean(BloSalesV2Columns.PRE_SALE));
                 vendor.setTimestamp(data.getString(BloSalesV2Columns.TIMESTAMP));
+                vendor.setPer_week(data.getBoolean(BloSalesV2Columns.PER_WEEK));
                 lst.add(vendor);
             }
             wrapper.setVendors(lst);

@@ -20,4 +20,5 @@ public @Data class PojoVendor {
     
     private String contact;
     
+    private boolean perWeek;
 }

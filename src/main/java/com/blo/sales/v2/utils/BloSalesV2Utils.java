@@ -2,8 +2,6 @@ package com.blo.sales.v2.utils;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Properties;
 import java.util.regex.Pattern;
@@ -23,6 +21,10 @@ public final class BloSalesV2Utils {
     
     /** cadena vacia */
     public static final String EMPTY_STRING = "";
+    
+    public static final String N_A = "N/A";
+    
+    public static final String JSON_EMPTY_ARRAY = "[]";
     
     /** expresion regular para solo numeros */
     public static final String ONLY_NUMBERS = "[0-9]+";
@@ -98,7 +100,7 @@ public final class BloSalesV2Utils {
     
     public static final String ERROR_VENDOR_NOT_EXITS = "Este proveedor ya existe";
     
-    public static final String ERROR_VENDOR_VISIT_DAYS_NOT_EMPTY = "Los d\u00ed as de visita no pueden estar vac\u00ed os";
+    public static final String ERROR_VENDOR_VISIT_DAYS_NOT_EMPTY = "Los d\u00ed as de visita no pueden estar vac\u00edos si la visita es semanal";
     
     public static final long DEBTORS_PAYMENTS = 1;
     

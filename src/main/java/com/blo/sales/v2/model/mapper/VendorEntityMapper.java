@@ -23,6 +23,7 @@ public class VendorEntityMapper implements IToInner<VendorEntity, PojoIntVendor>
         inner.setPre_sale(outer.isPreSale());
         inner.setTimestamp(outer.getTimestamp());
         inner.setVisit_days(outer.getVisitDays());
+        inner.setPer_week(outer.isPerWeek());
         return inner;
     }
 
@@ -40,6 +41,7 @@ public class VendorEntityMapper implements IToInner<VendorEntity, PojoIntVendor>
         outer.setPreSale(inner.isPre_sale());
         outer.setTimestamp(inner.getTimestamp());
         outer.setVisitDays(inner.getVisit_days());
+        outer.setPerWeek(inner.isPer_week());
         return outer;
     }
     

@@ -20,4 +20,6 @@ public @Data class VendorEntity {
     
     private String contact;
     
+    private boolean per_week;
+    
 }

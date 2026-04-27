@@ -1,10 +1,13 @@
 package com.blo.sales.v2.view.components;
 
+import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.google.gson.Gson;
 import jakarta.inject.Singleton;
 import java.util.ArrayList;
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import lombok.Setter;
 
 /**
@@ -20,26 +23,83 @@ public class CheckboxDays {
     private JPanel container;
     
     public void createCheckboxDaysList() {
-        /* borra la configuración rígida que el editor visual le puso al panel: "Acepta todo lo que te tiren y acomódalo en fila". */
-        container.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-        for(final var day: week) {
-            final var checkboxDay = new JCheckBox(day);
-            checkboxDay.setName(day);
-            container.add(checkboxDay);
+        // 1. Configuración del Layout: 2 filas, 1 columna
+        container.setLayout(new java.awt.GridLayout(2, 1, 5, 5)); 
+        container.removeAll();
+
+        // 2. Sub-paneles para organizar las filas
+        final var filaRadio = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        final var filaChecks = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        // Hacer los sub-paneles transparentes para que hereden el color del padre (el cuadro negro)
+        filaRadio.setOpaque(false);
+        filaChecks.setOpaque(false);
+
+        // 3. Crear los Radio Buttons
+        final var rbSemanal = new JRadioButton("Semanal", true);
+        final var rbMensual = new JRadioButton("Mensual");
+
+        final var group = new ButtonGroup();
+        group.add(rbSemanal);
+        group.add(rbMensual);
+
+        filaRadio.add(rbSemanal);
+        filaRadio.add(rbMensual);
+
+        // 4. Crear los Checkboxes
+        final var checkBoxes = new ArrayList<JCheckBox>();
+        for(final var day : week) {
+            final var chk = new JCheckBox(day);
+            chk.setOpaque(false);
+            chk.setName(day);
+            checkBoxes.add(chk);
+            filaChecks.add(chk);
         }
-        // 2. REFRESCAR EL CONTENEDOR
+
+        // 5. Lógica de activación/desactivación
+        rbMensual.addActionListener(e -> {
+            for (final var chk : checkBoxes) {
+                chk.setSelected(false);
+                chk.setEnabled(false);
+            }
+        });
+
+        rbSemanal.addActionListener(e -> {
+            for (final var chk : checkBoxes) {
+                chk.setEnabled(true);
+            }
+        });
+
+        // 6. Agregar las filas al contenedor principal
+        container.add(filaRadio);
+        container.add(filaChecks);
+
+        // 7. Refrescar
         container.revalidate();
         container.repaint();
     }
     
-    public String getJsonWithDaysSelected() {
-        final var gson = new Gson();
-        final var lstDaysSelected = new ArrayList<String>();
-        for (final var c: container.getComponents()) {
-            if (c instanceof JCheckBox && ((JCheckBox) c).isSelected()) {
-                lstDaysSelected.add(c.getName());
+    public WeekInfoSelected getInfoSelected() {
+        // recupera informacion de radio button
+        final var info = new WeekInfoSelected();
+        final var perMonthRow = (JPanel) container.getComponent(0);
+        final var radio = (JRadioButton) perMonthRow.getComponents()[0];
+        final var perWeek = radio.isSelected();
+        // se agrega negacion porque lo seleccionado es por semana y espera por mes
+        info.setPerWeek(perWeek);
+        info.setDaysSelected(BloSalesV2Utils.JSON_EMPTY_ARRAY);
+        if (perWeek) {
+            final var gson = new Gson();
+            final var lstDays = new ArrayList<String>();
+            final var panelWeek = (JPanel) container.getComponent(1);
+            for (final var day: panelWeek.getComponents()) {
+                if (day instanceof JCheckBox &&  ((JCheckBox) day).isSelected()) {
+                    lstDays.add(day.getName());
+                }
             }
+            info.setDaysSelected(gson.toJson(lstDays));
         }
-        return gson.toJson(lstDaysSelected);
+        return info;
     }
+    
 }
