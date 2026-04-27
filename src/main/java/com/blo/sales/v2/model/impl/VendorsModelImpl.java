@@ -167,7 +167,9 @@ public class VendorsModelImpl implements IVendorsModel {
             ps.setString(3, data.getContact());
             ps.setString(4, data.getVisit_days());
             ps.setString(5, data.getTimestamp());
-            ps.setLong(6, data.getId_vendor());
+            ps.setBoolean(6, data.isPre_sale());
+            ps.setBoolean(7, data.isPer_week());
+            ps.setLong(8, data.getId_vendor());
             
             final var rowsAffected = ps.executeUpdate();
             

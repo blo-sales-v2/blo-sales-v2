@@ -8,9 +8,11 @@ import com.blo.sales.v2.view.commons.AbstractDashboardBase;
 import com.blo.sales.v2.view.commons.CommonAlerts;
 import com.blo.sales.v2.view.commons.GUICommons;
 import com.blo.sales.v2.view.commons.GUILogger;
+import com.blo.sales.v2.view.components.CheckboxDays;
 import com.blo.sales.v2.view.mappers.PojoVendorMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoVendorsMapper;
 import com.blo.sales.v2.view.pojos.PojoVendor;
+import com.google.gson.Gson;
 import jakarta.inject.Inject;
 
 public final class Vendors extends AbstractDashboardBase {
@@ -27,6 +29,9 @@ public final class Vendors extends AbstractDashboardBase {
     
     @Inject
     private PojoVendorMapper vendorMapper;
+    
+    @Inject
+    private CheckboxDays weekComponent;
     
     private PojoVendor vendorSelected;
 
@@ -48,6 +53,7 @@ public final class Vendors extends AbstractDashboardBase {
         pnlDays = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        cmbxIsPreSale = new javax.swing.JCheckBox();
 
         tblVendors.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -70,7 +76,7 @@ public final class Vendors extends AbstractDashboardBase {
         pnlDays.setLayout(pnlDaysLayout);
         pnlDaysLayout.setHorizontalGroup(
             pnlDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 531, Short.MAX_VALUE)
         );
         pnlDaysLayout.setVerticalGroup(
             pnlDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,6 +88,8 @@ public final class Vendors extends AbstractDashboardBase {
 
         btnCancel.setText("cancelar");
         btnCancel.addActionListener(this::btnCancelActionPerformed);
+
+        cmbxIsPreSale.setText("preventa");
 
         javax.swing.GroupLayout pnlContactEditLayout = new javax.swing.GroupLayout(pnlContactEdit);
         pnlContactEdit.setLayout(pnlContactEditLayout);
@@ -99,11 +107,17 @@ public final class Vendors extends AbstractDashboardBase {
                     .addComponent(lblContact))
                 .addGap(18, 18, 18)
                 .addComponent(pnlDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSave)
-                .addGap(18, 18, 18)
-                .addComponent(btnCancel)
-                .addContainerGap())
+                .addGroup(pnlContactEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlContactEditLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSave)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancel)
+                        .addContainerGap())
+                    .addGroup(pnlContactEditLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbxIsPreSale)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         pnlContactEditLayout.setVerticalGroup(
             pnlContactEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,11 +132,15 @@ public final class Vendors extends AbstractDashboardBase {
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnlContactEditLayout.createSequentialGroup()
-                .addGroup(pnlContactEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlContactEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(pnlDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlContactEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(pnlContactEditLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cmbxIsPreSale)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlContactEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
@@ -155,6 +173,10 @@ public final class Vendors extends AbstractDashboardBase {
             }
             vendorSelected.setName(GUICommons.getTextFromField(txtName, true));
             vendorSelected.setContact(GUICommons.getTextFromField(txtContact, true));
+            final var data = weekComponent.getInfoSelected();
+            vendorSelected.setVisitDays(data.getDaysSelected());
+            vendorSelected.setPerWeek(data.isPerWeek());
+            vendorSelected.setPreSale(GUICommons.isCheckedCkeckBox(cmbxIsPreSale));
             
             final var vendorUpdated = vendorMapper.toInner(vendorSelected);
             vendorsController.updateVendor(vendorUpdated, vendorUpdated.getIdVendor());
@@ -175,6 +197,7 @@ public final class Vendors extends AbstractDashboardBase {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
+    private javax.swing.JCheckBox cmbxIsPreSale;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblContact;
     private javax.swing.JLabel lblName;
@@ -193,6 +216,7 @@ public final class Vendors extends AbstractDashboardBase {
         loadVendorsData();
         pnlContactEdit.setVisible(false);
         GUICommons.addDoubleClickOnTable(tblVendors, (Long id) -> editVendor(id));
+        weekComponent.setContainer(pnlDays);
     }
     
     @Override
@@ -202,12 +226,16 @@ public final class Vendors extends AbstractDashboardBase {
     
     private void editVendor(long idVendor) {
         try {
+            final var gson = new Gson();
             vendorSelected = vendorMapper.toOuter(vendorsController.getVendorById(idVendor));
             pnlContactEdit.setVisible(true);
             
             GUICommons.setTextToField(txtName, vendorSelected.getName());
             GUICommons.setTextToField(txtContact, vendorSelected.getContact());
+            GUICommons.selectElementByBooleanCondition(cmbxIsPreSale, vendorSelected.isPreSale());
             
+            final var daysSelected = gson.fromJson(vendorSelected.getVisitDays(), String[].class);
+            weekComponent.createWeekCheckboxSelected(daysSelected);
         } catch (BloSalesV2Exception ex) {
             logger.error(ex.getMessage());
             CommonAlerts.openError(ex.getMessage(), getTranslateBy(KeysEnum.COMMON_ALERT_ERROR.getKey()));

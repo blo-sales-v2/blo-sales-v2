@@ -4,6 +4,7 @@ import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.google.gson.Gson;
 import jakarta.inject.Singleton;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -22,6 +23,9 @@ public class CheckboxDays {
     @Setter
     private JPanel container;
     
+    /**
+     * Crea un componente selector para los dias de la semana
+     */
     public void createCheckboxDaysList() {
         // 1. Configuración del Layout: 2 filas, 1 columna
         container.setLayout(new java.awt.GridLayout(2, 1, 5, 5)); 
@@ -79,6 +83,40 @@ public class CheckboxDays {
         container.repaint();
     }
     
+    public void createWeekCheckboxSelected(String[] daysSelected) {
+        final var daysAsList = Arrays.asList(daysSelected);
+        createCheckboxDaysList();
+        if (container.getComponents().length == 0) {
+            return;
+        }
+        final var rowRadio = (JPanel) container.getComponent(0);
+        final var filaChecks = (JPanel) container.getComponent(1);
+        // visita por mes
+        if (daysSelected.length == 0) {
+            final var radioMensual = (JRadioButton)rowRadio.getComponent(1);
+            radioMensual.setSelected(true);
+            for (final var item: filaChecks.getComponents()) {
+                final var check = (JCheckBox) item;
+                check.setEnabled(false);
+            }
+            
+        } else {
+            final var radioWeek = (JRadioButton) rowRadio.getComponent(0);
+            radioWeek.setSelected(true);
+            for (final var item: filaChecks.getComponents()) {
+                final var check = (JCheckBox) item;
+                check.setEnabled(true);
+                final var dayCheckbox = check.getName();
+                final var dayFound = daysAsList.stream().filter(d -> d.equals(dayCheckbox)).findFirst().orElse(BloSalesV2Utils.EMPTY_STRING);
+                check.setSelected(!dayFound.isBlank());
+            }
+        }
+    }
+    
+    /**
+     * Recupea la informacion seleccionada
+     * @return wrapper con informacion seleccionada
+     */
     public WeekInfoSelected getInfoSelected() {
         // recupera informacion de radio button
         final var info = new WeekInfoSelected();

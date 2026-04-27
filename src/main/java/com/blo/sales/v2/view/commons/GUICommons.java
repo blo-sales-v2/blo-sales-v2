@@ -444,6 +444,14 @@ public final class GUICommons {
         cmbx.setEnabled(true);
     }
     
+    public static void selectElement(JCheckBox ch) {
+        ch.setSelected(true);
+    }
+    
+    public static void selectElementByBooleanCondition(JCheckBox ch, boolean condition) {
+        ch.setSelected(condition);
+    }
+    
     public static void convertMainButton(JButton button) {
         button.setBackground(PROFESSIONAL_BLUE); // Azul profesional
         button.setForeground(Color.WHITE);
