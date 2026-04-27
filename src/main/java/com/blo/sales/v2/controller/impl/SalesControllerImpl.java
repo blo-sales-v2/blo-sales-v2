@@ -324,19 +324,35 @@ public @Singleton class SalesControllerImpl implements ISalesController {
     }
     
     @Override
-    public PojoIntSale registerTopUpComission(long idUser) throws BloSalesV2Exception {
+    public PojoIntSale registerTopUpComission(long idUser, BigDecimal topUpAmount) throws BloSalesV2Exception {
         // recuperar datos de la comision
         managerController.disableAutocommit();
         final var comissionData = productsController.getProductById(BloSalesV2Utils.getTopUpIdComission());
-        final var productsInfo = new ArrayList<PojoIntSaleProductData>();
-        final var item = new PojoIntSaleProductData();
+        BloSalesV2Utils.validateRule(comissionData == null, BloSalesV2Utils.CODE_PRODUCT_NOT_FOUND, BloSalesV2Utils.ERROR_PRODUCT_NOT_FOUND);
+        var productsInfo = new ArrayList<PojoIntSaleProductData>();
+        var item = new PojoIntSaleProductData();
         item.setIdProduct(BloSalesV2Utils.getIdPaymentProduct());
         item.setPrice(comissionData.getPrice());
         item.setProductBuyTotal(BigDecimal.ONE);
         item.setQuantityOnSale(BigDecimal.ZERO);
         productsInfo.add(item);
         logger.info(String.format("guardando la comision [%s]", String.valueOf(item)));
-        return registerSaleCommitNotEnabled(comissionData.getPrice(), productsInfo, idUser);
+        final var comission = registerSaleCommitNotEnabled(comissionData.getPrice(), productsInfo, idUser);
+        logger.info("comision guardada %s", String.valueOf(comission));
+        // guarda la recarga en la venta
+        final var topUpData = productsController.getProductById(BloSalesV2Utils.getIdTopUpsProduct());
+        BloSalesV2Utils.validateRule(topUpData == null, BloSalesV2Utils.CODE_PRODUCT_NOT_FOUND, BloSalesV2Utils.ERROR_PRODUCT_NOT_FOUND);
+        productsInfo.clear();
+        item = new PojoIntSaleProductData();
+        item.setIdProduct(BloSalesV2Utils.getIdTopUpsProduct());
+        item.setPrice(topUpAmount);
+        item.setProductBuyTotal(topUpAmount);
+        item.setQuantityOnSale(BigDecimal.ZERO);
+        productsInfo.add(item);
+        logger.info("guardando monto de recarga en venta [%s]", String.valueOf(productsInfo));
+        final var topUpAmoutSaved = registerSaleCommitNotEnabled(topUpAmount, productsInfo, idUser);
+        logger.info("recarga guardada %s", String.valueOf(topUpAmoutSaved));
+        return topUpAmoutSaved;
     }
     
     /**

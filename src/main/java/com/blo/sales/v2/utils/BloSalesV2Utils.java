@@ -96,6 +96,10 @@ public final class BloSalesV2Utils {
     
     public static final String ERROR_PAYMENTS_CARD_NOT_EQUALS = "La suma de los pagos no coinciden";
     
+    public static final String ERROR_ACCOUNT_NO_EXISTS = "Cuenta inexistente";
+    
+    public static final String ERROR_INSUFFICIENT_MONEY = "Saldo insuficiente";
+    
     public static final String ERROR_VENDOR_CONTACT_EXISTS = "Este contacto ya est\u00e1 registrado con otro proveedor";
     
     public static final String ERROR_VENDOR_NOT_EXITS = "Este proveedor ya existe";
@@ -162,6 +166,10 @@ public final class BloSalesV2Utils {
     public static final String CODE_PRODUCT_IS_NOT_BY_KG = "022";
     
     public static final String CODE_FORMAT_ACTIVE_COST = "023";
+    
+    public static final String CODE_ACCOUNT_NO_EXISTS = "024";
+    
+    public static final String CODE_INSUFFICIENT_MONEY = "025";
     
     public static final String CODE_VENDOR_CONTACT_EXISTS = "024";
     
@@ -261,17 +269,14 @@ public final class BloSalesV2Utils {
      * @return 
      */
     public static long getIdPaymentProduct() {
-        /*if (getVersion().lastIndexOf(RELEASE) == 7) {
-            return 1L;
-        }
-        return 1000L;*/
-        return 1L;
+        return Long.parseLong(getProp(PropsKeysEnum.APP_PRODUCTS_ID_PAYMENTS_PRODUCT.getKey()));
     }
     
     public static long getTopUpIdComission() {
-        if (getVersion().lastIndexOf(RELEASE) == 7) {
-            return 494L;
-        }
-        return 1016L;
+        return Long.parseLong(getProp(PropsKeysEnum.APP_PRODUCTS_TOP_UP_COMISSION.getKey()));
+    }
+    
+    public static long getIdTopUpsProduct() {
+        return Long.parseLong(getProp(PropsKeysEnum.APP_PRODUCTS_TOP_UP_PRODUCT.getKey()));
     }
 }

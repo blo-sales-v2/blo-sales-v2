@@ -145,4 +145,12 @@ public final class BloSalesV2Columns {
     public static final String PRE_SALE = "pre_sale";
     
     public static final String PER_WEEK = "per_week";
+    public static final String ID_ACCOUNT = "id_account";
+    
+    public static final String ACCOUNT = "account";
+    
+    public static final String CONTROL_AMOUNT = "control_amount";
+    
+    public static final String ID_FINANCIAL_MOVEMENT = "id_financial_movement";
+       
 }
