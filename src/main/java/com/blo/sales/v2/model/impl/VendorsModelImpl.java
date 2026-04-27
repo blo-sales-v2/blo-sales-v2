@@ -99,7 +99,7 @@ public class VendorsModelImpl implements IVendorsModel {
     public PojoIntVendor getVendorById(long id) throws BloSalesV2Exception {
         try {
             final var conn = DBConnection.getConnection();
-            final var ps = conn.prepareStatement(BloSalesV2Queries.GET_PROVIDER_BY_CONTACT);
+            final var ps = conn.prepareStatement(BloSalesV2Queries.GET_PROVIDER_BY_ID);
             ps.setLong(1, id);
             final var data = ps.executeQuery();
             VendorEntity vendor = null;
