@@ -21,4 +21,9 @@ public @Data class PojoVendor {
     private String contact;
     
     private boolean perWeek;
+    
+    public String getBasicData() {
+        final var out = "[%s] %s";
+        return String.format(out, idVendor, name);
+    }
 }

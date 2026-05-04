@@ -114,6 +114,10 @@ public final class BloSalesV2Utils {
     
     public static final String ERROR_FORMAT_ACTIVE_COST = "Error en el formato de activo/costos";
     
+    public static final String ERROR_ORDER_IS_BEFORE_NOW = "La fecha de entrega no debe ser anterior a la fecha de hoy";
+    
+    public static final String ERROR_ORDER_NOT_FOUND = "Orden no encontrada";
+    
     /** codigos de error */
     public static final String COMMON_RULE_CODE = "000";
     
@@ -176,6 +180,10 @@ public final class BloSalesV2Utils {
     public static final String CODE_VENDOR_NOT_EXITS = "025";
     
     public static final String CODE_VENDOR_VISIT_DAYS_NOT_EMPTY = "026";
+    
+    public static final String CODE_ORDER_IS_BEFORE_NOW = "027";
+    
+    public static final String CODE_ORDER_NOT_FOUND = "028";
     
     public static final String FORMAT_DATE = "yyyy-MM-dd";
     

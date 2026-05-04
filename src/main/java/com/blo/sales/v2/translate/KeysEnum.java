@@ -47,7 +47,9 @@ public enum KeysEnum {
     SETTLEMENT_DLG_TITLE("settlements.dlg.title"), SETTLEMENTS_DLG_PRODUCTS("settlements.dlg.products"), SETTLEMENTS_DLG_PAYMENTS("settlements.dlg.payments"),
     //deudores-pagos
     DASHBOARD_TITLES_ADD_VENDOR("dashboard.titles.add-vendor"), ADD_VENDOR_LBL_VENDOR_NAME("add-vendor.lbl.vendor-name"), ADD_VENDOR_LBL_CONTACT("add-vendor.lbl.contact"), ADD_VENDOR_LBL_BRAND("add-vendor.lbl.brand"), ADD_VENDOR_LBL_VISIT_DAYS("add-vendor.lbl.visit-days"), ADD_VENDOR_LBL_PRE_SALE("add-vendor.lbl.pre-sale"),
-    DASHBOARD_TITLES_VIEW_VENDORS("dashboard.titles.view-vendors")
+    DASHBOARD_TITLES_VIEW_VENDORS("dashboard.titles.view-vendors"),
+    // orders vendors
+    DASHBOARD_TITLES_OPEN_ORDER("dashboard.titles.open-order")
     
     
     

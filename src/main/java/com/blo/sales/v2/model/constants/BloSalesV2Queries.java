@@ -164,4 +164,7 @@ public final class BloSalesV2Queries {
     public static final String GET_PROVIDERS = "SELECT id_vendor, name, brand, contact, visit_days, pre_sale, per_week, timestamp FROM vendors";
     
     public static final String UPDATE_PROVIDER = "UPDATE vendors SET name = ?, brand = ?, contact = ?, visit_days = ?, timestamp = ?, pre_sale = ?, per_week = ? WHERE id_vendor = ?";
+    
+    /** ordenes */
+    public static final String ADD_ORDER = "INSERT INTO orders(fk_vendor, amount, status_order, invoice, timestamp, deadline) VALUES(?, ?, ?, ?, ?, ?)";
 }
