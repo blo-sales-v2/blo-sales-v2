@@ -44,9 +44,8 @@ public enum KeysEnum {
     DASHBOARD_TITLES_DEBTOR_SETTLEMENTS("dashboard.titles.debtor-settlements"),
     // cuenta digital
     DASHBOARD_TITLES_VIEW_DIGITAL_WALLET("dashboard.titles.view-digital-wallet"), DIGITAL_WALLET_LBL_CURRENT_ACCOUNT("digital-wallet.lbl.current-account"), DIGITAL_ACCOUNT_LBL_ADD_CASH_ON_WALLET_DIGITAL("digital-wallet.lbl.add-cash-on-digital-wallet"), DIGITAL_WALLET_LBL_REFERENCE_NUMBER("digital-wallet.lbl.reference-number"), DIGITAL_WALLET_LBL_TOTAL_ACCOUNT("digital-wallet.lbl.total-account"),
-    SETTLEMENT_DLG_TITLE("settlements.dlg.title"), SETTLEMENTS_DLG_PRODUCTS("settlements.dlg.products"), SETTLEMENTS_DLG_PAYMENTS("settlements.dlg.payments");
+    SETTLEMENT_DLG_TITLE("settlements.dlg.title"), SETTLEMENTS_DLG_PRODUCTS("settlements.dlg.products"), SETTLEMENTS_DLG_PAYMENTS("settlements.dlg.payments"),
     //deudores-pagos
-    DASHBOARD_TITLES_DEBTOR_SETTLEMENTS("dashboard.titles.debtor-settlements"),
     DASHBOARD_TITLES_ADD_VENDOR("dashboard.titles.add-vendor"), ADD_VENDOR_LBL_VENDOR_NAME("add-vendor.lbl.vendor-name"), ADD_VENDOR_LBL_CONTACT("add-vendor.lbl.contact"), ADD_VENDOR_LBL_BRAND("add-vendor.lbl.brand"), ADD_VENDOR_LBL_VISIT_DAYS("add-vendor.lbl.visit-days"), ADD_VENDOR_LBL_PRE_SALE("add-vendor.lbl.pre-sale"),
     DASHBOARD_TITLES_VIEW_VENDORS("dashboard.titles.view-vendors")
     
