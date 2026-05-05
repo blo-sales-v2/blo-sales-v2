@@ -41,19 +41,19 @@ public final class OpenOrder extends AbstractDashboardBase {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblSelectVendor = new javax.swing.JLabel();
         cmbxSelectVendor = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
+        lblOrderAmount = new javax.swing.JLabel();
         nmbAmountOrder = new javax.swing.JTextField();
         dtChooserDelv = new com.toedter.calendar.JDateChooser();
-        jLabel3 = new javax.swing.JLabel();
+        lblDeadLine = new javax.swing.JLabel();
         btnSaveOrder = new javax.swing.JButton();
 
-        jLabel1.setText("selecciona_al_proveedor");
+        lblSelectVendor.setText("selecciona_al_proveedor");
 
-        jLabel2.setText("monto_de_orden");
+        lblOrderAmount.setText("monto_de_orden");
 
-        jLabel3.setText("fecha_de_entrega");
+        lblDeadLine.setText("fecha_de_entrega");
 
         btnSaveOrder.setText("guardar");
         btnSaveOrder.addActionListener(this::btnSaveOrderActionPerformed);
@@ -68,9 +68,9 @@ public final class OpenOrder extends AbstractDashboardBase {
                     .addComponent(btnSaveOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(lblSelectVendor)
+                            .addComponent(lblOrderAmount)
+                            .addComponent(lblDeadLine))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(dtChooserDelv, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
@@ -84,14 +84,14 @@ public final class OpenOrder extends AbstractDashboardBase {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbxSelectVendor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(lblSelectVendor))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(lblOrderAmount)
                     .addComponent(nmbAmountOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
+                    .addComponent(lblDeadLine)
                     .addComponent(dtChooserDelv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnSaveOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,21 +124,24 @@ public final class OpenOrder extends AbstractDashboardBase {
     private javax.swing.JButton btnSaveOrder;
     private javax.swing.JComboBox<String> cmbxSelectVendor;
     private com.toedter.calendar.JDateChooser dtChooserDelv;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblDeadLine;
+    private javax.swing.JLabel lblOrderAmount;
+    private javax.swing.JLabel lblSelectVendor;
     private javax.swing.JTextField nmbAmountOrder;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void loadTargets() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        GUICommons.setTextToField(lblSelectVendor, getTranslateBy(KeysEnum.OPEN_ORDER_LBL_SELECT_VENDOR.getKey()));
+        GUICommons.setTextToField(lblOrderAmount, getTranslateBy(KeysEnum.OPEN_ORDER_LBL_AMOUNT.getKey()));
+        GUICommons.setTextToField(lblDeadLine, getTranslateBy(KeysEnum.OPEN_ORDER_LBL_DEAD_LINE.getKey()));
     }
 
     @Override
     public void init() {
         try {
             initComponents();
+            loadTargets();
             initComboBox();
             resetFields();
         } catch (BloSalesV2Exception ex) {
