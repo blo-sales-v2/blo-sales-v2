@@ -196,6 +196,7 @@ import com.blo.sales.v2.model.IOrdersVendorsModel;
 import com.blo.sales.v2.controller.IOrdersVendorsController;
 import com.blo.sales.v2.model.mapper.WrapperOrdersVendorsMapper;
 import com.blo.sales.v2.view.mappers.PojoVendorOrderMapper;
+import com.blo.sales.v2.view.mappers.WrapperPojoVendorsOrdersMapper;
 
 public class BloSalesV2SingletonConfig extends AbstractModule {
 
@@ -306,6 +307,7 @@ public class BloSalesV2SingletonConfig extends AbstractModule {
         bind(PojoVendorMapper.class).in(Singleton.class);
         bind(WrapperPojoVendorsMapper.class).in(Singleton.class);
         bind(PojoVendorOrderMapper.class).in(Singleton.class);
+        bind(WrapperPojoVendorsOrdersMapper.class).in(Singleton.class);
         
         /**
          * mappers entity

@@ -21,4 +21,6 @@ public class OrderVendorEntity {
     
     private String timestamp;
     
+    private String name;
+    
 }

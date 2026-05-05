@@ -5,7 +5,7 @@ import com.blo.sales.v2.controller.pojos.enums.StatusMovementProviderIntEnum;
 import com.blo.sales.v2.utils.IToInner;
 import com.blo.sales.v2.utils.IToOuter;
 import com.blo.sales.v2.view.pojos.PojoOrderVendor;
-import com.blo.sales.v2.view.pojos.enums.StatusMovementProviderEnum;
+import com.blo.sales.v2.view.pojos.enums.StatusOrderProviderEnum;
 import jakarta.inject.Singleton;
 
 @Singleton
@@ -24,6 +24,7 @@ public class PojoVendorOrderMapper implements IToInner<PojoIntOrderVendor, PojoO
         inner.setInvoice(outer.getInvoice());
         inner.setStatusOrder(StatusMovementProviderIntEnum.valueOf(outer.getStatusOrder().name()));
         inner.setTimestamp(outer.getTimestamp());
+        inner.setVendorName(outer.getVendorName());
         return inner;
     }
 
@@ -38,8 +39,9 @@ public class PojoVendorOrderMapper implements IToInner<PojoIntOrderVendor, PojoO
         outer.setFkVendor(inner.getFkVendor());
         outer.setIdOrderVendor(outer.getIdOrderVendor());
         outer.setInvoice(inner.getInvoice());
-        outer.setStatusOrder(StatusMovementProviderEnum.valueOf(inner.getStatusOrder().name()));
+        outer.setStatusOrder(StatusOrderProviderEnum.valueOf(inner.getStatusOrder().name()));
         outer.setTimestamp(inner.getTimestamp());
+        outer.setVendorName(inner.getVendorName());
         return outer;
     }
     

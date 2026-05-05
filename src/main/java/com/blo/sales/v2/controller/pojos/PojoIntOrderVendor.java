@@ -21,4 +21,6 @@ public class PojoIntOrderVendor {
     
     private String timestamp;
     
+    private String vendorName;
+    
 }

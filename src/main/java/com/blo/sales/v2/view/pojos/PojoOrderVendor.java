@@ -1,6 +1,6 @@
 package com.blo.sales.v2.view.pojos;
 
-import com.blo.sales.v2.view.pojos.enums.StatusMovementProviderEnum;
+import com.blo.sales.v2.view.pojos.enums.StatusOrderProviderEnum;
 import java.math.BigDecimal;
 import lombok.Data;
 
@@ -13,12 +13,14 @@ public class PojoOrderVendor {
     
     private BigDecimal amount;
     
-    private StatusMovementProviderEnum statusOrder;
+    private StatusOrderProviderEnum statusOrder;
     
     private String deadline;
     
     private String invoice;
     
     private String timestamp;
+    
+    private String vendorName;
     
 }

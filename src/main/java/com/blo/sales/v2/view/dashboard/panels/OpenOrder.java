@@ -12,7 +12,7 @@ import com.blo.sales.v2.view.commons.GUILogger;
 import com.blo.sales.v2.view.mappers.PojoVendorOrderMapper;
 import com.blo.sales.v2.view.mappers.WrapperPojoVendorsMapper;
 import com.blo.sales.v2.view.pojos.PojoOrderVendor;
-import com.blo.sales.v2.view.pojos.enums.StatusMovementProviderEnum;
+import com.blo.sales.v2.view.pojos.enums.StatusOrderProviderEnum;
 import jakarta.inject.Inject;
 import javax.swing.DefaultComboBoxModel;
 
@@ -108,7 +108,7 @@ public final class OpenOrder extends AbstractDashboardBase {
             }
             final var order = new PojoOrderVendor();
             order.setFkVendor(Long.parseLong(idVendor[0].trim()));
-            order.setStatusOrder(StatusMovementProviderEnum.PENDIG);
+            order.setStatusOrder(StatusOrderProviderEnum.PENDIG);
             order.setAmount(GUICommons.getNumberFromJText(nmbAmountOrder, 2));
             order.setDeadline(GUICommons.getDateFromDateChooser(dtChooserDelv));
             ordersVendorsController.highOrder(pojoVendorMapper.toInner(order));
@@ -135,6 +135,7 @@ public final class OpenOrder extends AbstractDashboardBase {
         GUICommons.setTextToField(lblSelectVendor, getTranslateBy(KeysEnum.OPEN_ORDER_LBL_SELECT_VENDOR.getKey()));
         GUICommons.setTextToField(lblOrderAmount, getTranslateBy(KeysEnum.OPEN_ORDER_LBL_AMOUNT.getKey()));
         GUICommons.setTextToField(lblDeadLine, getTranslateBy(KeysEnum.OPEN_ORDER_LBL_DEAD_LINE.getKey()));
+        GUICommons.setTextToButton(btnSaveOrder, getTranslateBy(KeysEnum.COMMON_BTN_SAVE.getKey()));
     }
 
     @Override

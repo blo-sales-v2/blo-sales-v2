@@ -24,7 +24,7 @@ import com.blo.sales.v2.view.dashboard.panels.SalesToday;
 import com.blo.sales.v2.view.dashboard.panels.TopUps;
 import com.blo.sales.v2.view.dashboard.panels.Vendors;
 import com.blo.sales.v2.view.dashboard.panels.ViewDigitalWallet;
-import com.blo.sales.v2.view.dashboard.panels.ViewOrders;
+import com.blo.sales.v2.view.dashboard.panels.ViewOrdersByStatus;
 import com.blo.sales.v2.view.pojos.enums.RolesEnum;
 import com.google.inject.Injector;
 import jakarta.inject.Inject;
@@ -72,7 +72,9 @@ public final class DashboardRootFrm extends AbstractFrameBase {
         optViewProviders = new javax.swing.JMenuItem();
         itmOrders = new javax.swing.JMenu();
         optOpenOrder = new javax.swing.JMenuItem();
-        optViewOrders = new javax.swing.JMenuItem();
+        itmViewOrders = new javax.swing.JMenu();
+        optByStatus = new javax.swing.JMenuItem();
+        optByVendors = new javax.swing.JMenuItem();
         optNotes = new javax.swing.JMenuItem();
         itmTopUp = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -241,13 +243,20 @@ public final class DashboardRootFrm extends AbstractFrameBase {
         });
         itmOrders.add(optOpenOrder);
 
-        optViewOrders.setText("Ver ordenes");
-        optViewOrders.addActionListener(new java.awt.event.ActionListener() {
+        itmViewOrders.setText("Ver ordenes");
+
+        optByStatus.setText("Por status");
+        optByStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                optViewOrdersActionPerformed(evt);
+                optByStatusActionPerformed(evt);
             }
         });
-        itmOrders.add(optViewOrders);
+        itmViewOrders.add(optByStatus);
+
+        optByVendors.setText("Por proveedores");
+        itmViewOrders.add(optByVendors);
+
+        itmOrders.add(itmViewOrders);
 
         itmAdmon.add(itmOrders);
 
@@ -389,9 +398,9 @@ public final class DashboardRootFrm extends AbstractFrameBase {
         handlerDashboard(new OpenOrder(KeysEnum.DASHBOARD_TITLES_OPEN_ORDER.getKey()));
     }//GEN-LAST:event_optOpenOrderActionPerformed
 
-    private void optViewOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optViewOrdersActionPerformed
-        handlerDashboard(new ViewOrders(KeysEnum.DASHBOARD_TITLES_VIEW_ORDERS.getKey()));
-    }//GEN-LAST:event_optViewOrdersActionPerformed
+    private void optByStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optByStatusActionPerformed
+        handlerDashboard(new ViewOrdersByStatus(KeysEnum.DASHBOARD_TITLES_VIEW_ORDERS.getKey()));
+    }//GEN-LAST:event_optByStatusActionPerformed
     
     private void handlerDashboard(AbstractDashboardBase dashboard) {
         if (injector == null) {
@@ -420,6 +429,7 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     private javax.swing.JMenu itmStock;
     private javax.swing.JMenu itmTopUp;
     private javax.swing.JMenu itmVendors;
+    private javax.swing.JMenu itmViewOrders;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblVersion;
@@ -427,6 +437,8 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     private javax.swing.JMenuItem optAddSale;
     private javax.swing.JMenuItem optAddVendor;
     private javax.swing.JMenuItem optAllCashboxes;
+    private javax.swing.JMenuItem optByStatus;
+    private javax.swing.JMenuItem optByVendors;
     private javax.swing.JMenuItem optCanceledSales;
     private javax.swing.JMenuItem optCategory;
     private javax.swing.JMenuItem optDebtors;
@@ -440,7 +452,6 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     private javax.swing.JMenuItem optSalesReport;
     private javax.swing.JMenuItem optStock;
     private javax.swing.JMenuItem optTopUps;
-    private javax.swing.JMenuItem optViewOrders;
     private javax.swing.JMenuItem optViewProviders;
     private javax.swing.JMenuItem optViewSales;
     private javax.swing.JPopupMenu.Separator sprt01;

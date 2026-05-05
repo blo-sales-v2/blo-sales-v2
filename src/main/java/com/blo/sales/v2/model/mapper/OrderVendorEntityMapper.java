@@ -26,6 +26,7 @@ public class OrderVendorEntityMapper implements
         inner.setStatus_order(StatusOrderVendorEntityEnum.valueOf(outer.getStatusOrder().name()));
         inner.setTimestamp(outer.getTimestamp());
         inner.setDeadline(outer.getDeadline());
+        inner.setName(outer.getVendorName());
         return inner;
     }
 
@@ -42,6 +43,7 @@ public class OrderVendorEntityMapper implements
         outer.setStatusOrder(StatusMovementProviderIntEnum.valueOf(inner.getStatus_order().name()));
         outer.setTimestamp(inner.getTimestamp());
         outer.setDeadline(inner.getDeadline());
+        outer.setVendorName(inner.getName());
         return outer;
     }
     
