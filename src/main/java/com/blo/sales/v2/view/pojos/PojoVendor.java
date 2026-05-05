@@ -23,7 +23,7 @@ public @Data class PojoVendor {
     private boolean perWeek;
     
     public String getBasicData() {
-        final var out = "[%s] %s";
+        final var out = "%s-%s";
         return String.format(out, idVendor, name);
     }
 }

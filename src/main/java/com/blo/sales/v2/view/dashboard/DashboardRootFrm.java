@@ -24,6 +24,7 @@ import com.blo.sales.v2.view.dashboard.panels.SalesToday;
 import com.blo.sales.v2.view.dashboard.panels.TopUps;
 import com.blo.sales.v2.view.dashboard.panels.Vendors;
 import com.blo.sales.v2.view.dashboard.panels.ViewDigitalWallet;
+import com.blo.sales.v2.view.dashboard.panels.ViewOrders;
 import com.blo.sales.v2.view.pojos.enums.RolesEnum;
 import com.google.inject.Injector;
 import jakarta.inject.Inject;
@@ -71,6 +72,7 @@ public final class DashboardRootFrm extends AbstractFrameBase {
         optViewProviders = new javax.swing.JMenuItem();
         itmOrders = new javax.swing.JMenu();
         optOpenOrder = new javax.swing.JMenuItem();
+        optViewOrders = new javax.swing.JMenuItem();
         optNotes = new javax.swing.JMenuItem();
         itmTopUp = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -239,6 +241,14 @@ public final class DashboardRootFrm extends AbstractFrameBase {
         });
         itmOrders.add(optOpenOrder);
 
+        optViewOrders.setText("Ver ordenes");
+        optViewOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optViewOrdersActionPerformed(evt);
+            }
+        });
+        itmOrders.add(optViewOrders);
+
         itmAdmon.add(itmOrders);
 
         optNotes.setText("Notas Rápidas");
@@ -378,6 +388,10 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     private void optOpenOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optOpenOrderActionPerformed
         handlerDashboard(new OpenOrder(KeysEnum.DASHBOARD_TITLES_OPEN_ORDER.getKey()));
     }//GEN-LAST:event_optOpenOrderActionPerformed
+
+    private void optViewOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optViewOrdersActionPerformed
+        handlerDashboard(new ViewOrders(KeysEnum.DASHBOARD_TITLES_VIEW_ORDERS.getKey()));
+    }//GEN-LAST:event_optViewOrdersActionPerformed
     
     private void handlerDashboard(AbstractDashboardBase dashboard) {
         if (injector == null) {
@@ -426,6 +440,7 @@ public final class DashboardRootFrm extends AbstractFrameBase {
     private javax.swing.JMenuItem optSalesReport;
     private javax.swing.JMenuItem optStock;
     private javax.swing.JMenuItem optTopUps;
+    private javax.swing.JMenuItem optViewOrders;
     private javax.swing.JMenuItem optViewProviders;
     private javax.swing.JMenuItem optViewSales;
     private javax.swing.JPopupMenu.Separator sprt01;

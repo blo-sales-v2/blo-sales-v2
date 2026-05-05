@@ -19,7 +19,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jButton1" min="-2" pref="93" max="-2" attributes="0"/>
+                  <Component id="btnSaveOrder" min="-2" pref="93" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -28,8 +28,8 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="dtChooserInit" pref="200" max="32767" attributes="0"/>
-                          <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="dtChooserDelv" pref="200" max="32767" attributes="0"/>
+                          <Component id="nmbAmountOrder" alignment="0" max="32767" attributes="0"/>
                           <Component id="cmbxSelectVendor" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -49,15 +49,15 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                  <Component id="nmbAmountOrder" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dtChooserInit" min="-2" max="-2" attributes="0"/>
+                  <Component id="dtChooserDelv" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="43" max="-2" attributes="0"/>
+              <Component id="btnSaveOrder" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace pref="340" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -84,19 +84,22 @@
         <Property name="text" type="java.lang.String" value="monto_de_orden"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="nmbAmountOrder">
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="dtChooserInit">
+    <Component class="com.toedter.calendar.JDateChooser" name="dtChooserDelv">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="fecha_de_entrega"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnSaveOrder">
       <Properties>
         <Property name="text" type="java.lang.String" value="guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveOrderActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

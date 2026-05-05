@@ -8,14 +8,13 @@ import com.blo.sales.v2.utils.BloSalesV2Exception;
 import jakarta.inject.Singleton;
 import com.blo.sales.v2.model.IOrdersVendorsModel;
 import com.blo.sales.v2.model.config.DBConnection;
-import com.blo.sales.v2.model.constants.BloSalesV2Columns;
 import com.blo.sales.v2.model.constants.BloSalesV2Queries;
-import com.blo.sales.v2.model.entities.AccountEntity;
 import com.blo.sales.v2.model.mapper.OrderVendorEntityMapper;
 import com.blo.sales.v2.utils.BloSalesV2Utils;
 import com.blo.sales.v2.view.commons.GUILogger;
 import jakarta.inject.Inject;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 @Singleton
 public class OrdersVendorsModelImpl implements IOrdersVendorsModel {
@@ -35,7 +34,7 @@ public class OrdersVendorsModelImpl implements IOrdersVendorsModel {
             final var conn = DBConnection.getConnection();
             final var data = orderVendorMapper.toInner(order);
             logger.info("guardando orden %s", String.valueOf(order));
-            final var ps = conn.prepareStatement(BloSalesV2Queries.ADD_ORDER);
+            final var ps = conn.prepareStatement(BloSalesV2Queries.ADD_ORDER, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, data.getFk_vendor());
             ps.setBigDecimal(2, data.getAmount());
             ps.setString(3, data.getStatus_order().name());

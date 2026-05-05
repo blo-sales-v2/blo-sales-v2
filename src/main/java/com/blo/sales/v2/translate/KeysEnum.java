@@ -49,8 +49,9 @@ public enum KeysEnum {
     DASHBOARD_TITLES_ADD_VENDOR("dashboard.titles.add-vendor"), ADD_VENDOR_LBL_VENDOR_NAME("add-vendor.lbl.vendor-name"), ADD_VENDOR_LBL_CONTACT("add-vendor.lbl.contact"), ADD_VENDOR_LBL_BRAND("add-vendor.lbl.brand"), ADD_VENDOR_LBL_VISIT_DAYS("add-vendor.lbl.visit-days"), ADD_VENDOR_LBL_PRE_SALE("add-vendor.lbl.pre-sale"),
     DASHBOARD_TITLES_VIEW_VENDORS("dashboard.titles.view-vendors"),
     // orders vendors
-    DASHBOARD_TITLES_OPEN_ORDER("dashboard.titles.open-order")
-    
+    DASHBOARD_TITLES_OPEN_ORDER("dashboard.titles.open-order"),
+    // ver ordenes
+    DASHBOARD_TITLES_VIEW_ORDERS("dashboard.titles.view-orders")
     
     
     
